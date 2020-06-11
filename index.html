@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Phòng Khám</title>
+    <link rel="stylesheet" href="/widget/css/containerWidget.css" media="screen">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<!--   <span data-dojo-type="FancyCounter">Load mãi mà chả được cái widget vào trang này.</span>-->
+    <div id="widgetRoot"></div>
+    <script>
+        var base = location.href.split("/");
+        console.log(location.href)
+        var a = base.pop();
+
+        base = base.join("/");
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                name: "widget",
+                location: base+ '/widget'
+            }]
+        };
+        console.log(dojoConfig);
+        console.log(base);
+    </script>
+     <!-- load Dojo -->
+     <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+<script>
+    //dung dojo deload data và gắn vào cái widget có sẳn
+require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/containerWidget", "dojo/domReady!"],
+    function(request, dom, arrayUtil,containerWidget){
+        console.log(base);
+        var widgetRoot = dom.byId("widgetRoot");
+        var widget = new containerWidget().placeAt(widgetRoot);
+});
+</script>
+</body>
+</html>
