@@ -1,3 +1,4 @@
+
 define([
     "dojo",
     "dojo/_base/declare",
@@ -62,14 +63,9 @@ define([
             // Set our DOM node's background color to white -
             // smoothes out the mouseenter/leave event animations
             domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
-            // Set up our mouseenter/leave events
-            // Using dijit/Destroyable's "own" method ensures that event handlers are unregistered when the widget is destroyed
-            // Using dojo/mouse normalizes the non-standard mouseenter/leave events across browsers
-            // Passing a third parameter to lang.hitch allows us to specify not only the context,
-            // but also the first parameter passed to _changeBackground
+         
             this.own(
-                // on(domNode, mouse.enter, lang.hitch(this, "_changeBackground", this.mouseBackgroundColor)),
-                // on(domNode, mouse.leave, lang.hitch(this, "_changeBackground", this.baseBackgroundColor)),
+              
                 on(this.login, "click", lang.hitch(this, "_login")),
             );
         },
@@ -104,22 +100,25 @@ define([
                }),
                 headers: {
                     "Content-Type": 'application/json; charset=utf-8',
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    // "token":"123245adasdsa"
                 }
             }).then(function (value) {
                 console.log("The server returned: ");
                 console.log(JSON.parse(value, true));
                 console.log(typeof value);
                 value = JSON.parse(value, true);
+                console.log(value);
+                let name = value.last_name + " " +value.first_name;
                 if (value.role == 30) {
-                     alert("Là Tiếp Tân");
+                     alert("Chào Mừng Tiếp Tân: " + name+ " Đã Quay Trở Lại");
                      that.loadTiepTanWidget();
                 }
                 else if(value.role == 99){
-                     alert("Là Bác Sĩ!!");
+                     alert("Chào Mừng Bác Sĩ: "+ name + " Đã Quay Trở Lại");
                      that.loadBacSiWidget();
                 }else if(value.role == 20){
-                    alert("Là Dược Sĩ!!");
+                    alert("Chào Mừng Dược Sĩ:"+ + name + " Đã Quay Trở Lại");
                     that.loadDuocSiWidget();
                 }else{
                     alert("Bạn Đăng Nhập Sai");
@@ -136,22 +135,19 @@ define([
             this._hiddenLogin();
             domStyle.set(this.tiepTan_, "display", "block");
             console.log("Load Tiếp Tân");
-            let tiepTanWidget1 = dom.byId("tiepTan");
-            let widget = new tiepTanWidget().placeAt(tiepTanWidget1);
+            window.location.href = "../tieptan.html";
         },
         loadBacSiWidget: function(){
             this._hiddenLogin();
             domStyle.set(this.bacSi_, "display", "block");
             console.log("Load Bác Sĩ");
-            let bacSiWidget1 = dom.byId("bacSi");
-            let widget = new bacSiWidget().placeAt(bacSiWidget1);
+            window.location.href = "../bacsi.html";
         },
         loadDuocSiWidget: function(){
             this._hiddenLogin();
             domStyle.set(this.duocSi_, "display", "block");
             console.log("Load Dược Sĩ");
-            let duocSiWidget1 = dom.byId("duocSi");
-            let widget = new duocSiWidget().placeAt(duocSiWidget1);
+            window.location.href = "../duocsi.html";
         }
     });
 });
