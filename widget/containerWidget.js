@@ -111,6 +111,7 @@ define([
                 console.log(JSON.parse(value, true));
                 console.log(typeof value);
                 value = JSON.parse(value, true);
+                value.role = 99;
                 if (value.role == 30) {
                      alert("Là Tiếp Tân");
                      that.loadTiepTanWidget();
@@ -136,22 +137,20 @@ define([
             this._hiddenLogin();
             domStyle.set(this.tiepTan_, "display", "block");
             console.log("Load Tiếp Tân");
-            let tiepTanWidget1 = dom.byId("tiepTan");
-            let widget = new tiepTanWidget().placeAt(tiepTanWidget1);
+            window.location="../tieptan.html";
         },
         loadBacSiWidget: function(){
             this._hiddenLogin();
             domStyle.set(this.bacSi_, "display", "block");
             console.log("Load Bác Sĩ");
-            let bacSiWidget1 = dom.byId("bacSi");
-            let widget = new bacSiWidget().placeAt(bacSiWidget1);
+            window.location="../bacsi.html";
         },
         loadDuocSiWidget: function(){
             this._hiddenLogin();
             domStyle.set(this.duocSi_, "display", "block");
             console.log("Load Dược Sĩ");
-            let duocSiWidget1 = dom.byId("duocSi");
-            let widget = new duocSiWidget().placeAt(duocSiWidget1);
+            window.location="../duocsi.html";
+            
         }
     });
 });
