@@ -106,16 +106,10 @@ define([
                 console.log("The server returned: ");
                 console.log(JSON.parse(value, true));
                 console.log(typeof value);
-                value = JSON.parse(value, true); <<
-                <<
-                << < HEAD
-                value.role = 99; ===
-                ===
-                =
+                value = JSON.parse(value, true); 
+              
                 console.log(value);
-                let name = value.last_name + " " + value.first_name; >>>
-                >>>
-                > 844e99 c1e4f634c31fc01ad4b19db01f130f27d4
+                let name = value.last_name + " " + value.first_name; 
                 if (value.role == 30) {
                     alert("Chào Mừng Tiếp Tân: " + name + " Đã Quay Trở Lại");
                     that.loadTiepTanWidget();
