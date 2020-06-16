@@ -49,22 +49,15 @@ define([
         // A reference to our background animation
         mouseAnim: null,
 
-        // Colors for our background animation
         baseBackgroundColor: "#ece0e0",
         mouseBackgroundColor: "#5485ba",
         postCreate: function() {
-            // Get a DOM node reference for the root of our widget
             var domNode = this.domNode;
-
-            // Run any parent postCreate processes - can be done at any point
             this.inherited(arguments);
 
-            // Set our DOM node's background color to white -
-            // smoothes out the mouseenter/leave event animations
             domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
 
             this.own(
-
                 on(this.login, "click", lang.hitch(this, "_login")),
             );
         },
@@ -92,7 +85,7 @@ define([
             let userName = this.userName.value;
             let passWord = this.passWord.value;
             console.log(userName + " -- " + passWord);
-            request.post("http://localhost:8088/user/getOne", {
+            request.post("http://localhost:8088/user/login", {
                 data: dojo.toJson({
                     "username": userName,
                     "pass": passWord
@@ -119,7 +112,10 @@ define([
                 } else if (value.role == 20) {
                     alert("Chào Mừng Dược Sĩ:" + +name + " Đã Quay Trở Lại");
                     that.loadDuocSiWidget();
-                } else {
+                } else if(value.statusCode == 404){
+                    console.log("code: "+value.statusCode);
+                    alert("Bạn Đăng Nhập Sai Mời Bạn Nhập Lại");
+                }else{
                     alert("Bạn Đăng Nhập Sai");
                 }
             });
