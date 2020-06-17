@@ -49,22 +49,15 @@ define([
         // A reference to our background animation
         mouseAnim: null,
 
-        // Colors for our background animation
         baseBackgroundColor: "#ece0e0",
         mouseBackgroundColor: "#5485ba",
         postCreate: function() {
-            // Get a DOM node reference for the root of our widget
             var domNode = this.domNode;
-
-            // Run any parent postCreate processes - can be done at any point
             this.inherited(arguments);
 
-            // Set our DOM node's background color to white -
-            // smoothes out the mouseenter/leave event animations
             domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
 
             this.own(
-
                 on(this.login, "click", lang.hitch(this, "_login")),
             );
         },
@@ -107,10 +100,15 @@ define([
                 console.log(JSON.parse(value, true));
                 value = JSON.parse(value, true);
                 console.log(typeof value);
+
                 console.log(value.role);
                 let name = value.last_name + " " + value.first_name;
                 console.log(name);
 
+                value = JSON.parse(value, true);
+
+                console.log(value);
+                let name = value.last_name + " " + value.first_name;
                 if (value.role == 30) {
                     alert("Chào Mừng Tiếp Tân: " + name + " Đã Quay Trở Lại");
                     that.loadTiepTanWidget();
@@ -121,6 +119,9 @@ define([
                     alert("Chào Mừng Dược Sĩ:" + +name + " Đã Quay Trở Lại");
                     that.loadDuocSiWidget();
                 } else if (value == 404) {
+                    alert("Bạn Đăng Nhập Sai Mời Bạn Nhập Lại");
+                } else if (value.statusCode == 404) {
+                    console.log("code: " + value.statusCode);
                     alert("Bạn Đăng Nhập Sai Mời Bạn Nhập Lại");
                 } else {
                     alert("Bạn Đăng Nhập Sai");
