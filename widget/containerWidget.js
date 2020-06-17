@@ -43,9 +43,6 @@ define([
         // Our template - important!
         templateString: template,
 
-        // A class to be applied to the root node in our template
-        // baseClass: "authorWidget",
-
         // A reference to our background animation
         mouseAnim: null,
 
@@ -54,7 +51,7 @@ define([
         postCreate: function() {
             var domNode = this.domNode;
             this.inherited(arguments);
-
+            this.checkRole();
             domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
 
             this.own(
@@ -100,12 +97,6 @@ define([
                 console.log(JSON.parse(value, true));
                 value = JSON.parse(value, true);
                 console.log(typeof value);
-
-                console.log(value.role);
-                let name = value.last_name + " " + value.first_name;
-                console.log(name);
-
-                value = JSON.parse(value, true);
 
                 console.log(value);
                 let name = value.last_name + " " + value.first_name;
@@ -154,6 +145,9 @@ define([
             console.log("Load Dược Sĩ");
 
             window.location.href = "../duocsi.html";
+        },
+        checkRole: function() {
+
         }
     });
 });

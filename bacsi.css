@@ -4,20 +4,21 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#header {
-    background-color: aquamarine;
-    width: 100vw;
+.headerBS {
+    background-image: url("/images/hinh-nen-dep-may-tinh-1.jpg");
+    background-size: cover;
+    width: 80vw;
     height: 100px;
     text-align: center;
 }
 
-#content_tong {
+.contentBS {
     background-color: blanchedalmond;
     width: 100vw;
     /* text-align: center; */
 }
 
-#footer {
+.footerBS {
     background-color: rgb(34, 30, 24);
     width: 100vw;
     height: 100px;
@@ -62,11 +63,6 @@ button:hover {
     background-color: #f44336;
 }
 
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-}
-
 img.avatar {
     width: 40%;
     border-radius: 50%;
@@ -79,10 +75,6 @@ img.avatar {
 span.psw {
     float: right;
     padding-top: 16px;
-}
-
-#login_ {
-    width: 500px;
 }
 
 
