@@ -92,7 +92,7 @@ define([
             let userName = this.userName.value;
             let passWord = this.passWord.value;
             console.log(userName + " -- " + passWord);
-            request.post("http://localhost:8088/user/getOne", {
+            request.post("http://localhost:8088/user/login", {
                 data: dojo.toJson({
                     "username": userName,
                     "pass": passWord
@@ -105,17 +105,12 @@ define([
             }).then(function(value) {
                 console.log("The server returned: ");
                 console.log(JSON.parse(value, true));
+                value = JSON.parse(value, true);
                 console.log(typeof value);
-                value = JSON.parse(value, true); <<
-                <<
-                << < HEAD
-                value.role = 99; ===
-                ===
-                =
-                console.log(value);
-                let name = value.last_name + " " + value.first_name; >>>
-                >>>
-                > 844e99 c1e4f634c31fc01ad4b19db01f130f27d4
+                console.log(value.role);
+                let name = value.last_name + " " + value.first_name;
+                console.log(name);
+
                 if (value.role == 30) {
                     alert("Chào Mừng Tiếp Tân: " + name + " Đã Quay Trở Lại");
                     that.loadTiepTanWidget();
@@ -125,6 +120,8 @@ define([
                 } else if (value.role == 20) {
                     alert("Chào Mừng Dược Sĩ:" + +name + " Đã Quay Trở Lại");
                     that.loadDuocSiWidget();
+                } else if (value == 404) {
+                    alert("Bạn Đăng Nhập Sai Mời Bạn Nhập Lại");
                 } else {
                     alert("Bạn Đăng Nhập Sai");
                 }
