@@ -98,16 +98,19 @@ define([
                 value = JSON.parse(value, true);
                 console.log(typeof value);
 
-                console.log(value);
+                console.log(value.token);
                 let name = value.last_name + " " + value.first_name;
                 if (value.role == 30) {
                     alert("Chào Mừng Tiếp Tân: " + name + " Đã Quay Trở Lại");
+                    localStorage.setItem("tokenAC", value.token);
                     that.loadTiepTanWidget();
                 } else if (value.role == 99) {
                     alert("Chào Mừng Bác Sĩ: " + name + " Đã Quay Trở Lại");
+                    localStorage.setItem("tokenAC", value.token);
                     that.loadBacSiWidget();
                 } else if (value.role == 20) {
                     alert("Chào Mừng Dược Sĩ:" + +name + " Đã Quay Trở Lại");
+                    localStorage.setItem("tokenAC", value.token);
                     that.loadDuocSiWidget();
                 } else if (value == 404) {
                     alert("Bạn Đăng Nhập Sai Mời Bạn Nhập Lại");

@@ -1,0 +1,189 @@
+* {
+    margin: 0 auto;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.headerBS {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    background-color:#dccde252;
+}
+.headerGiua form{
+    align-items: center;
+    width:80%;
+    height: 100%;
+    display: flex;
+    border: 0;
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+.headerGiua form input[type=text]{
+   width: 70%;
+   height: 35px;
+   border-radius: 10px;
+}
+.headerGiua form button{
+    align-items: center;
+    width: 10%;
+    height: 41px;
+    border-radius: 30px;
+    margin-left: 10px;
+
+ }
+ .headerGiua form button i{
+    color: #1d587a;
+}
+.headerPhai button{
+    border-radius: 20px;
+    color: #1d587a;
+    font-size: 17px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.contentBS {
+    background-color: blanchedalmond;
+    width: 100%;
+    display: flex;
+    text-align: center;
+}
+.contentBS .tarbarBS{
+    width:18vw;
+    height: 120vh;
+    background-color:#5bd4ce9e;
+}
+.contentBS .contentBSRight{
+    width:82vw;
+    background-color: #fff;
+}
+.bacSiContainer .headerBS .headerTrai{
+    width: 18vw;
+}
+.bacSiContainer .headerBS .headerGiua{
+    width: 64vw;
+}
+.bacSiContainer .headerBS .headerPhsi{
+    width: 18vw;
+}
+.footerBS {
+    background-color: rgb(34, 30, 24);
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text],
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/*css menu trái thuộc tính dùng chung*/
+
+#menu ul {
+    background: #8AD385;
+    width: 250px;
+    padding: 0;
+    list-style-type: none;
+    text-align: left;
+  }
+  #menu li {
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 1em;
+  }
+  #menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: block;
+  }
+  #menu li:hover {
+    background: #CDE2CD;
+  }
+/* Change styles for span and cancel button on extra small screens */
+
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 600px) {}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 992px) {}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {}

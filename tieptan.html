@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiếp Tân</title>
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/tieptan.css">
+    <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css">
 </head>
 <body>
-    <div class="tiepTanContainer">
-        tiep tan
+    <div class="bacSiContainer">
+        <!--load widget bac si vao trong này -->
+        <div class="headerBS">
+            <div class="headerTrai"></div>
+            <div class="headerGiua">
+                <form class="timKiem" action="" method="GET">
+                    <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ...">
+                    <button><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="headerPhai">
+                <button type="button" id="logout">Đăng Xuất</button>
+            </div>
+        </div>
+        <div class="contentBS">
+            <div class="tarbarBS">
+                <div id="menu">
+                    <ul>
+                      <li><a href="#">Tạo Mới Bệnh Nhân</a></li>
+                      <li><a href="#">Danh Sách Lịch Hẹn</a></li>
+                      <li><a href="#">Đặt Lịch Hẹn</a></li>
+                      <li><a href="#">Tìm Kiếm Bệnh Nhân</a></li>
+                    </ul>
+                  </div>
+            </div>
+            <div class="contentBSRight">
+                nội dung content
+            </div>
+        </div>
+        <div class="footerBS">footer</div>
     </div>
 </body>
+
 </html>
