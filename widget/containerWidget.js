@@ -147,7 +147,7 @@ define([
             window.location.href = "../duocsi.html";
         },
         checkRole: function() {
-            
+
         }
     });
 });
