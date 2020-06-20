@@ -8,7 +8,7 @@
                 <p>Phone:</p>
             </div>        
             <div class="valueAccount">
-                <p data-dojo-attach-point="nameUserNode">${nameUser}</p>
+                <p data-dojo-attach-point="nameUserNode"></p>
                 <p data-dojo-attach-point="mailUserNode"></p>
                 <p data-dojo-attach-point="phoneUserNode"></p>
             </div>
@@ -27,14 +27,14 @@
         <div class="tarbarBS">
             <div id="menu">
                 <ul>
-                  <li><a href="">Tạo Mới Bệnh Nhân</a></li>
-                  <li><a href="">Danh Sách Lịch Hẹn</a></li>
-                  <li><a href="">Đặt Lịch Hẹn</a></li>
-                  <li><a href="">Tìm Kiếm Bệnh Nhân</a></li>
+                  <li data-dojo-attach-point="newBenhNhan"><a></a>Tạo Mới Bệnh Nhân</a></li>
+                  <li><a >Danh Sách Lịch Hẹn</a></li>
+                  <li><a >Đặt Lịch Hẹn</a></li>
+                  <li><a >Tìm Kiếm Bệnh Nhân</a></li>
                 </ul>
               </div>
         </div>
-        <div class="contentBSRight" id="contentWigetTiepTan">
+        <div class="contentBSRight" id="contentTiepTanWidget" data-dojo-attach-point="indexLoadNewBenhNhan">
          
         </div>
     </div>

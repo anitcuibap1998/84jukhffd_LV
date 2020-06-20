@@ -1,4 +1,3 @@
-let urlServer="http://localhost:8088";
 define([
     "dojo",
     "dojo/_base/declare",
@@ -14,6 +13,7 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dojo/text!./demo/tiepTanWidget.html",
+    "widget/newBenhNhanWidget.js",
     "dojo/dom-attr",
     "dojo/dom",
     "dijit/registry",
@@ -21,7 +21,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo,declare, baseFx, lang, domStyle, mouse,Toggler, on, query ,request,JSON, WidgetBase, TemplatedMixin, template,Attr,dom,registry,Memory, ComboBox){
+], function(dojo,declare, baseFx, lang, domStyle, mouse,Toggler, on, query ,request,JSON, WidgetBase, TemplatedMixin, template,newBenhNhanWidget,Attr,dom,registry,Memory, ComboBox){
     console.log("vao duoc file tiepTanWidget")
     return declare([WidgetBase, TemplatedMixin], {
         id: "tiepTanWidget",
@@ -33,6 +33,8 @@ define([
         nameUserNode:null,
         mailUserNode:null,
         phoneUserNode:null,
+        newBenhNhan:null,
+        indexLoadNewBenhNhan:null,
 
         //test
         nameUser:null,
@@ -44,7 +46,7 @@ define([
             this.inherited(arguments);
 
             this.own(
-
+                on(this.newBenhNhan, "click", lang.hitch(this, "loadNewBenhNhan")),
             );
         },
        
@@ -89,8 +91,21 @@ define([
                 // handle an error condition
                 alert("không có kết nối tới server !!!");
               });
-        }
+        },
+        loadNewBenhNhan: function(){
+            this.indexLoadNewBenhNhan.innerHTML = "";
+            console.log("Vào hàm load new bệnh nhân");
+            let newBenhNhanID = dom.byId("contentTiepTanWidget");
+            console.log("newBenhNhanID: "+newBenhNhanID);
+            var widget = new newBenhNhanWidget().placeAt(newBenhNhanID);
+        },
+        loadDanhSachLichHen: function(){
 
+        },
+        loadDatLichHen: function(){
+
+        },
+        
 
     });
 });
