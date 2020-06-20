@@ -1,3 +1,4 @@
+let urlServer="http://localhost:8088";
 define([
     "dojo",
     "dojo/_base/declare",
@@ -49,9 +50,10 @@ define([
         baseBackgroundColor: "#ece0e0",
         mouseBackgroundColor: "#5485ba",
         postCreate: function() {
+            this.checkRole();
             var domNode = this.domNode;
             this.inherited(arguments);
-            this.checkRole();
+            
             domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
 
             this.own(
@@ -77,12 +79,13 @@ define([
             }).play();
         },
         _login: function() {
+
             var that = this;
             console.log("Đăng Nhập");
             let userName = this.userName.value;
             let passWord = this.passWord.value;
             console.log(userName + " -- " + passWord);
-            request.post("http://localhost:8088/user/login", {
+            request.post(urlServer+"/user/login", {
                 data: dojo.toJson({
                     "username": userName,
                     "pass": passWord
@@ -152,7 +155,29 @@ define([
             window.location.href = "../duocsi.html";
         },
         checkRole: function() {
-
+            if(localStorage.getItem("tokenAC")!=null){
+                //gọi hàm check role
+                request(urlServer+"/user/checkRole",{
+                    headers: {
+                        "tokenAC":localStorage.getItem("tokenAC")
+                    }
+                }).then(function(data){
+                    // do something with handled data
+                    if(data == 99){
+                        alert("Bạn Đã Đăng Nhập !!!");
+                        window.location.href = "../bacsi.html";
+                    }else if(data == 30){
+                        alert("Bạn Đã Đăng Nhập !!!");
+                        window.location.href = "../tieptan.html";
+                    }else if(data == 20){
+                        alert("Bạn Đã Đăng Nhập !!!");
+                        window.location.href = "../duocsi.html";
+                    }
+                  }, function(err){
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!")
+                  });
+            }
         }
     });
 });

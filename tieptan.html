@@ -13,36 +13,9 @@
     <script src="js/jquery-3.5.1.js"></script>
 </head>
 <body>
-    <div class="bacSiContainer">
+    <div class="bacSiContainer" id="widgetTiepTanRoot">
         <!--load widget bac si vao trong này -->
-        <div class="headerBS">
-            <div class="headerTrai"></div>
-            <div class="headerGiua">
-                <form class="timKiem" action="" method="GET">
-                    <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ...">
-                    <button><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-            <div class="headerPhai">
-                <button type="button" id="logout" onclick="logout();">Đăng Xuất</button>
-            </div>
-        </div>
-        <div class="contentBS">
-            <div class="tarbarBS">
-                <div id="menu">
-                    <ul>
-                      <li><a href="#">Tạo Mới Bệnh Nhân</a></li>
-                      <li><a href="#">Danh Sách Lịch Hẹn</a></li>
-                      <li><a href="#">Đặt Lịch Hẹn</a></li>
-                      <li><a href="#">Tìm Kiếm Bệnh Nhân</a></li>
-                    </ul>
-                  </div>
-            </div>
-            <div class="contentBSRight" id="contentWigetTiepTan">
-                nội dung content
-            </div>
-        </div>
-        <div class="footerBS">footer</div>
+    
     </div>
     <script>
         var base = location.href.split("/");
@@ -67,7 +40,7 @@
 require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/tieptanWidget", "dojo/domReady!"],
     function(request, dom, arrayUtil,containerWidget){
         console.log(base);
-        var widgetRoot = dom.byId("contentWigetTiepTan");
+        var widgetRoot = dom.byId("widgetTiepTanRoot");
         var widget = new containerWidget().placeAt(widgetRoot);
 });
 </script>

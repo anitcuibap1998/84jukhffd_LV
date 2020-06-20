@@ -1,3 +1,4 @@
+let urlServer="http://localhost:8088";
 define([
     "dojo",
     "dojo/_base/declare",

@@ -1,3 +1,4 @@
+let urlServer="http://localhost:8088";
 define([
     "dojo",
     "dojo/_base/declare",
@@ -28,45 +29,68 @@ define([
      
         templateString: template,
 
-        mouseAnim: null,
+        
+        nameUserNode:null,
+        mailUserNode:null,
+        phoneUserNode:null,
 
-        baseBackgroundColor: "#ece0e0",
-        mouseBackgroundColor: "#5485ba",
+        //test
+        nameUser:null,
         postCreate: function () {
-           this.checkRole();
-           
+            this.checkRole();
+            this.infoAccount();
             var domNode = this.domNode;
 
             this.inherited(arguments);
 
-       
-            domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
-       
             this.own(
-                on(domNode, mouse.enter, lang.hitch(this, "_changeBackground", this.mouseBackgroundColor)),
-                on(domNode, mouse.leave, lang.hitch(this, "_changeBackground", this.baseBackgroundColor)),
+
             );
         },
-        _changeBackground: function (newColor) {
-            // If we have an animation, stop it
-            if (this.mouseAnim) {
-                this.mouseAnim.stop();
-            }
-
-            // Set up the new animation
-            this.mouseAnim = baseFx.animateProperty({
-                node: this.domNode,
-                properties: {
-                    backgroundColor: newColor
-                },
-                onEnd: lang.hitch(this, function () {
-                    // Clean up our mouseAnim property
-                    this.mouseAnim = null;
-                })
-            }).play();
-        },
+       
         checkRole: function(){
-            alert("bạn là tiếp tân !!")
+            if(localStorage.getItem("tokenAC")!=null){
+                //gọi hàm check role
+                request(urlServer+"/user/checkRole",{
+                    headers: {
+                        "tokenAC":localStorage.getItem("tokenAC")
+                    }
+                }).then(function(data){
+                    // do something with handled data
+                    if(data < 30){
+                        alert("Bạn Không Có Quyền Truy Cập Trang Này");
+                        window.location.href = "../index.html";
+                    }
+                  }, function(err){
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!");
+                  });
+            }else{
+                alert("Bạn Không Có Quyền Truy Cập Trang Này");
+                window.location.href = "../index.html";
+            }
+        },
+
+        infoAccount: function(){
+            var that = this;
+            request(urlServer+"/user/getOne",{
+                headers: {
+                    "tokenAC":localStorage.getItem("tokenAC")
+                }
+            }).then(function(data){
+                result = JSON.parse(data,true)
+                console.log(JSON.parse(data,true))
+                // do something with handled data
+                that.nameUserNode.innerHTML = result.first_name+" "+result.last_name;
+                that.mailUserNode.innerHTML = result.email;
+                that.phoneUserNode.innerHTML = result.phone;
+               
+              }, function(err){
+                // handle an error condition
+                alert("không có kết nối tới server !!!");
+              });
         }
+
+
     });
 });

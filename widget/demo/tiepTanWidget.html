@@ -1,3 +1,42 @@
 <div id="tiepTanContent">
-    Tiếp Tânaaaaaaaaaaaaaaaaaaaaa
+     <!--load widget bac si vao trong này -->
+     <div class="headerBS">
+        <div class="headerTrai headerTiepTan">
+            <div class="titleAccount">
+                <p>Tên:</p>
+                <p>Mail:</p>
+                <p>Phone:</p>
+            </div>        
+            <div class="valueAccount">
+                <p data-dojo-attach-point="nameUserNode">${nameUser}</p>
+                <p data-dojo-attach-point="mailUserNode"></p>
+                <p data-dojo-attach-point="phoneUserNode"></p>
+            </div>
+        </div>
+        <div class="headerGiua">
+            <form class="timKiem" action="" method="GET">
+                <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ...">
+                <button><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <div class="headerPhai">
+            <button type="button" id="logout" onclick="logout();">Đăng Xuất</button>
+        </div>
+    </div>
+    <div class="contentBS">
+        <div class="tarbarBS">
+            <div id="menu">
+                <ul>
+                  <li><a href="">Tạo Mới Bệnh Nhân</a></li>
+                  <li><a href="">Danh Sách Lịch Hẹn</a></li>
+                  <li><a href="">Đặt Lịch Hẹn</a></li>
+                  <li><a href="">Tìm Kiếm Bệnh Nhân</a></li>
+                </ul>
+              </div>
+        </div>
+        <div class="contentBSRight" id="contentWigetTiepTan">
+         
+        </div>
+    </div>
+    <div class="footerBS">footer</div>
 </div>

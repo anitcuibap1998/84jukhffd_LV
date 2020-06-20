@@ -1,0 +1,18 @@
+.headerTiepTan{
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #777;
+    padding-top: 10px;
+    margin-top: 10px;
+    height: 60%;
+}
+.headerTiepTan .titleAccount{
+    width: 20%;
+    text-align: left;
+    padding-left: 3px;
+}
+.headerTiepTan .valueAccount{
+    padding-left: 10px;
+    width: 80%;
+    text-align: left;
+}
