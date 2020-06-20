@@ -120,6 +120,8 @@ define([
                 } else {
                     alert("Bạn Đăng Nhập Sai");
                 }
+            },function(err){
+                alert("Không kết nối được tới server");
             });
         },
         _hiddenLogin: function() {

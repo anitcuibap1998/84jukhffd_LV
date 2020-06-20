@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/tieptan.css">
     <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css">
+    <script src="js/main.js"></script>
+    <script src="js/jquery-3.5.1.js"></script>
 </head>
 <body>
     <div class="bacSiContainer">
@@ -22,7 +24,7 @@
                 </form>
             </div>
             <div class="headerPhai">
-                <button type="button" id="logout">Đăng Xuất</button>
+                <button type="button" id="logout" onclick="logout();">Đăng Xuất</button>
             </div>
         </div>
         <div class="contentBS">
@@ -36,12 +38,39 @@
                     </ul>
                   </div>
             </div>
-            <div class="contentBSRight">
+            <div class="contentBSRight" id="contentWigetTiepTan">
                 nội dung content
             </div>
         </div>
         <div class="footerBS">footer</div>
     </div>
+    <script>
+        var base = location.href.split("/");
+        console.log(location.href)
+        var a = base.pop();
+
+        base = base.join("/");
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                name: "widget",
+                location: base+ '/widget'
+            }]
+        };
+        console.log(dojoConfig);
+        console.log(base);
+    </script>
+     <!-- load Dojo -->
+     <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+<script>
+    //dung dojo deload data và gắn vào cái widget có sẳn
+require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/tieptanWidget", "dojo/domReady!"],
+    function(request, dom, arrayUtil,containerWidget){
+        console.log(base);
+        var widgetRoot = dom.byId("contentWigetTiepTan");
+        var widget = new containerWidget().placeAt(widgetRoot);
+});
+</script>
 </body>
 
 </html>

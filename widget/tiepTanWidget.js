@@ -23,8 +23,6 @@ define([
 ], function(dojo,declare, baseFx, lang, domStyle, mouse,Toggler, on, query ,request,JSON, WidgetBase, TemplatedMixin, template,Attr,dom,registry,Memory, ComboBox){
     console.log("vao duoc file tiepTanWidget")
     return declare([WidgetBase, TemplatedMixin], {
-        // Some default values for our author
-        // These typically map to whatever you're passing to the constructor
         id: "tiepTanWidget",
         
      
@@ -32,14 +30,13 @@ define([
 
         mouseAnim: null,
 
-        // Colors for our background animation
         baseBackgroundColor: "#ece0e0",
         mouseBackgroundColor: "#5485ba",
         postCreate: function () {
-            // Get a DOM node reference for the root of our widget
+           this.checkRole();
+           
             var domNode = this.domNode;
 
-            // Run any parent postCreate processes - can be done at any point
             this.inherited(arguments);
 
        
@@ -68,6 +65,8 @@ define([
                 })
             }).play();
         },
-      
+        checkRole: function(){
+            alert("bạn là tiếp tân !!")
+        }
     });
 });
