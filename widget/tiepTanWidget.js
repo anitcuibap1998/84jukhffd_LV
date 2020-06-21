@@ -1,3 +1,4 @@
+var urlServer="http://localhost:8088";
 define([
     "dojo",
     "dojo/_base/declare",
@@ -14,6 +15,7 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/text!./demo/tiepTanWidget.html",
     "widget/newBenhNhanWidget.js",
+    "widget/danhSachLichHenWidget.js",
     "dojo/dom-attr",
     "dojo/dom",
     "dijit/registry",
@@ -21,7 +23,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo,declare, baseFx, lang, domStyle, mouse,Toggler, on, query ,request,JSON, WidgetBase, TemplatedMixin, template,newBenhNhanWidget,Attr,dom,registry,Memory, ComboBox){
+], function(dojo,declare, baseFx, lang, domStyle, mouse,Toggler, on, query ,request,JSON, WidgetBase, TemplatedMixin, template,newBenhNhanWidget,danhSachLichHenWidget,Attr,dom,registry,Memory, ComboBox){
     console.log("vao duoc file tiepTanWidget")
     return declare([WidgetBase, TemplatedMixin], {
         id: "tiepTanWidget",
@@ -34,6 +36,7 @@ define([
         mailUserNode:null,
         phoneUserNode:null,
         newBenhNhan:null,
+        danhSachLichHen:null,
         indexLoadNewBenhNhan:null,
 
         //test
@@ -47,6 +50,7 @@ define([
 
             this.own(
                 on(this.newBenhNhan, "click", lang.hitch(this, "loadNewBenhNhan")),
+                on(this.danhSachLichHen, "click", lang.hitch(this, "loadDanhSachLichHen")),
             );
         },
        
@@ -95,15 +99,38 @@ define([
         loadNewBenhNhan: function(){
             this.indexLoadNewBenhNhan.innerHTML = "";
             console.log("Vào hàm load new bệnh nhân");
+            let kq = confirm("Bạn Có Chắc Muốn Chuyển Trang!!!")
+            if(kq==true){
             let newBenhNhanID = dom.byId("contentTiepTanWidget");
             console.log("newBenhNhanID: "+newBenhNhanID);
             var widget = new newBenhNhanWidget().placeAt(newBenhNhanID);
+            }else if(kq==false){
+                
+            }
         },
         loadDanhSachLichHen: function(){
-
+            this.indexLoadNewBenhNhan.innerHTML = "";
+            console.log("Vào hàm load danh sách lịch hẹn !!!");
+            let kq = confirm("Bạn Có Chắc Muốn Chuyển Trang!!!")
+            if(kq==true){
+            let newBenhNhanID = dom.byId("contentTiepTanWidget");
+            console.log("newBenhNhanID: "+newBenhNhanID);
+            var widget1 = new danhSachLichHenWidget().placeAt(newBenhNhanID);
+            }else if(kq==false){
+                
+            }
         },
         loadDatLichHen: function(){
-
+            this.indexLoadNewBenhNhan.innerHTML = "";
+            console.log("Vào hàm load danh sách lịch hẹn !!!");
+            let kq = confirm("Bạn Có Chắc Muốn Chuyển Trang!!!")
+            if(kq==true){
+            let newBenhNhanID = dom.byId("contentTiepTanWidget");
+            console.log("newBenhNhanID: "+newBenhNhanID);
+            var widget1 = new newBenhNhanWidget().placeAt(newBenhNhanID);
+            }else if(kq==false){
+                
+            }
         },
         
 

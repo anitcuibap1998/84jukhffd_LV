@@ -12,7 +12,7 @@ define([
     "dojo/json",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojo/text!./demo/newBenhNhanWidget.html",
+    "dojo/text!./demo/addLichHenWidget.html",
     "widget/tiepTanWidget",
     "widget/bacSiWidget",
     "widget/duocSiWidget",
@@ -28,7 +28,7 @@ define([
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
-        idContent: "newBenhNhanWidget",
+        idContent: "addLichHenWidgetId",
         btnAddNewBN:null,
         
         //====
@@ -42,7 +42,7 @@ define([
             this.inherited(arguments);
             
             this.own(
-                on(this.btnAddNewBN, "click", lang.hitch(this, "addNewBenhNhan")),
+                // on(this.btnAddNewBN, "click", lang.hitch(this, "addNewBenhNhan")),
             );
         },
        
