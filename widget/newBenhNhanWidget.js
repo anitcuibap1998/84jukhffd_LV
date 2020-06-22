@@ -47,9 +47,56 @@ define([
         },
        
         addNewBenhNhan: function(){
-            let firstname = dom.byId("firstname");
-
+            var that = this;
+            let firstname = dom.byId("firstname").value;
+            let lastname = dom.byId("lastname").value;
+            let sex = dom.byId("sex").value;
+            let phone = dom.byId("phone").value;
+            let birthday = dom.byId("birthday").value;
+            let diachi = dom.byId("diachi").value;
+            let tsbenh = dom.byId("tsbenh").value;
+            let note = dom.byId("note").value;
             console.log("firstname: "+firstname);
+            console.log("lastname: "+lastname);
+            console.log("sex: "+sex);
+            console.log("phone: "+phone);
+            console.log("birthday: "+birthday);
+            console.log("diachi: "+diachi);
+            console.log("tsbenh: "+tsbenh);
+            console.log("note: "+note);
+            request.post(urlServer+"/benh_nhan/addOne", {
+                data: dojo.toJson({
+                    "first_name": firstname,
+                    "last_name": lastname,
+                    "phone":  phone,
+                    "address": diachi,
+                    "sex": sex,
+                    "tien_su_benh":tsbenh,
+                    "birth_date": birthday,
+                    "ghi_chu": note
+               }),
+                headers: {
+                    "Content-Type": 'application/json; charset=utf-8',
+                    "Accept": "application/json",
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(value) {
+                console.log("The server returned: ");
+                console.log(JSON.parse(value, true));
+                value = JSON.parse(value, true);
+                console.log(typeof value);
+
+                console.log(value.token);
+                let name = value.last_name + " " + value.first_name;
+                if (value.statusCode != 404) {
+                    alert("Bạn Vừa Thêm Thành Công, Mã Số Bệnh Nhân Là: "+value.id);
+                } else{
+                    alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
+                }
+            },function(err){
+                alert("Không kết nối được tới server");
+            });
+
         }
     });
 });

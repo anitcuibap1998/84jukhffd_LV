@@ -47,9 +47,9 @@ define([
         },
        
         addNewBenhNhan: function(){
-            let firstname = dom.byId("firstname");
+            var firstname = dom.byId("firstname");
 
-            console.log("firstname: "+firstname);
+            console.log("firstname: "+firstname.value);
         }
     });
 });

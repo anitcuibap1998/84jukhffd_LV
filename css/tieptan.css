@@ -4,16 +4,16 @@
     border: 1px solid #777;
     padding-top: 10px;
     margin-top: 10px;
-    height: 60%;
+    height: 80%;
 }
 .headerTiepTan .titleAccount{
-    width: 20%;
+    width: 40%;
     text-align: left;
     padding-left: 3px;
 }
 .headerTiepTan .valueAccount{
     padding-left: 20px;
-    width: 80%;
+    width: 64%;
     text-align: left;
 }
 
