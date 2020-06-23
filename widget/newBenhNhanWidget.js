@@ -97,7 +97,6 @@ define([
             },function(err){
                 alert("Không kết nối được tới server");
             });
-
         }
     });
 });
