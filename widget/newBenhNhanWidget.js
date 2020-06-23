@@ -89,6 +89,7 @@ define([
                 console.log(value.token);
                 let name = value.last_name + " " + value.first_name;
                 if (value.statusCode != 404) {
+                    registry.byId("tiepTanWidget").maBNNode.innerHTML = value.id;
                     alert("Bạn Vừa Thêm Thành Công, Mã Số Bệnh Nhân Là: "+value.id);
                 } else{
                     alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");

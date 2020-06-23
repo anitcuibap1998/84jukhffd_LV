@@ -12,7 +12,7 @@ define([
     "dojo/json",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojo/text!./demo/addLichHenWidget.html",
+    "dojo/text!./demo/dsBNWidget.html",
     "widget/tiepTanWidget",
     "widget/bacSiWidget",
     "widget/duocSiWidget",
@@ -28,7 +28,7 @@ define([
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
-        idContent: "addLichHenWidgetId",
+        idContent: "dsBNWidget",
         btnAddNewBN:null,
         
         //====
@@ -39,17 +39,12 @@ define([
         postCreate: function() {
             // this.checkRole();
             // var domNode = this.domNode;
-            this.inherited(arguments);
             
             this.own(
-                // on(this.btnAddNewBN, "click", lang.hitch(this, "addNewBenhNhan")),
+                // on(this.btnAddNewBN, "click", lang.hitch(this, "addNewBenhNhan")),s
             );
         },
        
-        addNewBenhNhan: function(){
-            var firstname = dom.byId("firstname");
-
-            console.log("firstname: "+firstname.value);
-        }
+        
     });
 });
