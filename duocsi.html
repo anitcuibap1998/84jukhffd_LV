@@ -14,21 +14,37 @@
 </head>
 
 <body>
-    <div class="bacSiContainer">
+    <div class="bacSiContainer" id="duocSiWidget">
         <!--load widget bac si vao trong này -->
-        <div class="headerBS">
-            header
-        </div>
-        <div class="contentBS">
-            <div class="tarbarBS">
-                menu trái
-            </div>
-            <div class="contentBSRight">
-                nội dung content
-            </div>
-        </div>
-        <div class="footerBS">footer</div>
+    
     </div>
+    <script>
+        var base = location.href.split("/");
+        console.log(location.href)
+        var a = base.pop();
+
+        base = base.join("/");
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                name: "widget",
+                location: base+ '/widget'
+            }]
+        };
+        console.log(dojoConfig);
+        console.log(base);
+    </script>
+     <!-- load Dojo -->
+     <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+<script>
+    //dung dojo deload data và gắn vào cái widget có sẳn
+require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/duocSiWidget", "dojo/domReady!"],
+    function(request, dom, arrayUtil,duocSiWidget){
+        console.log(base);
+        var widgetRoot = dom.byId("duocSiWidget");
+        var widget = new duocSiWidget().placeAt(widgetRoot);
+});
+</script>
 </body>
 
 </html>

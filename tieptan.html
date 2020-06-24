@@ -37,14 +37,14 @@
         console.log(base);
     </script>
      <!-- load Dojo -->
-     <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+     <script src="dojo-release-1.16.3/dojo/dojo.js"></script>
 <script>
     //dung dojo deload data và gắn vào cái widget có sẳn
 require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/tieptanWidget", "dojo/domReady!"],
-    function(request, dom, arrayUtil,containerWidget){
+    function(request, dom, arrayUtil,tieptanWidget){
         console.log(base);
         var widgetRoot = dom.byId("widgetTiepTanRoot");
-        var widget = new containerWidget().placeAt(widgetRoot);
+        var widget = new tieptanWidget().placeAt(widgetRoot);
 });
 </script>
 </body>

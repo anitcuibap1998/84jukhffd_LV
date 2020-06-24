@@ -172,12 +172,14 @@ define([
                     }else if(data == 20){
                         alert("Bạn Đã Đăng Nhập !!!");
                         window.location.href = "../duocsi.html";
+                    }else if(data==404){
+                        localStorage.removeItem("tokenAC");
                     }
                   }, function(err){
                     // handle an error condition
                     alert("không có kết nối tới server !!!")
                   });
             }
-        }
+        },
     });
 });

@@ -1,4 +1,3 @@
-var urlServer="http://localhost:8088";
 define([
     "dojo",
     "dojo/_base/declare",
@@ -29,7 +28,9 @@ define([
     return declare([WidgetBase, TemplatedMixin], {
         id: "tiepTanWidget",
         
-     
+        urlServer:"http://localhost:8088",
+        
+        
         templateString: template,
 
         
@@ -65,14 +66,14 @@ define([
         checkRole: function(){
             if(localStorage.getItem("tokenAC")!=null){
                 //gọi hàm check role
-                request(urlServer+"/user/checkRole",{
+                request(this.urlServer+"/user/checkRole",{
                     headers: {
                         "tokenAC":localStorage.getItem("tokenAC")
                     }
                 }).then(function(data){
                     // do something with handled data
-                    if(data < 30){
-                        alert("Bạn Không Có Quyền Truy Cập Trang Này");
+                    if(data < 30 || data == 404){
+                        alert("Bạn Không Có Quyền Truy Cập Trang Này, Bạn Hãy Đăng Nhập Lại!!!");
                         window.location.href = "../index.html";
                     }
                   }, function(err){
@@ -80,14 +81,14 @@ define([
                     alert("không có kết nối tới server !!!");
                   });
             }else{
-                alert("Bạn Không Có Quyền Truy Cập Trang Này");
+                alert("Bạn Không Có Quyền Truy Cập Trang Này, Bạn Hãy Đăng Nhập Lại !!!");
                 window.location.href = "../index.html";
             }
         },
 
         infoAccount: function(){
             var that = this;
-            request(urlServer+"/user/getOne",{
+            request(this.urlServer+"/user/getOne",{
                 headers: {
                     "tokenAC":localStorage.getItem("tokenAC")
                 }
@@ -104,7 +105,7 @@ define([
                 alert("không có kết nối tới server !!!");
               });
 
-              request.get(urlServer+"/benh_nhan/getOneBNLasted",{
+              request.get(this.urlServer+"/benh_nhan/getOneBNLasted",{
                 headers: {
                     "tokenAC":localStorage.getItem("tokenAC")
                 }
