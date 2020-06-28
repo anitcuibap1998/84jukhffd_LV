@@ -27,13 +27,17 @@ define([
         // These typically map to whatever you're passing to the constructor
         id: "duocSiWidget",
         urlServer:"http://localhost:8088",
+        
+        //----btn----
+        btnLogout:null,
+
         templateString: template,
 
       
         postCreate: function () {
-       
+            this.checkRole();
             this.own(
-              
+               on(this.btnLogout, "click", lang.hitch(this, "logout")),
             );
         },
          checkRole: function() {
@@ -55,6 +59,13 @@ define([
                   });
             }else{
                 alert("Bạn Không Đủ Quyền, Hãy Đăng Nhập Lại !!!");
+                window.location.href = "../index.html";
+            }
+        },
+        logout: function () {
+            let selected = confirm("Bạn Có Muốn Thoát!!!");
+            if (selected) {
+                localStorage.removeItem("tokenAC");
                 window.location.href = "../index.html";
             }
         },

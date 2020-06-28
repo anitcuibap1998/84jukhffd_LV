@@ -20,49 +20,61 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo,declare, baseFx, lang, domStyle, mouse,Toggler, on, query ,request,JSON, WidgetBase, TemplatedMixin, template,Attr,dom,registry,Memory, ComboBox){
+], function (dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file bacSiWidget")
     return declare([WidgetBase, TemplatedMixin], {
-  
+
         id: "bacSiWidget",
-        urlServer:"http://localhost:8088",
+        urlServer: "http://localhost:8088",
         // userName: null,
         // passWord: null,
         // login: null,
+
+
+
+        // -----btn------
+        btnLogout:null,
         // Our template - important!
         templateString: template,
 
-      
-     
+
+
 
 
         postCreate: function () {
             this.checkRole();
-            
-       
+
+
             this.own(
-           
+                on(this.btnLogout, "click", lang.hitch(this, "logout")),
             );
         },
-        checkRole: function(){
-            if(localStorage.getItem("tokenAC")!=null){
+        checkRole: function () {
+            if (localStorage.getItem("tokenAC") != null) {
                 //gọi hàm check role
-                request(this.urlServer+"/user/checkRole",{
+                request(this.urlServer + "/user/checkRole", {
                     headers: {
-                        "tokenAC":localStorage.getItem("tokenAC")
+                        "tokenAC": localStorage.getItem("tokenAC")
                     }
-                }).then(function(data){
+                }).then(function (data) {
                     // do something with handled data
-                    if(data !=99 || data ==404 ){
+                    if (data != 99 || data == 404) {
                         alert("Bạn Không Có Quyền Truy Cập Trang Này");
                         window.location.href = "../index.html";
                     }
-                  }, function(err){
+                }, function (err) {
                     // handle an error condition
                     alert("không có kết nối tới server !!!");
-                  });
-            }else{
+                });
+            } else {
                 alert("Bạn Không Có Quyền Truy Cập Trang Này");
+                window.location.href = "../index.html";
+            }
+        },
+        logout: function () {
+            let selected = confirm("Bạn Có Muốn Thoát!!!");
+            if (selected) {
+                localStorage.removeItem("tokenAC");
                 window.location.href = "../index.html";
             }
         },

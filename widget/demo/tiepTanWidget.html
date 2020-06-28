@@ -17,12 +17,12 @@
         </div>
         <div class="headerGiua">
             <form class="timKiem" action="" method="GET">
-                <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ...">
-                <button><i class="fas fa-search"></i></button>
+                <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ..." data-dojo-attach-point="inputSearchNode">
+                <button type="button" data-dojo-attach-point="btnSearchNode"><i class="fas fa-search"></i></button>
             </form>
         </div>
         <div class="headerPhai">
-            <button type="button" id="logout" onclick="logout();">Đăng Xuất</button>
+            <button type="button" id="logout" data-dojo-attach-point="btnLogout">Đăng Xuất</button>
         </div>
     </div>
     <div class="contentBS">
@@ -32,7 +32,6 @@
                   <li data-dojo-attach-point="newBenhNhan"><a>Tạo Mới Bệnh Nhân</a></li>
                   <li data-dojo-attach-point="danhSachLichHen"><a >Danh Sách Lịch Hẹn</a></li>
                   <li data-dojo-attach-point="dsBN"><a >Danh Sách Bệnh Nhân</a></li>
-                  
                 </ul>
               </div>
         </div>

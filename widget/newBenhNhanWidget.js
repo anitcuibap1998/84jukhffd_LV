@@ -29,6 +29,8 @@ define([
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         idContent: "newBenhNhanWidget",
+        urlServer:"http://localhost:8088",
+        
         btnAddNewBN:null,
         
         //====
@@ -48,26 +50,23 @@ define([
        
         addNewBenhNhan: function(){
             var that = this;
-            let firstname = dom.byId("firstname").value;
-            let lastname = dom.byId("lastname").value;
+            let fullname = dom.byId("full_name").value;
             let sex = dom.byId("sex").value;
             let phone = dom.byId("phone").value;
             let birthday = dom.byId("birthday").value;
             let diachi = dom.byId("diachi").value;
             let tsbenh = dom.byId("tsbenh").value;
             let note = dom.byId("note").value;
-            console.log("firstname: "+firstname);
-            console.log("lastname: "+lastname);
+            console.log("fullname: "+fullname);
             console.log("sex: "+sex);
             console.log("phone: "+phone);
             console.log("birthday: "+birthday);
             console.log("diachi: "+diachi);
             console.log("tsbenh: "+tsbenh);
             console.log("note: "+note);
-            request.post(urlServer+"/benh_nhan/addOne", {
+            request.post(this.urlServer+"/benh_nhan/addOne", {
                 data: dojo.toJson({
-                    "first_name": firstname,
-                    "last_name": lastname,
+                    "full_name": fullname,
                     "phone":  phone,
                     "address": diachi,
                     "sex": sex,

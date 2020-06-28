@@ -42,8 +42,10 @@ define([
         newBenhNhan:null,
         danhSachLichHen:null,
         dsBN:null,
+        btnLogout:null,
+        btnSearchNode:null,
+        inputSearchNode:null,
 
-        
         indexLoadNewBenhNhan:null,
      
         //test
@@ -60,6 +62,8 @@ define([
                 on(this.newBenhNhan, "click", lang.hitch(this, "loadNewBenhNhan")),
                 on(this.danhSachLichHen, "click", lang.hitch(this, "loadDanhSachLichHen")),
                 on(this.dsBN, "click", lang.hitch(this, "loadDSBN")),
+                on(this.btnLogout, "click", lang.hitch(this, "logout")),
+                on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
             );
         },
        
@@ -98,13 +102,12 @@ define([
                 // do something with handled data
                 that.nameUserNode.innerHTML = result.first_name+" "+result.last_name;
                 that.mailUserNode.innerHTML = result.email;
-                that.phoneUserNode.innerHTML = result.phone;
+                that.phoneUserNode.innerHTML = "0"+result.phone;
                
               }, function(err){
                 // handle an error condition
                 alert("không có kết nối tới server !!!");
               });
-
               request.get(this.urlServer+"/benh_nhan/getOneBNLasted",{
                 headers: {
                     "tokenAC":localStorage.getItem("tokenAC")
@@ -156,7 +159,23 @@ define([
             var widget3 = new dsBNWidget().placeAt(contentTiepTanWidget);
             }
         },
-
-
+        logout: function () {
+            let selected = confirm("Bạn Có Muốn Thoát!!!");
+            if (selected) {
+                localStorage.removeItem("tokenAC");
+                window.location.href = "../index.html";
+            }
+        },
+        searchBN: function(){
+            console.log("vào hàm tìm kiếm bệnh nhân");
+            let kq = confirm("Bạn Có Chắc Thực Hiện Hành Động Này !!!");
+            if(kq == true){
+                this.indexLoadNewBenhNhan.innerHTML = "";
+                
+                let keysearch = this.inputSearchNode.value;
+                console.log("inputSearchNode: "+keysearch);
+                
+            }
+        },
     });
 });
