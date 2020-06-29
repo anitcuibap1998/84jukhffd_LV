@@ -23,38 +23,38 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo,declare, baseFx, lang, domStyle, mouse,Toggler, on, query ,request,JSON, WidgetBase, TemplatedMixin, template,newBenhNhanWidget,danhSachLichHenWidget,dsBNWidget,Attr,dom,registry,Memory, ComboBox){
+], function (dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, newBenhNhanWidget, danhSachLichHenWidget, dsBNWidget, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file tiepTanWidget")
     return declare([WidgetBase, TemplatedMixin], {
         id: "tiepTanWidget",
-        
-        urlServer:"http://localhost:8088",
-        
-        
+
+        urlServer: "http://localhost:8088",
+
+
         templateString: template,
 
-        
-        nameUserNode:null,
-        mailUserNode:null,
-        phoneUserNode:null,
-        maBNNode:null,
 
-        newBenhNhan:null,
-        danhSachLichHen:null,
-        dsBN:null,
-        btnLogout:null,
-        btnSearchNode:null,
-        inputSearchNode:null,
+        nameUserNode: null,
+        mailUserNode: null,
+        phoneUserNode: null,
+        maBNNode: null,
 
-        indexLoadNewBenhNhan:null,
-     
+        newBenhNhan: null,
+        danhSachLichHen: null,
+        dsBN: null,
+        btnLogout: null,
+        btnSearchNode: null,
+        inputSearchNode: null,
+
+        indexLoadNewBenhNhan: null,
+
         //test
-        nameUser:null,
+        nameUser: null,
         postCreate: function () {
             this.checkRole();
             this.infoAccount();
-            
-     
+
+
 
             this.inherited(arguments);
 
@@ -66,97 +66,97 @@ define([
                 on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
             );
         },
-       
-        checkRole: function(){
-            if(localStorage.getItem("tokenAC")!=null){
+
+        checkRole: function () {
+            if (localStorage.getItem("tokenAC") != null) {
                 //gọi hàm check role
-                request(this.urlServer+"/user/checkRole",{
+                request(this.urlServer + "/user/checkRole", {
                     headers: {
-                        "tokenAC":localStorage.getItem("tokenAC")
+                        "tokenAC": localStorage.getItem("tokenAC")
                     }
-                }).then(function(data){
+                }).then(function (data) {
                     // do something with handled data
-                    if(data < 30 || data == 404){
+                    if (data < 30 || data == 404) {
                         alert("Bạn Không Có Quyền Truy Cập Trang Này, Bạn Hãy Đăng Nhập Lại!!!");
                         window.location.href = "../index.html";
                     }
-                  }, function(err){
+                }, function (err) {
                     // handle an error condition
                     alert("không có kết nối tới server !!!");
-                  });
-            }else{
+                });
+            } else {
                 alert("Bạn Không Có Quyền Truy Cập Trang Này, Bạn Hãy Đăng Nhập Lại !!!");
                 window.location.href = "../index.html";
             }
         },
 
-        infoAccount: function(){
+        infoAccount: function () {
             var that = this;
-            request(this.urlServer+"/user/getOne",{
+            request(this.urlServer + "/user/getOne", {
                 headers: {
-                    "tokenAC":localStorage.getItem("tokenAC")
+                    "tokenAC": localStorage.getItem("tokenAC")
                 }
-            }).then(function(data){
-                result = JSON.parse(data,true)
-                console.log(JSON.parse(data,true))
+            }).then(function (data) {
+                result = JSON.parse(data, true)
+                console.log(JSON.parse(data, true))
                 // do something with handled data
-                that.nameUserNode.innerHTML = result.first_name+" "+result.last_name;
+                that.nameUserNode.innerHTML = result.first_name + " " + result.last_name;
                 that.mailUserNode.innerHTML = result.email;
-                that.phoneUserNode.innerHTML = "0"+result.phone;
-               
-              }, function(err){
+                that.phoneUserNode.innerHTML = "0" + result.phone;
+
+            }, function (err) {
                 // handle an error condition
                 alert("không có kết nối tới server !!!");
-              });
-              request.get(this.urlServer+"/benh_nhan/getOneBNLasted",{
+            });
+            request.get(this.urlServer + "/benh_nhan/getOneBNLasted", {
                 headers: {
-                    "tokenAC":localStorage.getItem("tokenAC")
+                    "tokenAC": localStorage.getItem("tokenAC")
                 }
-            }).then(function(data){
-                result = JSON.parse(data,true)
-                console.log(JSON.parse(data,true))
+            }).then(function (data) {
+                result = JSON.parse(data, true)
+                console.log(JSON.parse(data, true))
                 // do something with handled data
-               
+
                 that.maBNNode.innerHTML = result.id;
-               
-              }, function(err){
+
+            }, function (err) {
                 // handle an error condition
                 alert("không có kết nối tới server !!!");
-              });
-              
+            });
+
         },
-        loadNewBenhNhan: function(){
+        loadNewBenhNhan: function () {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
-            if(kq==true){
-            console.log("Vào hàm load new bệnh nhân");
-            let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
-            console.log("kq: "+kq);
-            this.indexLoadNewBenhNhan.innerHTML="";
-            console.log("newBenhNhanID: "+contentTiepTanWidget);
-            var widget = new newBenhNhanWidget().placeAt(contentTiepTanWidget);
+            if (kq == true) {
+                console.log("Vào hàm load new bệnh nhân");
+                let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
+                console.log("kq: " + kq);
+                this.indexLoadNewBenhNhan.innerHTML = "";
+                console.log("newBenhNhanID: " + contentTiepTanWidget);
+                var widget = new newBenhNhanWidget().placeAt(contentTiepTanWidget);
             }
-          
+
         },
-        loadDanhSachLichHen: function(){
+        loadDanhSachLichHen: function () {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
-            if(kq==true){
-            console.log("Vào hàm load danh sách lịch hẹn !!!");
-            let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
-            console.log("kq: "+kq);
-            this.indexLoadNewBenhNhan.innerHTML="";
-            console.log("loadDanhSachLichHen: "+contentTiepTanWidget);
-            var widget1 = new danhSachLichHenWidget().placeAt(contentTiepTanWidget);
+            if (kq == true) {
+                console.log("Vào hàm load danh sách lịch hẹn !!!");
+                let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
+                console.log("kq: " + kq);
+                this.indexLoadNewBenhNhan.innerHTML = "";
+                console.log("loadDanhSachLichHen: " + contentTiepTanWidget);
+                var widget1 = new danhSachLichHenWidget().placeAt(contentTiepTanWidget);
             }
         },
-  
-        loadDSBN: function(){
+
+        loadDSBN: function () {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
-            if(kq==true){
-            let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
-            console.log("kq: "+kq);
-            this.indexLoadNewBenhNhan.innerHTML="";
-            console.log("DSBNTiepTanWidget: "+contentTiepTanWidget);
-            var widget3 = new dsBNWidget().placeAt(contentTiepTanWidget);
+            if (kq == true) {
+                let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
+                console.log("kq: " + kq);
+                this.indexLoadNewBenhNhan.innerHTML = "";
+                console.log("DSBNTiepTanWidget: " + contentTiepTanWidget);
+                var widget3 = new dsBNWidget().placeAt(contentTiepTanWidget);
             }
         },
         logout: function () {
@@ -166,15 +166,19 @@ define([
                 window.location.href = "../index.html";
             }
         },
-        searchBN: function(){
+        searchBN: function () {
             console.log("vào hàm tìm kiếm bệnh nhân");
-            let kq = confirm("Bạn Có Chắc Thực Hiện Hành Động Này !!!");
-            if(kq == true){
-                this.indexLoadNewBenhNhan.innerHTML = "";
-                
-                let keysearch = this.inputSearchNode.value;
-                console.log("inputSearchNode: "+keysearch);
-                
+            let keysearch = this.inputSearchNode.value;
+            console.log("keysearch: "+keysearch.lenght);
+            if (keysearch.lenght < 1|| keysearch=="") {
+                alert("Không Được Để Trống Từ Khóa Cần Tìm Kiếm");
+            }
+            else {
+                let kq = confirm("Bạn Có Chắc Thực Hiện Hành Động Này !!!");
+                if (kq == true) {
+                    this.indexLoadNewBenhNhan.innerHTML = "";
+                    console.log("inputSearchNode: " + keysearch);
+                }
             }
         },
     });
