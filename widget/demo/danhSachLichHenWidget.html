@@ -2,8 +2,18 @@
     <h2>Lịch Hẹn</h2>
     <div class="row" style="text-align: center;">
         <div class="col-sm-12">
-            chọn ngày để lọc
+          <div class="row">
+            <div class="col-sm-8 right">
+              <input type="date" name="" id="">
+            </div>
+            <div class="col-sm-4 align-self-center text-center left">
+              <button class="btn btn-primary align-self-center text-center"><i class="fa fa-search">Tìm Kiếm</i></button>
+            </div>
+          </div>
         </div>
+    </div>
+    <div class="row" style="height: 20px;">
+
     </div>
     <div class="row">
         <div class="col-sm-8">
@@ -16,6 +26,7 @@
                     <th scope="col">Giờ Kết Thúc</th>
                     <th scope="col">Tên Bệnh Nhân</th>
                     <th scope="col">Trạng Thái</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -25,6 +36,7 @@
                     <td>07:30</td>
                     <td>Minh An</td>
                     <td>Chờ Gặp</td>
+                    <td><button class="btn btn-primary">Khám Bệnh</button></td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
@@ -45,10 +57,13 @@
         </div>
         <div class="col-sm-4">
             Lựa Chọn Để Add Lịch Hẹn
-            <div class="row">
-                <div class="col-sm-12">
-                <input type="text" name="timkiemBN" id="timkiemBN"> <i class="fa fa-search"></i>
+            <div class="row align-self-center">
+                <div class="col-sm-8">
+                <input type="text" name="timkiemBN" id="timkiemBN">
                 </div>
+                <div class="col-sm-4 align-self-center text-center">
+                <button class="btn btn-primary align-self-center text-center"><i class="fa fa-search">Tìm Kiếm</i></button>
+              </div>
             </div>
 
         </div>

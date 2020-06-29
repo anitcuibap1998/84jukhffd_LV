@@ -12,7 +12,7 @@ define([
     "dojo/json",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojo/text!./demo/dsBNWidget.html",
+    "dojo/text!./demo/timkiemBNWidget.html",
     "widget/rowBNWidget",
     "dojo/dom-construct",
     "dojo/_base/array",
@@ -28,7 +28,7 @@ define([
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
-        idContent: "dsBNWidget",
+        idContent: "timkemBNWidget",
         btnAddNewBN:null,
         
         //==== url =====
@@ -48,7 +48,7 @@ define([
        
         loadDSBenhNhan: function () {
             console.log('vào hàm load danh sách bệnh nhân !!!')
-            request(this.urlServer + "/benh_nhan/getAll", {
+            request(this.urlServer + "/benh_nhan//timkiemTuongDoi?keysearch="+localStorage.getItem("keysearch"), {
                 headers: {
                     "tokenAC": localStorage.getItem("tokenAC")
                 }

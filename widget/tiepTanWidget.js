@@ -16,6 +16,7 @@ define([
     "widget/newBenhNhanWidget.js",
     "widget/danhSachLichHenWidget.js",
     "widget/dsBNWidget.js",
+    "widget/timkiemBNWidget.js",
     "dojo/dom-attr",
     "dojo/dom",
     "dijit/registry",
@@ -23,7 +24,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function (dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, newBenhNhanWidget, danhSachLichHenWidget, dsBNWidget, Attr, dom, registry, Memory, ComboBox) {
+], function (dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, newBenhNhanWidget, danhSachLichHenWidget, dsBNWidget, timkiemBNWidget, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file tiepTanWidget")
     return declare([WidgetBase, TemplatedMixin], {
         id: "tiepTanWidget",
@@ -55,7 +56,7 @@ define([
             this.infoAccount();
 
 
-
+      
             this.inherited(arguments);
 
             this.own(
@@ -152,6 +153,7 @@ define([
         loadDSBN: function () {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
+                this._resetDSBN();
                 let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
                 console.log("kq: " + kq);
                 this.indexLoadNewBenhNhan.innerHTML = "";
@@ -169,17 +171,26 @@ define([
         searchBN: function () {
             console.log("vào hàm tìm kiếm bệnh nhân");
             let keysearch = this.inputSearchNode.value;
-            console.log("keysearch: "+keysearch.lenght);
-            if (keysearch.lenght < 1|| keysearch=="") {
+            console.log("keysearch: " + keysearch.lenght);
+            if (keysearch.lenght < 1 || keysearch == "") {
                 alert("Không Được Để Trống Từ Khóa Cần Tìm Kiếm");
             }
             else {
+                localStorage.setItem("keysearch",keysearch);
                 let kq = confirm("Bạn Có Chắc Thực Hiện Hành Động Này !!!");
                 if (kq == true) {
+                    this._resetDSBN();
                     this.indexLoadNewBenhNhan.innerHTML = "";
                     console.log("inputSearchNode: " + keysearch);
+                   
+                    var widget3 = new timkiemBNWidget().placeAt(contentTiepTanWidget);
                 }
             }
+        },
+        _resetDSBN: function(){
+            dojo.forEach(dijit.findWidgets(this.indexLoadNewBenhNhan), function(w) {
+            w.destroyRecursive();
+            });
         },
     });
 });
