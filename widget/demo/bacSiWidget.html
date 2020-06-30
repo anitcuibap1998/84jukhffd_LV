@@ -1,23 +1,25 @@
 <div id="bacSiContent">
     <div class="headerBS">
         <div class="headerTrai headerTiepTan">
+            <div class="row"> 
             <div class="titleAccount">
                 <p>Tên:</p>
                 <p>Mail:</p>
                 <p>Phone:</p>
                 <p style="padding-top:10px; columns: #787878; display: inline;">Mã BN:</p>
             </div>        
-            <div class="valueAccount">
+            <div class="valueAccount left">
                 <p data-dojo-attach-point="nameUserNode"></p>
                 <p data-dojo-attach-point="mailUserNode"></p>
                 <p data-dojo-attach-point="phoneUserNode"></p>
                 <p data-dojo-attach-point="maBNNode"></p>
             </div>
+        </div>   
         </div>
         <div class="headerGiua">
             <form class="timKiem" action="" method="GET">
-                <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ...">
-                <button><i class="fas fa-search"></i></button>
+                <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ..." data-dojo-attach-point="inputSearchNode" value="">
+                <button type="button" data-dojo-attach-point="btnSearchNode"><i class="fas fa-search"></i></button>
             </form>
         </div>
         <div class="headerPhai">

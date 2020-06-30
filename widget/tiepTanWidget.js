@@ -67,7 +67,6 @@ define([
                 on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
             );
         },
-
         checkRole: function () {
             if (localStorage.getItem("tokenAC") != null) {
                 //gọi hàm check role
@@ -90,7 +89,6 @@ define([
                 window.location.href = "../index.html";
             }
         },
-
         infoAccount: function () {
             var that = this;
             request(this.urlServer + "/user/getOne", {

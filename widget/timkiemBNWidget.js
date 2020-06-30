@@ -13,7 +13,7 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dojo/text!./demo/timkiemBNWidget.html",
-    "widget/rowBNWidget",
+    "widget/rowBNWidget.js",
     "dojo/dom-construct",
     "dojo/_base/array",
     "dojo/dom-attr",
