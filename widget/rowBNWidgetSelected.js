@@ -39,7 +39,7 @@ define([
         tien_su_benh: null,
         birth_date: null,
         ghi_chu: null,
-
+        anKQNode: null,
         ///các node tương tác ui
         benhNhanSelectNode: null,
         idBN: null,
@@ -49,7 +49,7 @@ define([
         postCreate: function() {
             // this.checkRole();
             // var domNode = this.domNode;
-            // this.inherited(arguments);
+            this.inherited(arguments);
 
             this.own(
                 on(this.benhNhanSelectNode, "click", lang.hitch(this, "chonBN")),
@@ -58,8 +58,11 @@ define([
         },
 
         chonBN: function() {
-            console.log("vào hàm chọn bệnh nhân: " + this.idBN.value);
-            // registry.byId("danhSachLichHenWidgetId").txtDataSearch.innerHTML = this.idBN.value;
+            console.log("vào hàm chọn bệnh nhân: " + this.id);
+            console.log("vào hàm chọn bệnh nhân: " + this.full_name);
+            registry.byId("danhSachLichHenWidgetId").txtDataSearch.value = this.id;
+            registry.byId("danhSachLichHenWidgetId").fullNameNode.value = this.full_name;
+            // localStorage.setItem("fullNameBnSelected", this.full_name);
             registry.byId("danhSachLichHenWidgetId").rowBN.hidden = true;
         },
 
