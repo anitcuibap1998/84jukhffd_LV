@@ -16,14 +16,17 @@ define([
     "widget/tiepTanWidget",
     "widget/bacSiWidget",
     "widget/duocSiWidget",
+    "widget/rowBNWidgetSelected",
+    "dojo/_base/array",
     "dojo/dom-attr",
     "dojo/dom",
+    "dojo/dom-class",
     "dijit/registry",
     "dojo/store/Memory",
-    "dijit/form/ComboBox",
+    "dijit/form/FilteringSelect",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function (dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, rowBNWidget, arrayUtil, Attr, dom, domClass, registry, Memory, FilteringSelect) {
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
@@ -32,21 +35,111 @@ define([
 
         //==== url =====
         urlServer: "http://localhost:8088",
-
+        //------btn------
+        btnDatLich: null,
+        dateLichHenNode: null,
+        timeStartNode: null,
+        ghiChuNode: null,
+        loaiKhamBenhNode: null,
+        txtDataSearch: null,
+        rowBN: null,
         // Our template - important!
         templateString: template,
 
-        postCreate: function () {
+        postCreate: function() {
             // this.checkRole();
-            // var domNode = this.domNode;
-           
-            this.inherited(arguments);
 
+            this.loadLoaiKhamBenh();
             this.own(
-                // on(this.btnAddNewBN, "click", lang.hitch(this, "addNewBenhNhan")),
+                on(this.btnDatLich, "click", lang.hitch(this, "datLich")),
+                on(this.loaiKhamBenhNode, "change", lang.hitch(this, "loadDSBN")),
             );
-        },
 
-       
+        },
+        datLich: function() {
+            console.log("vào hàm đặt lịch");
+            console.log("timeStart: " + this.dateLichHenNode.value);
+            console.log("timeStartNode: " + this.timeStartNode.value);
+            console.log("ghiChuNode: " + this.ghiChuNode.value);
+            console.log("id loại khám: ", +dijit.byId('stateSelect').get('value'));
+            console.log("id loại khám: ", +dijit.byId('stateSelect').get('value'));
+
+        },
+        loadLoaiKhamBenh: function() {
+            request(this.urlServer + "/loai_kham/getAll", {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                    // do something with handled data
+                    datas = JSON.parse(datas, true)
+                    var stateStore = new Memory({
+                        data: datas
+                    });
+                    console.log(stateStore);
+                    let filteringSelect = new FilteringSelect({
+                        id: "stateSelect",
+                        ten_hinh_thuc: "",
+                        value: datas[0].id,
+                        store: stateStore,
+                        searchAttr: "ten_hinh_thuc",
+                        class: "form-control",
+                    }, "stateSelect").startup();
+                },
+                function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!");
+                });
+        },
+        loadDSBN: function() {
+            this._resetDSBN();
+            this.rowBN.innerHTML = "";
+            console.log(this.txtDataSearch.value);
+            console.log('vào hàm load danh sách bệnh nhân !!!')
+            request(this.urlServer + "/benh_nhan/timkiemTuongDoi?keysearch=" + this.txtDataSearch.value, {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                // do something with handled data
+                console.log(datas)
+                datas = JSON.parse(datas)
+                console.log(datas)
+                if (datas.statusCode == 404) {
+                    alert("Bạn Bị Từ Chối Truy Cập Vì không Đủ Quyền, Chúng Tôi Sẽ Chuyển Bạn Về Màng Hình Đăng Nhập!!!");
+                    window.location.href = "../index.html";
+                } else {
+                    console.log("load thành công danh sách bệnh nhân !!!")
+                        // Our template - important!
+                    var rowBNWidget1 = dom.byId("rowBNWidget");
+                    arrayUtil.forEach(datas, function(item) {
+                        item.birth_date = item.birth_date.split("T", 1);
+                        if (item.sex == 1) {
+                            item.sex = "Nam";
+                        } else if (item.sex == 0) {
+                            item.sex = "Nữ";
+                        } else {
+                            item.sex = "Không Xác Định";
+                        }
+                        var widget = new rowBNWidget(item).placeAt(rowBNWidget1);
+                    });
+                }
+            }, function(err) {
+                // handle an error condition
+                alert("không có kết nối tới server !!!")
+                window.location.href = "../index.html";
+            });
+        },
+        _resetDSBN: function() {
+            dojo.forEach(dijit.findWidgets(this.rowBN), function(w) {
+                w.destroyRecursive();
+            });
+        },
+        setTextSeach: function(id) {
+
+        },
+        anResult: function() {
+
+        },
     });
 });

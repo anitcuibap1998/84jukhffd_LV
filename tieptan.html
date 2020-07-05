@@ -9,16 +9,18 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/tieptan.css">
     <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css">
+    <link rel="stylesheet" href="dojo-release-1.16.3/dijit/themes/claro/claro.css">
     <script src="js/main.js"></script>
     <script src="js/jquery-3.5.1.js"></script>
     <!-- booststrap -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <div class="bacSiContainer" id="widgetTiepTanRoot">
         <!--load widget bac si vao trong này -->
-    
+
     </div>
     <script>
         var base = location.href.split("/");
@@ -30,23 +32,23 @@
             async: true,
             packages: [{
                 name: "widget",
-                location: base+ '/widget'
+                location: base + '/widget'
             }]
         };
         console.log(dojoConfig);
         console.log(base);
     </script>
-     <!-- load Dojo -->
-     <script src="dojo-release-1.16.3/dojo/dojo.js"></script>
-<script>
-    //dung dojo deload data và gắn vào cái widget có sẳn
-require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/tieptanWidget", "dojo/domReady!"],
-    function(request, dom, arrayUtil,tieptanWidget){
-        console.log(base);
-        var widgetRoot = dom.byId("widgetTiepTanRoot");
-        var widget = new tieptanWidget().placeAt(widgetRoot);
-});
-</script>
+    <!-- load Dojo -->
+    <script src="dojo-release-1.16.3/dojo/dojo.js"></script>
+    <script>
+        //dung dojo deload data và gắn vào cái widget có sẳn
+        require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/tieptanWidget", "dojo/domReady!"],
+            function(request, dom, arrayUtil, tieptanWidget) {
+                console.log(base);
+                var widgetRoot = dom.byId("widgetTiepTanRoot");
+                var widget = new tieptanWidget().placeAt(widgetRoot);
+            });
+    </script>
 </body>
 
 </html>

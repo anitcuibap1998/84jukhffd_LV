@@ -24,7 +24,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function (dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, newBenhNhanWidget, danhSachLichHenWidget, dsBNWidget, timkiemBNWidget, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, newBenhNhanWidget, danhSachLichHenWidget, dsBNWidget, timkiemBNWidget, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file tiepTanWidget")
     return declare([WidgetBase, TemplatedMixin], {
         id: "tiepTanWidget",
@@ -51,12 +51,10 @@ define([
 
         //test
         nameUser: null,
-        postCreate: function () {
+        postCreate: function() {
             this.checkRole();
             this.infoAccount();
 
-
-      
             this.inherited(arguments);
 
             this.own(
@@ -67,20 +65,20 @@ define([
                 on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
             );
         },
-        checkRole: function () {
+        checkRole: function() {
             if (localStorage.getItem("tokenAC") != null) {
                 //gọi hàm check role
                 request(this.urlServer + "/user/checkRole", {
                     headers: {
                         "tokenAC": localStorage.getItem("tokenAC")
                     }
-                }).then(function (data) {
+                }).then(function(data) {
                     // do something with handled data
                     if (data < 30 || data == 404) {
                         alert("Bạn Không Có Quyền Truy Cập Trang Này, Bạn Hãy Đăng Nhập Lại!!!");
                         window.location.href = "../index.html";
                     }
-                }, function (err) {
+                }, function(err) {
                     // handle an error condition
                     alert("không có kết nối tới server !!!");
                 });
@@ -89,21 +87,21 @@ define([
                 window.location.href = "../index.html";
             }
         },
-        infoAccount: function () {
+        infoAccount: function() {
             var that = this;
             request(this.urlServer + "/user/getOne", {
                 headers: {
                     "tokenAC": localStorage.getItem("tokenAC")
                 }
-            }).then(function (data) {
+            }).then(function(data) {
                 result = JSON.parse(data, true)
                 console.log(JSON.parse(data, true))
-                // do something with handled data
+                    // do something with handled data
                 that.nameUserNode.innerHTML = result.first_name + " " + result.last_name;
                 that.mailUserNode.innerHTML = result.email;
                 that.phoneUserNode.innerHTML = "0" + result.phone;
 
-            }, function (err) {
+            }, function(err) {
                 // handle an error condition
                 alert("không có kết nối tới server !!!");
             });
@@ -111,20 +109,20 @@ define([
                 headers: {
                     "tokenAC": localStorage.getItem("tokenAC")
                 }
-            }).then(function (data) {
+            }).then(function(data) {
                 result = JSON.parse(data, true)
                 console.log(JSON.parse(data, true))
-                // do something with handled data
+                    // do something with handled data
 
                 that.maBNNode.innerHTML = result.id;
 
-            }, function (err) {
+            }, function(err) {
                 // handle an error condition
                 alert("không có kết nối tới server !!!");
             });
 
         },
-        loadNewBenhNhan: function () {
+        loadNewBenhNhan: function() {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
                 console.log("Vào hàm load new bệnh nhân");
@@ -136,7 +134,7 @@ define([
             }
 
         },
-        loadDanhSachLichHen: function () {
+        loadDanhSachLichHen: function() {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
                 console.log("Vào hàm load danh sách lịch hẹn !!!");
@@ -148,7 +146,7 @@ define([
             }
         },
 
-        loadDSBN: function () {
+        loadDSBN: function() {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
                 this._resetDSBN();
@@ -159,35 +157,34 @@ define([
                 var widget3 = new dsBNWidget().placeAt(contentTiepTanWidget);
             }
         },
-        logout: function () {
+        logout: function() {
             let selected = confirm("Bạn Có Muốn Thoát!!!");
             if (selected) {
                 localStorage.removeItem("tokenAC");
                 window.location.href = "../index.html";
             }
         },
-        searchBN: function () {
+        searchBN: function() {
             console.log("vào hàm tìm kiếm bệnh nhân");
             let keysearch = this.inputSearchNode.value;
             console.log("keysearch: " + keysearch.lenght);
             if (keysearch.lenght < 1 || keysearch == "") {
                 alert("Không Được Để Trống Từ Khóa Cần Tìm Kiếm");
-            }
-            else {
-                localStorage.setItem("keysearch",keysearch);
+            } else {
+                localStorage.setItem("keysearch", keysearch);
                 let kq = confirm("Bạn Có Chắc Thực Hiện Hành Động Này !!!");
                 if (kq == true) {
                     this._resetDSBN();
                     this.indexLoadNewBenhNhan.innerHTML = "";
                     console.log("inputSearchNode: " + keysearch);
-                   
+
                     var widget3 = new timkiemBNWidget().placeAt(contentTiepTanWidget);
                 }
             }
         },
-        _resetDSBN: function(){
+        _resetDSBN: function() {
             dojo.forEach(dijit.findWidgets(this.indexLoadNewBenhNhan), function(w) {
-            w.destroyRecursive();
+                w.destroyRecursive();
             });
         },
     });
