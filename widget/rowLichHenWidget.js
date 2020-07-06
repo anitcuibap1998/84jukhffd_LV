@@ -29,7 +29,8 @@ define([
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         // idContent: "rowBN",
-
+        //-----url-----
+        urlServer: "http://localhost:8088",
         //==== input data=====
         id: null,
         time: null,
@@ -57,9 +58,32 @@ define([
 
         editLichHen: function() {
             console.log("vào hàm sửa Lịch Hẹn !!!")
+            alert("dạ chưa làm kịp chức năng này ạ !!!")
         },
         deleteLichHen: function() {
-            console.log("vào hàm xóa 1 Lịch Hẹn !!!")
+            console.log("vào hàm xóa 1 Lịch Hẹn !!!");
+            let IDLichHen = this.id;
+
+            // alert(this.id);
+            request(this.urlServer + "/lich_hen/deleteLichHen/?idLH=" + IDLichHen, {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                datas = JSON.parse(datas, true);
+                console.log(datas)
+                if (datas == 0) {
+                    // alert("Có Lỗi Xảy Ra Trong Quá Trình Xóa Vui Lòng Thử Lại !!!")
+                } else {
+                    alert("Xóa Thành Công")
+                }
+            }, function(err) {
+                alert("không có kết nối tới server !!!");
+            });
+            //gọi lại hàm của widget cha reload lịch hẹn by date
+            let date = registry.byId("danhSachLichHenWidgetId").ngayDuocChon;
+            console.log("ngày được chọn để load lại: " + date);
+            registry.byId("danhSachLichHenWidgetId").loadLichHenTheoNgayTimKiem(date);
         },
 
     });

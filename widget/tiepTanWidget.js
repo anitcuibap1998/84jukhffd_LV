@@ -135,8 +135,10 @@ define([
 
         },
         loadDanhSachLichHen: function() {
+
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
+                this._resetMenuLichHen();
                 console.log("Vào hàm load danh sách lịch hẹn !!!");
                 let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
                 console.log("kq: " + kq);
@@ -183,6 +185,11 @@ define([
             }
         },
         _resetDSBN: function() {
+            dojo.forEach(dijit.findWidgets(this.indexLoadNewBenhNhan), function(w) {
+                w.destroyRecursive();
+            });
+        },
+        _resetMenuLichHen: function() {
             dojo.forEach(dijit.findWidgets(this.indexLoadNewBenhNhan), function(w) {
                 w.destroyRecursive();
             });

@@ -47,25 +47,37 @@ define([
         rowLichHen: null,
         mesNode: null,
         fullNameNode: null,
+
+        valueOfDayTimKiemNode: null,
+        timKiemDSLichHenTheoNgayNode: null,
         // Our template - important!
+        valueDateSelected: null,
+        ngayDuocChon: null,
+
         templateString: template,
 
         postCreate: function() {
+            let current_datetime = new Date()
+            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            this.valueDateSelected.innerHTML = formatted_date
             var domNode = this.domNode;
             // this.checkRole();
             this.mesNode.hidden = true;
             this.inherited(arguments);
             // init widget
+            this._resetWidgetLichHen();
             this.loadLichHenToDay();
             this.loadLoaiKhamBenh();
             this.own(
                 on(this.btnDatLich, "click", lang.hitch(this, "datLich")),
                 on(this.loaiKhamBenhNode, "change", lang.hitch(this, "loadDSBN")),
+                on(this.timKiemDSLichHenTheoNgayNode, "click", lang.hitch(this, "timKiemLichHenTheoNgay")),
             );
         },
         datLich: function() {
             var that = this;
             name = this.fullNameNode.value;
+            let dateSelected = this.dateLichHenNode.value;
             console.log("vào hàm đặt lịch");
             console.log("timeStart: " + this.dateLichHenNode.value);
             console.log("timeStartNode: " + this.timeStartNode.value);
@@ -103,6 +115,7 @@ define([
                     that.ghiChuNode.value = "";
                     dom.byId('searchtest').value = "";
                     that.fullNameNode.value = "";
+                    that.loadLichHenTheoNgayTimKiem(dateSelected);
                     alert("Bạn Vừa Thêm Lịch Hẹn Thành Công !!!");
                 } else {
                     alert("Bạn Không Đủ Quyền Để Thêm Lịch Hẹn");
@@ -195,10 +208,13 @@ define([
                 w.destroyRecursive();
             });
         },
+
         loadLichHenToDay: function() {
             console.log("Load Lịch Hẹn Của Ngày Hôm Nay");
             let current_datetime = new Date()
             let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            this.valueDateSelected.innerHTML = "";
+            this.valueDateSelected.innerHTML = formatted_date
             console.log(formatted_date);
             //thực thi gọi hàm get danh sách lịch hẹn theo ngày hiện tại và render ra màn hình lịch hẹn
             var that = this;
@@ -209,6 +225,9 @@ define([
             }).then(function(datas) {
                 datas = JSON.parse(datas, true);
                 console.log(datas)
+                if (datas.statusCode == 1000) {
+                    alert("Không Có Lịch Hẹn Trong Ngày Hiện Tại !!!")
+                }
                 console.log("load thành công danh sách Lịch Hẹn !!!");
                 var rowLichHenWidget1 = dom.byId("rowLichHenWidget");
                 arrayUtil.forEach(datas, function(item) {
@@ -219,9 +238,45 @@ define([
                 alert("không có kết nối tới server !!!");
             });
         },
-        loadLichHenTheoNgayTimKiem: function() {
+        loadLichHenTheoNgayTimKiem: function(date) {
             console.log("Load Lịch Hẹn Theo Ngày Tìm Kiếm");
-        },
+            this._resetWidgetLichHen();
+            let current_datetime = new Date(date);
+            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            this.valueDateSelected.innerHTML = "";
+            this.valueDateSelected.innerHTML = formatted_date
+            console.log(formatted_date);
+            //thực thi gọi hàm get danh sách lịch hẹn theo ngày hiện tại và render ra màn hình lịch hẹn
+            var that = this;
+            request(this.urlServer + "/lich_hen/getAllByDay/?inputdate=" + formatted_date, {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                datas = JSON.parse(datas, true);
+                console.log(datas)
+                if (datas.statusCode == 1000) {
+                    alert("Không Có Lịch Hẹn Trong Ngày Này !!!")
+                }
+                console.log("load thành công danh sách Lịch Hẹn !!!");
+                var rowLichHenWidget1 = dom.byId("rowLichHenWidget");
+                arrayUtil.forEach(datas, function(item) {
+                    var widget = new rowLichHenWidget(item).placeAt(rowLichHenWidget1);
+                });
 
+            }, function(err) {
+                alert("không có kết nối tới server !!!");
+            });
+        },
+        timKiemLichHenTheoNgay: function() {
+            console.log("vào hàm tìm kiếm lịch hẹn theo ngày!!!");
+            //lấy value của ô input ngày tìm kiếm vào 
+            let ngaytimkiem = this.valueOfDayTimKiemNode.value;
+            if (ngaytimkiem == null) {
+                alert("Không Được Bỏ Trống Ngày !!!")
+            } else {
+                this.loadLichHenTheoNgayTimKiem(ngaytimkiem);
+            }
+        },
     });
 });
