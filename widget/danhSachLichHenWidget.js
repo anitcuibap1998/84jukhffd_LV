@@ -17,6 +17,7 @@ define([
     "widget/bacSiWidget",
     "widget/duocSiWidget",
     "widget/rowBNWidgetSelected",
+    "widget/rowLichHenWidget",
     "dojo/_base/array",
     "dojo/dom-attr",
     "dojo/dom",
@@ -26,7 +27,7 @@ define([
     "dijit/form/FilteringSelect",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, rowBNWidget, arrayUtil, Attr, dom, domClass, registry, Memory, FilteringSelect) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, rowBNWidget, rowLichHenWidget, arrayUtil, Attr, dom, domClass, registry, Memory, FilteringSelect) {
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
@@ -43,6 +44,7 @@ define([
         loaiKhamBenhNode: null,
         txtDataSearch: null,
         rowBN: null,
+        rowLichHen: null,
         mesNode: null,
         fullNameNode: null,
         // Our template - important!
@@ -53,27 +55,61 @@ define([
             // this.checkRole();
             this.mesNode.hidden = true;
             this.inherited(arguments);
+            // init widget
+            this.loadLichHenToDay();
             this.loadLoaiKhamBenh();
             this.own(
                 on(this.btnDatLich, "click", lang.hitch(this, "datLich")),
                 on(this.loaiKhamBenhNode, "change", lang.hitch(this, "loadDSBN")),
             );
-
         },
         datLich: function() {
-            // let name = localStorage.getItem("fullNameBnSelected");
-            name1 = this.fullNameNode.value;
-            // console.log("aaa: " + name);
+            var that = this;
+            name = this.fullNameNode.value;
             console.log("vào hàm đặt lịch");
             console.log("timeStart: " + this.dateLichHenNode.value);
             console.log("timeStartNode: " + this.timeStartNode.value);
             console.log("ghiChuNode: " + this.ghiChuNode.value);
             console.log("id loại khám: ", +dijit.byId('stateSelect').get('value'));
             console.log("id bệnh nhân: ", +dom.byId('searchtest').value);
-            console.log("full name: " + name1);
-
-
-
+            console.log("full name: " + name);
+            // xử lý ngày đặt lịch
+            request.post(this.urlServer + "/lich_hen/addOne", {
+                data: dojo.toJson({
+                    time: this.timeStartNode.value + ":00",
+                    id_benh_nhan: dom.byId('searchtest').value,
+                    id_loai_kham: dijit.byId('stateSelect').get('value'),
+                    status: "Blocked",
+                    ghi_chu: this.ghiChuNode.value,
+                    date: this.dateLichHenNode.value,
+                    last_name: name
+                }),
+                headers: {
+                    "Content-Type": 'application/json; charset=utf-8',
+                    "Accept": "application/json",
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(value) {
+                console.log("The server returned: ");
+                console.log(JSON.parse(value, true));
+                value = JSON.parse(value, true);
+                console.log(typeof value);
+                console.log(value.token);
+                // let name = value.last_name + " " + value.first_name;
+                if (value.statusCode != 404) {
+                    console.log("Reset Đặt Lịch");
+                    that.dateLichHenNode.value = "";
+                    that.timeStartNode.value = "";
+                    that.ghiChuNode.value = "";
+                    dom.byId('searchtest').value = "";
+                    that.fullNameNode.value = "";
+                    alert("Bạn Vừa Thêm Lịch Hẹn Thành Công !!!");
+                } else {
+                    alert("Bạn Không Đủ Quyền Để Thêm Lịch Hẹn");
+                }
+            }, function(err) {
+                alert("Lỗi Kết Nối Mạng");
+            });
         },
         loadLoaiKhamBenh: function() {
             request(this.urlServer + "/loai_kham/getAll", {
@@ -154,7 +190,38 @@ define([
                 w.destroyRecursive();
             });
         },
+        _resetWidgetLichHen: function() {
+            dojo.forEach(dijit.findWidgets(this.rowLichHen), function(w) {
+                w.destroyRecursive();
+            });
+        },
+        loadLichHenToDay: function() {
+            console.log("Load Lịch Hẹn Của Ngày Hôm Nay");
+            let current_datetime = new Date()
+            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            console.log(formatted_date);
+            //thực thi gọi hàm get danh sách lịch hẹn theo ngày hiện tại và render ra màn hình lịch hẹn
+            var that = this;
+            request(this.urlServer + "/lich_hen/getAllByDay/?inputdate=" + formatted_date, {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                datas = JSON.parse(datas, true);
+                console.log(datas)
+                console.log("load thành công danh sách Lịch Hẹn !!!");
+                var rowLichHenWidget1 = dom.byId("rowLichHenWidget");
+                arrayUtil.forEach(datas, function(item) {
+                    var widget = new rowLichHenWidget(item).placeAt(rowLichHenWidget1);
+                });
 
+            }, function(err) {
+                alert("không có kết nối tới server !!!");
+            });
+        },
+        loadLichHenTheoNgayTimKiem: function() {
+            console.log("Load Lịch Hẹn Theo Ngày Tìm Kiếm");
+        },
 
     });
 });

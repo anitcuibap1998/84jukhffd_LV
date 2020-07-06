@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="col-sm-6 dacLichHen">
-            <h2>Hẹn Lịch</h2>
+            <h2>Đặt Lịch</h2>
             <form>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -72,29 +72,20 @@
         </div>
         <div class="col-sm-6">
             Danh Sách Lịch Hẹn Trong Ngày
-            <table class="table">
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
                         <th scope="col">Giờ Bắt Đầu</th>
                         <th scope="col">Mã BN</th>
                         <th scope="col">Tên Bệnh Nhân</th>
+                        <th scope="col">Ghi Chú</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>07:00</td>
-                        <td>01</td>
-                        <td>Minh An</td>
-                        <td>Chờ Gặp</td>
-                        <td>
-                            <button class="btn btn-primary">Xóa</button>
-                            <button class="btn btn-primary">Sửa</button>
-                        </td>
-                    </tr>
+                <tbody id="rowLichHenWidget" data-dojo-attach-point="rowLichHen">
+
                 </tbody>
             </table>
         </div>
