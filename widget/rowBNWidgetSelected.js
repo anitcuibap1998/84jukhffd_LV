@@ -63,7 +63,9 @@ define([
             registry.byId("danhSachLichHenWidgetId").txtDataSearch.value = this.id;
             registry.byId("danhSachLichHenWidgetId").fullNameNode.value = this.full_name;
             // localStorage.setItem("fullNameBnSelected", this.full_name);
+
             registry.byId("danhSachLichHenWidgetId").rowBN.hidden = true;
+            // registry.byId("danhSachLichHenWidgetId")._resetDSBN();
         },
 
     });
