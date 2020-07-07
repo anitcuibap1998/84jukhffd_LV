@@ -7,7 +7,7 @@
     <title>Bác Sĩ</title>
     <link rel="stylesheet" href="css/core.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/index.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css">
 
@@ -19,7 +19,7 @@
 <body>
     <div class="bacSiContainer" id="bacSiWidget">
         <!--load widget bac si vao trong này -->
-        
+
     </div>
     <script>
         var base = location.href.split("/");
@@ -31,23 +31,23 @@
             async: true,
             packages: [{
                 name: "widget",
-                location: base+ '/widget'
+                location: base + '/widget'
             }]
         };
         console.log(dojoConfig);
         console.log(base);
     </script>
-     <!-- load Dojo -->
-     <script src="dojo-release-1.16.3/dojo/dojo.js"></script>
-<script>
-    //dung dojo deload data và gắn vào cái widget có sẳn
-require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/bacSiWidget", "dojo/domReady!"],
-    function(request, dom, arrayUtil,bacSiWidget){
-        console.log(base);
-        var widgetRoot = dom.byId("bacSiWidget");
-        var widget = new bacSiWidget().placeAt(widgetRoot);
-});
-</script>
+    <!-- load Dojo -->
+    <script src="dojo-release-1.16.3/dojo/dojo.js"></script>
+    <script>
+        //dung dojo deload data và gắn vào cái widget có sẳn
+        require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/bacSiWidget", "dojo/domReady!"],
+            function(request, dom, arrayUtil, bacSiWidget) {
+                console.log(base);
+                var widgetRoot = dom.byId("bacSiWidget");
+                var widget = new bacSiWidget().placeAt(widgetRoot);
+            });
+    </script>
 </body>
 
 </html>

@@ -81,10 +81,49 @@ define([
                 alert("không có kết nối tới server !!!");
             });
             //gọi lại hàm của widget cha reload lịch hẹn by date
-            let date = registry.byId("danhSachLichHenWidgetId").valueDateSelected.textContent;
-            console.log("---------");
-            console.log("date duoc chon: " + date);
-            registry.byId("danhSachLichHenWidgetId").loadLichHenTheoNgayTimKiem(date);
+
+            if (localStorage.getItem("tokenAC") != null) {
+                //gọi hàm check role
+                request(this.urlServer + "/user/checkRole", {
+                    headers: {
+                        "tokenAC": localStorage.getItem("tokenAC")
+                    }
+                }).then(function(data) {
+                    // do something with handled data
+                    if (data == 99) {
+                        // let date = registry.byId("danhSachLichHenWidgetId").valueDateSelected.textContent;
+
+                        let date = registry.byId("bacSiWidget").valueDateSelected.textContent;
+
+                        console.log("---------");
+                        console.log("date duoc chon: " + date);
+                        registry.byId("bacSiWidget").loadLichHenTheoNgayTimKiem(date);
+                    }
+                    if (data == 30) {
+                        let date = registry.byId("danhSachLichHenWidgetId").valueDateSelected.textContent;
+
+                        // let date = registry.byId("bacSiWidget").valueDateSelected.textContent;
+
+                        console.log("---------");
+                        console.log("date duoc chon: " + date);
+                        registry.byId("danhSachLichHenWidgetId").loadLichHenTheoNgayTimKiem(date);
+                    }
+                    if (data == 20) {
+
+                    }
+                    if (data == 404) {
+                        alert("Sự cố kết nối internet!!!");
+                    }
+                }, function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!");
+                });
+            } else {
+                alert("Bạn Không Có Quyền Truy Cập Trang Này");
+                window.location.href = "../index.html";
+            }
+
+
         },
 
     });
