@@ -81,8 +81,9 @@ define([
                 alert("không có kết nối tới server !!!");
             });
             //gọi lại hàm của widget cha reload lịch hẹn by date
-            let date = registry.byId("danhSachLichHenWidgetId").ngayDuocChon;
-            console.log("ngày được chọn để load lại: " + date);
+            let date = registry.byId("danhSachLichHenWidgetId").valueDateSelected.textContent;
+            console.log("---------");
+            console.log("date duoc chon: " + date);
             registry.byId("danhSachLichHenWidgetId").loadLichHenTheoNgayTimKiem(date);
         },
 
