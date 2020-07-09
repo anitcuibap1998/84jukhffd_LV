@@ -16,6 +16,7 @@ define([
     "widget/dsBNWidget.js",
     "widget/timkiemBNWidget.js",
     "widget/rowLichHenWidget.js",
+    "widget/khamBenhWidget.js",
     "dojo/_base/array",
     "dojo/dom-attr",
     "dojo/dom",
@@ -24,7 +25,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, dsBNWidget, timkiemBNWidget, rowLichHenWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, dsBNWidget, timkiemBNWidget, rowLichHenWidget, khamBenhWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file bacSiWidget")
     return declare([WidgetBase, TemplatedMixin], {
 
@@ -42,8 +43,11 @@ define([
         dsBN: null,
         indexLoadNewBenhNhan: null,
         // btn*****
+        danhSachLichHenNode: null,
         valueOfDayTimKiemNode: null,
         timKiemDSLichHenTheoNgayNode: null,
+        khamBenhNodeBtn: null,
+        lichSuKhamBenhNodeBtn: null,
         valueDateSelected: null,
         // Our template - important!
         templateString: template,
@@ -60,9 +64,11 @@ define([
             this.own(
                 on(this.btnLogout, "click", lang.hitch(this, "logout")),
                 on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
+                on(this.danhSachLichHenNode, "click", lang.hitch(this, "_loadDSLichHenHomNay")),
                 on(this.dsBN, "click", lang.hitch(this, "loadDSBN")),
                 on(this.timKiemDSLichHenTheoNgayNode, "click", lang.hitch(this, "timKiemLichHenTheoNgay")),
-                // on(this.btnLogout, "click", lang.hitch(this, "logout")),
+                on(this.khamBenhNodeBtn, "click", lang.hitch(this, "khamBenh")),
+                on(this.lichSuKhamBenhNodeBtn, "click", lang.hitch(this, "lichSuKhamBenh")),
             );
             this._loadDSLichHenHomNay();
 
@@ -242,6 +248,21 @@ define([
             dojo.forEach(dijit.findWidgets(this.rowLichHen), function(w) {
                 w.destroyRecursive();
             });
+        },
+        khamBenh: function() {
+            console.log("vào khám bệnh nha");
+            let kq = confirm("Bạn Có Muốn Thực Hiện");
+            if (kq == true) {
+                this._resetDSBN();
+                let contentBacSiWidget = dom.byId("contentBacSiWidget");
+                console.log("kq: " + kq);
+                this.indexLoadNewBenhNhan.innerHTML = "";
+                console.log("khamBenhWidget: " + contentBacSiWidget);
+                var widget3 = new khamBenhWidget().placeAt(contentBacSiWidget);
+            }
+        },
+        lichSuKhamBenh: function() {
+            alert("vào lịch sử khám bệnh nha");
         },
     });
 });

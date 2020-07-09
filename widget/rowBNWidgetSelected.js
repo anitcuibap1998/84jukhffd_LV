@@ -26,10 +26,8 @@ define([
 ], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
-        // Some default values for our author
-        // These typically map to whatever you're passing to the constructor
-        idContent: "rowBN",
-
+        //==== url =====
+        urlServer: "http://localhost:8088",
         //==== input data=====
         id: null,
         full_name: null,
@@ -58,13 +56,42 @@ define([
         },
 
         chonBN: function() {
+            var that = this;
             console.log("vào hàm chọn bệnh nhân: " + this.id);
             console.log("vào hàm chọn bệnh nhân: " + this.full_name);
-            registry.byId("danhSachLichHenWidgetId").txtDataSearch.value = this.id;
-            registry.byId("danhSachLichHenWidgetId").fullNameNode.value = this.full_name;
-            // localStorage.setItem("fullNameBnSelected", this.full_name);
+            if (localStorage.getItem("tokenAC") != null) {
+                //gọi hàm check role
+                request(this.urlServer + "/user/checkRole", {
+                    headers: {
+                        "tokenAC": localStorage.getItem("tokenAC")
+                    }
+                }).then(function(data) {
+                    // do something with handled data
+                    if (data == 99) {
+                        registry.byId("khamBenhWidgetID").txtDataSearch.value = that.id;
+                        registry.byId("khamBenhWidgetID").fullNameNode.value = that.full_name;
+                        registry.byId("khamBenhWidgetID").rowBN.hidden = true;
+                    }
+                    if (data == 30) {
+                        registry.byId("danhSachLichHenWidgetId").txtDataSearch.value = that.id;
+                        registry.byId("danhSachLichHenWidgetId").fullNameNode.value = that.full_name;
+                        registry.byId("danhSachLichHenWidgetId").rowBN.hidden = true;
+                    }
+                    if (data == 20) {
 
-            registry.byId("danhSachLichHenWidgetId").rowBN.hidden = true;
+                    }
+                    if (data == 404) {
+                        alert("Sự cố kết nối internet!!!");
+                    }
+                }, function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!");
+                });
+            } else {
+                alert("Bạn Không Có Quyền Truy Cập Trang Này");
+                window.location.href = "../index.html";
+            }
+
             // registry.byId("danhSachLichHenWidgetId")._resetDSBN();
         },
 
