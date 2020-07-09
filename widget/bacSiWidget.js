@@ -16,7 +16,7 @@ define([
     "widget/dsBNWidget.js",
     "widget/timkiemBNWidget.js",
     "widget/rowLichHenWidget.js",
-    "widget/khamBenhWidget.js",
+    "widget/khamBenhWidget",
     "dojo/_base/array",
     "dojo/dom-attr",
     "dojo/dom",

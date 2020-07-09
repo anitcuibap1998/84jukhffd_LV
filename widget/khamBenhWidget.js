@@ -32,8 +32,8 @@ define([
         id: "khamBenhWidgetID",
         urlServer: "http://localhost:8088",
         //==== input data=====
-
-
+        //data import Array
+        arrayToaThuoc: null,
         ///các node tương tác ui
         editBenhNhan: null,
         datlichBenhNhan: null,
@@ -46,10 +46,12 @@ define([
 
 
         postCreate: function() {
+            // import ClassToaThuoc from "././listToaThuocModel"
             // this.checkRole();
             // var domNode = this.domNode;
             this.inherited(arguments);
-
+            // console.log(ClassToaThuoc.ToaThuoc);
+            console.log("**********");
             this.own(
                 // on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
 
