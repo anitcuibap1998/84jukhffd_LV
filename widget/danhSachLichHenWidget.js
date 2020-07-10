@@ -50,6 +50,7 @@ define([
 
         valueOfDayTimKiemNode: null,
         timKiemDSLichHenTheoNgayNode: null,
+        headDSBNSearchNode: null,
         // Our template - important!
         valueDateSelected: null,
         ngayDuocChon: null,
@@ -151,6 +152,7 @@ define([
                 });
         },
         loadDSBN: function() {
+            var that = this;
             this._resetDSBN();
             this.rowBN.innerHTML = "";
             this.rowBN.hidden = false;
@@ -166,11 +168,13 @@ define([
                     console.log(datas)
                     if (datas.statusCode == 1000) {
                         console.log("ko thay")
-                        this.mesNode.hidden = false;
+                        that.mesNode.hidden = false;
+                        that.headDSBNSearchNode.hidden = true;
                     }
                     if (datas.statusCode != 1000) {
                         console.log("tim thay")
-                        this.mesNode.hidden = true;
+                        that.mesNode.hidden = true;
+                        that.headDSBNSearchNode.hidden = false;
                     }
                     if (datas.statusCode == 404) {
                         alert("Bạn Bị Từ Chối Truy Cập Vì không Đủ Quyền, Chúng Tôi Sẽ Chuyển Bạn Về Màng Hình Đăng Nhập!!!");

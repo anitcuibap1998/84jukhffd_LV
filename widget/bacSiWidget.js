@@ -64,7 +64,7 @@ define([
             this.own(
                 on(this.btnLogout, "click", lang.hitch(this, "logout")),
                 on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
-                on(this.danhSachLichHenNode, "click", lang.hitch(this, "_loadDSLichHenHomNay")),
+                on(this.danhSachLichHenNode, "click", lang.hitch(this, "_reloadTrang")),
                 on(this.dsBN, "click", lang.hitch(this, "loadDSBN")),
                 on(this.timKiemDSLichHenTheoNgayNode, "click", lang.hitch(this, "timKiemLichHenTheoNgay")),
                 on(this.khamBenhNodeBtn, "click", lang.hitch(this, "khamBenh")),
@@ -144,14 +144,14 @@ define([
                 let contentBacSiWidget = dom.byId("contentBacSiWidget");
                 console.log("kq: " + kq);
                 this.indexLoadNewBenhNhan.innerHTML = "";
-                console.log("DSBNTiepTanWidget: " + contentBacSiWidget);
+                console.log("DSBNTiepTanWidget: ", contentBacSiWidget);
                 var widget3 = new dsBNWidget().placeAt(contentBacSiWidget);
             }
         },
         searchBN: function() {
             console.log("vào hàm tìm kiếm bệnh nhân");
             let keysearch = this.inputSearchNode.value;
-            console.log("keysearch: " + keysearch.lenght);
+            console.log("keysearch: ", keysearch.lenght);
             if (keysearch.lenght < 1 || keysearch == "") {
                 alert("Không Được Để Trống Từ Khóa Cần Tìm Kiếm");
             } else {
@@ -160,7 +160,7 @@ define([
                 if (kq == true) {
                     this._resetDSBN();
                     this.indexLoadNewBenhNhan.innerHTML = "";
-                    console.log("inputSearchNode: " + keysearch);
+                    console.log("inputSearchNode: ", keysearch);
 
                     var widget3 = new timkiemBNWidget().placeAt(contentBacSiWidget);
                 }
@@ -171,7 +171,11 @@ define([
                 w.destroyRecursive();
             });
         },
+        _reloadTrang: function() {
+            location.reload();
+        },
         _loadDSLichHenHomNay: function() {
+            // this._resetDSBN();
             console.log("Load Lịch Hẹn Của Ngày Hôm Nay");
             let current_datetime = new Date()
             let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();

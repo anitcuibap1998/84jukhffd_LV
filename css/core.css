@@ -51,30 +51,31 @@
 .contentBS {
     background-color: #f9f3ea;
     width: 100%;
+    min-height: 100vh;
     display: flex;
     text-align: center;
 }
 
 .contentBS .tarbarBS {
-    width: 18vw;
-    height: 120vh;
+    width: 18%;
+    min-height: 120%;
 }
 
 .contentBS .contentBSRight {
-    width: 82vw;
+    width: 82%;
     background-color: #fff;
 }
 
 .bacSiContainer .headerBS .headerTrai {
-    width: 22vw;
+    width: 22%;
 }
 
 .bacSiContainer .headerBS .headerGiua {
-    width: 64vw;
+    width: 64%;
 }
 
 .bacSiContainer .headerBS .headerPhsi {
-    width: 14vw;
+    width: 14%;
 }
 
 .footerBS {

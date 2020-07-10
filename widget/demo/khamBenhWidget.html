@@ -5,25 +5,32 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="row">
+                        <div class="col-sm-6 claro">
+                            <label for="loaiKhamId">Hình Thức Khám:</label>
+                            <input class="form-control" type="text" id="loaiKhamId">
+                        </div>
                         <div class="col-sm-6">
                             <label for="inputState">Chọn Bệnh Nhân</label>
                             <input class="form-control" id="searchtest" aria-label="Search" data-dojo-attach-event="keyup:loadDSBN" data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges:true" data-dojo-attach-point="txtDataSearch">
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6"></div>
                         <div class="col-md-6">
                             <label data-dojo-attach-point="mesNode" id="mesNode">Không Tìm Thấy Bệnh Nhân</label>
                             <input data-dojo-type="dijit/form/TextBox" id="fullNameNodeId" value="" data-dojo-attach-point="fullNameNode" hidden>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6"></div>
                         <div class="col-md-6">
                             <table class="table table-striped table-bordered rounded">
-                                <thead hidden>
+                                <thead data-dojo-attach-point="tblBenhNhanSelectedNode" hidden>
                                     <tr>
                                         <th scope="col">Mã BN</th>
                                         <th scope="col">Họ và Tên</th>
                                         <th scope="col">Sđt</th>
+                                        <th scope="col">Giới Tính</th>
                                         <th scope="col">Ngày Sinh</th>
                                         <th scope="col" style="color: #00805e;">Action</th>
                                     </tr>
@@ -57,18 +64,9 @@
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td><input class="form-control" type="text"></td>
-                                <td><textarea class="form-control"></textarea></td>
-                                <td>
-                                    <button>Sửa</button>
-                                    <button>Xóa</button>
-                                </td>
-                            </tr>
+                        <tbody data-dojo-attach-point="tblToaThuocNode" id="tblToaThuocId">
+                            <!-- đỗ row data toa thuoc vao day-->
+
                         </tbody>
                     </table>
                 </div>
@@ -80,33 +78,31 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <input type="text" name="" id="">
+                    <input type="text" id="txtSearchThuoc" data-dojo-attach-point="txtSearchThuocNode" data-dojo-attach-event="keyup:loadDSThuoc">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label data-dojo-attach-point="mesthuocNode" id="mesThuocNodeId">Không Tìm Thấy Thuốc</label>
+                    <input data-dojo-type="dijit/form/TextBox" id="fullNameThuocNodeId" value="" data-dojo-attach-point="fullNameThuocNode" hidden>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <table class="table table-hover border border-primary">
-                        <thead data-dojo-attach-point="" hidden>
+                        <thead data-dojo-attach-point="headTblTimKiemThuocNode" id="headTblTimKiemThuoc" hidden>
                             <tr>
-                                <th scope="col">Tên Thuốc</th>
-                                <th scope="col">Hàm Lượng</th>
-                                <th scope="col">Đơn Vị Tính</th>
-                                <th scope="col">Số Lượng</th>
-                                <th scope="col">Chỉ Định</th>
-                                <th scope="col">Action</th>
+                                <th scope=" col " hidden>Id Thuốc</th>
+                                <th scope="col ">Tên Thuốc</th>
+                                <th scope="col ">Hàm Lượng</th>
+                                <th scope="col ">Đơn Vị Tính</th>
+                                <th scope="col ">Số Lượng</th>
+                                <th scope="col ">Chỉ Định</th>
+                                <th scope="col ">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td><input class="form-control" type="text"></td>
-                                <td><textarea class="form-control"></textarea></td>
-                                <td>
-                                    <button>Chọn</button>
-                                </td>
-                            </tr>
+                        <tbody data-dojo-attach-point="dsThuocTimKiemNode" id="dsThuocTimKiem">
+
                         </tbody>
                     </table>
                 </div>
@@ -114,8 +110,14 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-6">
+            <label for="ketQuaKham">Chuẩn Đoán:</label>
+            <textarea class="form-control" id="ketQuaKham" rows="3" data-dojo-attach-point="ketQuaKhamNode"></textarea>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-12">
-            <button>Kê Toa</button>
+            <button class="btn btn-outline-primary">Kê Toa</button>
         </div>
     </div>
 </div>

@@ -71,11 +71,13 @@ define([
                         registry.byId("khamBenhWidgetID").txtDataSearch.value = that.id;
                         registry.byId("khamBenhWidgetID").fullNameNode.value = that.full_name;
                         registry.byId("khamBenhWidgetID").rowBN.hidden = true;
+                        registry.byId("khamBenhWidgetID").tblBenhNhanSelectedNode.hidden = true;
                     }
                     if (data == 30) {
                         registry.byId("danhSachLichHenWidgetId").txtDataSearch.value = that.id;
                         registry.byId("danhSachLichHenWidgetId").fullNameNode.value = that.full_name;
                         registry.byId("danhSachLichHenWidgetId").rowBN.hidden = true;
+                        registry.byId("danhSachLichHenWidgetId").headDSBNSearchNode.hidden = true;
                     }
                     if (data == 20) {
 
