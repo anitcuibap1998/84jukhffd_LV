@@ -68,10 +68,10 @@ define([
                 }).then(function(data) {
                     // do something with handled data
                     if (data == 99) {
-                        registry.byId("lichSuKhamBenhWidgetId").txtDataSearch.value = that.id;
-                        registry.byId("lichSuKhamBenhWidgetId").fullNameNode.value = that.full_name;
-                        registry.byId("lichSuKhamBenhWidgetId").rowBN.hidden = true;
-                        registry.byId("lichSuKhamBenhWidgetId").tblBenhNhanSelectedNode.hidden = true;
+                        // registry.byId("lichSuKhamBenhWidgetId").txtDataSearch.value = that.id;
+                        // registry.byId("lichSuKhamBenhWidgetId").fullNameNode.value = that.full_name;
+                        // registry.byId("lichSuKhamBenhWidgetId").rowBN.hidden = true;
+                        // registry.byId("lichSuKhamBenhWidgetId").tblBenhNhanSelectedNode.hidden = true;
                     }
                     if (data == 99) {
                         registry.byId("khamBenhWidgetId").txtDataSearch.value = that.id;
