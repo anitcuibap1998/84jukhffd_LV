@@ -76,7 +76,9 @@ define([
                 "don_vi_tinh": this.don_vi_tinh,
                 "so_luong_thuoc": this.soLuongNode.value,
                 "cach_dung": this.cachDungNode.value,
+                "id_toa_thuoc": ""
             };
+            // delete thuocSelected["ten_thuoc"]
             console.log("Object Thuốc:", thuocSelected);
             console.log("arrToathuoc trước khi add: ", registry.byId("khamBenhWidgetId").arrayToaThuoc);
             let arrToaThuoc = registry.byId("khamBenhWidgetId").arrayToaThuoc.slice();

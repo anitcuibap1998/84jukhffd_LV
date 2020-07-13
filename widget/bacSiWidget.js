@@ -17,6 +17,7 @@ define([
     "widget/timkiemBNWidget.js",
     "widget/rowLichHenWidget.js",
     "widget/khamBenhWidget",
+    "widget/controllerBacSi/lichSuKhamBenhWidget",
     "dojo/_base/array",
     "dojo/dom-attr",
     "dojo/dom",
@@ -25,7 +26,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, dsBNWidget, timkiemBNWidget, rowLichHenWidget, khamBenhWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, dsBNWidget, timkiemBNWidget, rowLichHenWidget, khamBenhWidget, lichSuKhamBenhWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file bacSiWidget")
     return declare([WidgetBase, TemplatedMixin], {
 
@@ -267,6 +268,10 @@ define([
         },
         lichSuKhamBenh: function() {
             alert("vào lịch sử khám bệnh nha");
+            this._resetDSBN();
+            this.indexLoadNewBenhNhan.innerHTML = "";
+            console.log("khamBenhWidget: " + contentBacSiWidget);
+            var widget3 = new lichSuKhamBenhWidget().placeAt(contentBacSiWidget);
         },
     });
 });

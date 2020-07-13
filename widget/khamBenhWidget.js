@@ -51,6 +51,9 @@ define([
         fullNameThuocNode: null,
         headTblTimKiemThuocNode: null,
         tblBenhNhanSelectedNode: null,
+        ketQuaKhamNode: null,
+        createToaThuocNode: null,
+
         templateString: template,
 
 
@@ -60,10 +63,9 @@ define([
             // var domNode = this.domNode;
             // this.inherited(arguments);
             this.loadLoaiKhamBenh();
-            // console.log(ClassToaThuoc.ToaThuoc);
-            console.log("**********");
+
             this.own(
-                // on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
+                on(this.createToaThuocNode, "click", lang.hitch(this, "createToaThuocBN")),
 
             );
         },
@@ -205,7 +207,97 @@ define([
 
         },
 
+        createToaThuocBN: function() {
+            var that = this;
+            console.log("Vào hàm tạo toa thuốc");
+            let idLoaiKham = dijit.byId('loaiKhamId').get('value');
+            let idBN = this.txtDataSearch.value;
+            let ketQuaKham = this.ketQuaKhamNode.value;
+            let result = this.__validateInputToaThuoc(idLoaiKham, idBN, this.arrayToaThuoc, ketQuaKham);
+            console.log("result: ", result)
+                // this.createToaThuocNode.disabled = true;
+            if (result) {
+                request.post(this.urlServer + "/toa_thuoc/addOne", {
+                    data: dojo.toJson({
+                        "id_benh_nhan": idBN,
+                        "chuan_doan": ketQuaKham,
+                        "id_gia_kham": idLoaiKham
+                    }),
+                    headers: {
+                        "Content-Type": 'application/json; charset=utf-8',
+                        "Accept": "application/json",
+                        "tokenAC": localStorage.getItem("tokenAC")
+                    }
+                }).then(function(value) {
+                    console.log("The server returned: ");
+                    console.log(JSON.parse(value, true));
+                    value = JSON.parse(value, true);
+                    console.log(typeof value);
 
+                    if (value.statusCode != 404) {
+                        that.__taoChiTietToaThuoc(value.id);
+                    } else {
+                        alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
+                    }
+                }, function(err) {
+                    alert("Không kết nối được tới server");
+                });
+            }
+        },
+        __xuLyArray: function(idToaThuoc) {
+            this.arrayToaThuoc.forEach((item) => {
+                item.id_toa_thuoc = idToaThuoc;
+            })
+        },
+        __taoChiTietToaThuoc: function(idToaThuoc) {
+            this.__xuLyArray(idToaThuoc);
+            var that = this;
+            console.log("Vào hàm tạo chi tiết toa thuốc");
+            request.post(this.urlServer + "/chi_tiet_toa_thuoc/addOne", {
+                data: dojo.toJson(this.arrayToaThuoc),
+                headers: {
+                    "Content-Type": 'application/json; charset=utf-8',
+                    "Accept": "application/json",
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(value) {
+                console.log("The server returned: ");
+                console.log(JSON.parse(value, true));
+                value = JSON.parse(value, true);
+                console.log(typeof value);
+
+                if (value.statusCode != 404) {
+                    alert("Bạn Tạo Toa Thuốc Thành Công");
+                    // that.createToaThuocBN.disabled = false;
+                } else {
+                    alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
+                }
+            }, function(err) {
+                alert("Không kết nối được tới server");
+            });
+            registry.byId("bacSiWidget").khamBenh();
+        },
+
+        __validateInputToaThuoc: function(idLoaiKham, idBenhNhan, arrayToaThuoc, ketQuaKham) {
+            console.log("a:", idLoaiKham, "b:", idBenhNhan, "c:", arrayToaThuoc, "d:", ketQuaKham);
+            if (idLoaiKham < 0 || idLoaiKham == undefined || idLoaiKham == null) {
+                alert("Chưa Chọn Hình Thức Khám, Mời Bạn Chọn Lại !!!");
+                return false;
+            }
+            if (idBenhNhan == undefined || idBenhNhan < 0 || idBenhNhan == null) {
+                alert("Chưa Chọn Bệnh Nhân, Mời Bạn Chọn Lại !!!");
+                return false;
+            }
+            if (arrayToaThuoc.lenght < 1 || arrayToaThuoc == undefined || arrayToaThuoc == null) {
+                alert("Chưa Chọn Thuốc, Mời Bạn Chọn Lại !!!");
+                return false;
+            }
+            if (ketQuaKham == "" || ketQuaKham == undefined || ketQuaKham == null) {
+                alert("Chưa điền kết quả khám bệnh, Mời Bác Sĩ Điền Vào !!!");
+                return false;
+            }
+            return true;
+        },
         _resetDSBN: function() {
             dojo.forEach(dijit.findWidgets(this.rowBN), function(w) {
                 w.destroyRecursive();

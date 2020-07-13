@@ -54,9 +54,7 @@ define([
         postCreate: function() {
             this.checkRole();
             this.infoAccount();
-
             this.inherited(arguments);
-
             this.own(
                 on(this.newBenhNhan, "click", lang.hitch(this, "loadNewBenhNhan")),
                 on(this.danhSachLichHen, "click", lang.hitch(this, "loadDanhSachLichHen")),
@@ -123,6 +121,7 @@ define([
 
         },
         loadNewBenhNhan: function() {
+            this._resetMenuLichHen();
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
                 console.log("Vào hàm load new bệnh nhân");
@@ -180,7 +179,7 @@ define([
                     this.indexLoadNewBenhNhan.innerHTML = "";
                     console.log("inputSearchNode: " + keysearch);
 
-                    var widget3 = new timkiemBNWidget().placeAt(contentTiepTanWidget);
+                    let widget3 = new timkiemBNWidget().placeAt(contentTiepTanWidget);
                 }
             }
         },

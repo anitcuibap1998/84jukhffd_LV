@@ -51,6 +51,7 @@ define([
         btnXongThuocNode: null,
         btnEditThuocNode: null,
         btnDeleteThuocNode: null,
+        txtDataSearch: null,
         // Our template - important!
         templateString: template,
 
