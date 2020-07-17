@@ -215,7 +215,7 @@ define([
             let ketQuaKham = this.ketQuaKhamNode.value;
             let result = this.__validateInputToaThuoc(idLoaiKham, idBN, this.arrayToaThuoc, ketQuaKham);
             console.log("result: ", result)
-                // this.createToaThuocNode.disabled = true;
+            this.createToaThuocNode.disabled = true;
             if (result) {
                 request.post(this.urlServer + "/toa_thuoc/addOne", {
                     data: dojo.toJson({
@@ -261,6 +261,7 @@ define([
                     "tokenAC": localStorage.getItem("tokenAC")
                 }
             }).then(function(value) {
+                that.arrayToaThuoc = [];
                 console.log("The server returned: ");
                 console.log(JSON.parse(value, true));
                 value = JSON.parse(value, true);
@@ -268,7 +269,7 @@ define([
 
                 if (value.statusCode != 404) {
                     alert("Bạn Tạo Toa Thuốc Thành Công");
-                    // that.createToaThuocBN.disabled = false;
+                    that.createToaThuocBN.disabled = false;
                 } else {
                     alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
                 }
