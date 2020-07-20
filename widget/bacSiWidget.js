@@ -255,6 +255,8 @@ define([
             });
         },
         khamBenh: function() {
+            localStorage.setItem("trangthai", 0);
+
             console.log("vào khám bệnh nha");
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
@@ -267,6 +269,7 @@ define([
             }
         },
         lichSuKhamBenh: function() {
+            localStorage.setItem("trangthai", 1);
             alert("vào lịch sử khám bệnh nha");
             this._resetDSBN();
             this.indexLoadNewBenhNhan.innerHTML = "";

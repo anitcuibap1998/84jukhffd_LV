@@ -36,7 +36,7 @@ define([
         urlServer: "http://localhost:8088",
         //==== input data=====
 
-        id: null,
+
         full_name: null,
         phone: null,
         address: null,
@@ -51,6 +51,7 @@ define([
         rowBN: null,
         fullNameNode: null,
         mesNode: null,
+        rowToaThuocNode: null,
         // Our template - important!
         templateString: template,
 
@@ -117,6 +118,12 @@ define([
                     alert("không có kết nối tới server !!!")
                     window.location.href = "../index.html";
                 });
+        },
+        loadDSToaThuoc: function() {
+            console.log("vào hàm load toa thuoc all chưa lazy load ");
+        },
+        loadDSToaThuocByIdBN: function() {
+            console.log("vào hàm load toa thuoc by id benh nhan");
         },
         _resetDSBN: function() {
             dojo.forEach(dijit.findWidgets(this.rowBN), function(w) {

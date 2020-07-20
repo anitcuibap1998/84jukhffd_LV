@@ -52,6 +52,7 @@ define([
         headTblTimKiemThuocNode: null,
         tblBenhNhanSelectedNode: null,
         ketQuaKhamNode: null,
+        danDoNode: null,
         createToaThuocNode: null,
 
         templateString: template,
@@ -62,6 +63,7 @@ define([
             // this.checkRole();
             // var domNode = this.domNode;
             // this.inherited(arguments);
+            this.arrayToaThuoc.splice(0, this.arrayToaThuoc.length);
             this.loadLoaiKhamBenh();
 
             this.own(
@@ -213,7 +215,8 @@ define([
             let idLoaiKham = dijit.byId('loaiKhamId').get('value');
             let idBN = this.txtDataSearch.value;
             let ketQuaKham = this.ketQuaKhamNode.value;
-            let result = this.__validateInputToaThuoc(idLoaiKham, idBN, this.arrayToaThuoc, ketQuaKham);
+            let danDoNode = this.danDoNode.value;
+            let result = this.__validateInputToaThuoc(idLoaiKham, idBN, this.arrayToaThuoc, ketQuaKham, danDoNode);
             console.log("result: ", result)
             this.createToaThuocNode.disabled = true;
             if (result) {
@@ -221,6 +224,7 @@ define([
                     data: dojo.toJson({
                         "id_benh_nhan": idBN,
                         "chuan_doan": ketQuaKham,
+                        "dan_do": danDoNode,
                         "id_gia_kham": idLoaiKham
                     }),
                     headers: {
@@ -261,15 +265,19 @@ define([
                     "tokenAC": localStorage.getItem("tokenAC")
                 }
             }).then(function(value) {
-                that.arrayToaThuoc = [];
+
                 console.log("The server returned: ");
                 console.log(JSON.parse(value, true));
                 value = JSON.parse(value, true);
                 console.log(typeof value);
 
                 if (value.statusCode != 404) {
-                    alert("Bạn Tạo Toa Thuốc Thành Công");
+                    console.log("id toa thuoc: ", idToaThuoc);
+                    alert("Bạn Tạo Toa Thuốc Thành Công Mã Toa: " + idToaThuoc);
                     that.createToaThuocBN.disabled = false;
+                    console.log("array: ", that.arrayToaThuoc);
+                    that.arrayToaThuoc.splice(0, that.arrayToaThuoc.length);
+                    console.log("array sau khi xóa rỗng: ", that.arrayToaThuoc);
                 } else {
                     alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
                 }
@@ -279,7 +287,7 @@ define([
             registry.byId("bacSiWidget").khamBenh();
         },
 
-        __validateInputToaThuoc: function(idLoaiKham, idBenhNhan, arrayToaThuoc, ketQuaKham) {
+        __validateInputToaThuoc: function(idLoaiKham, idBenhNhan, arrayToaThuoc, ketQuaKham, danDoNode) {
             console.log("a:", idLoaiKham, "b:", idBenhNhan, "c:", arrayToaThuoc, "d:", ketQuaKham);
             if (idLoaiKham < 0 || idLoaiKham == undefined || idLoaiKham == null) {
                 alert("Chưa Chọn Hình Thức Khám, Mời Bạn Chọn Lại !!!");
