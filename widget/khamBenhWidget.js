@@ -18,6 +18,7 @@ define([
     "widget/rowBNWidgetSelected",
     "widget/controllerBacSi/thuocWidget",
     "widget/controllerBacSi/rowTblToaThuocWidget",
+    "widget/controllerCommon/xuatDonThuocWidget",
     "dijit/form/FilteringSelect",
     "dojo/_base/array",
     "dojo/dom-attr",
@@ -27,7 +28,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, rowBNWidget, thuocWidget, rowTblToaThuocWidget, FilteringSelect, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, rowBNWidget, thuocWidget, rowTblToaThuocWidget, xuatDonThuocWidget, FilteringSelect, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
@@ -335,6 +336,9 @@ define([
                     // do something with handled data
                     datas = JSON.parse(datas, true);
                     console.log("chi tiet cua mot toa thuoc: ", datas);
+                    var xuatDonThuocWidget1 = dom.byId("indexLoadNewBenhNhan");
+                    var widget = new xuatDonThuocWidget().placeAt(xuatDonThuocWidget1);
+
                 },
                 function(err) {
                     // handle an error condition
