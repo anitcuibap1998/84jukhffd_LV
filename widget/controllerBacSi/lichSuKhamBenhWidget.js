@@ -17,6 +17,7 @@ define([
     "widget/bacSiWidget",
     "widget/duocSiWidget",
     "widget/rowBNWidgetSelected",
+    "widget/controllerCommon/rowTblToaThuocWidget",
     "dojo/_base/array",
     "dojo/dom-attr",
     "dojo/dom",
@@ -25,7 +26,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, rowBNWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, rowBNWidget, rowTblToaThuocWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
@@ -59,7 +60,7 @@ define([
             // this.checkRole();
             // var domNode = this.domNode;
             this.inherited(arguments);
-
+            this.__loadRowTblLichSuKham();
             this.own(
                 // on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
                 // on(this.datlichBenhNhan, "click", lang.hitch(this, "datlichBN")),
@@ -130,9 +131,55 @@ define([
                 w.destroyRecursive();
             });
         },
+        _resetLichSuKham: function() {
+            dojo.forEach(dijit.findWidgets(this.rowBN), function(w) {
+                w.destroyRecursive();
+            });
+        },
         editBN: function() {
             console.log("vào hàm sửa bệnh nhân !!!")
         },
+        __loadRowTblLichSuKham: function() {
+            var that = this;
+            this._resetLichSuKham();
+            this.rowToaThuocNode.innerHTML = "";
+            this.rowToaThuocNode.hidden = false;
+            console.log('vào hàm load danh sách lich su !!!')
+            request(this.urlServer + "/toa_thuoc/lichSuKhamAll", {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                    // do something with handled data
+                    datas = JSON.parse(datas)
+                    console.log(datas)
 
+                    if (datas.statusCode == 404) {
+                        alert("Bạn Bị Từ Chối Truy Cập Vì không Đủ Quyền, Chúng Tôi Sẽ Chuyển Bạn Về Màng Hình Đăng Nhập!!!");
+                        window.location.href = "../index.html";
+                    } else {
+                        console.log("load thành công danh sách bệnh nhân !!!")
+                            // Our template - important!
+                        var rowToaThuocWidget1 = dom.byId("rowToaThuocWidget");
+                        arrayUtil.forEach(datas, function(item) {
+                            item.namSinh = that.getFormattedDate(new Date(item.namSinh));
+                            item.ngayKeToa = that.getFormattedDate(new Date(item.ngayKeToa));
+                            var widget = new rowTblToaThuocWidget(item).placeAt(rowToaThuocWidget1);
+                        });
+                    }
+                },
+                function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!")
+                    window.location.href = "../index.html";
+                });
+        },
+        getFormattedDate: function(date) {
+            let year = date.getFullYear();
+            let month = (1 + date.getMonth()).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+
+            return day + '-' + month + '-' + year;
+        },
     });
 });

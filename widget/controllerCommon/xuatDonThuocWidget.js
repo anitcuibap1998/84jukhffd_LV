@@ -32,26 +32,14 @@ define([
 
         //==== input data=====
         // id_thuoc: null,
-        // ten_thuoc: null,
-        // ham_luong: null,
-        // don_vi_tinh: null,
-        // so_luong_thuoc: null,
-        // cach_dung: null,
-        // // node element
-        // idThuocNode: null,
-        // tenThuocNode: null,
-        // hamLuongNode: null,
-        // donViTinhNode: null,
-        // soLuongNode: null,
-        // cachDungNode: null,
+
+
 
 
 
         ///các node tương tác ui
-        // btnXongThuocNode: null,
-        // btnEditThuocNode: null,
-        // btnDeleteThuocNode: null,
-        // txtDataSearch: null,
+
+        printToaThuocNode: null,
         // Our template - important!
         templateString: template,
 
@@ -61,16 +49,12 @@ define([
             this.inherited(arguments);
 
             this.own(
-                // on(this.btnXongThuocNode, "click", lang.hitch(this, "editXongThuoc"))
+                on(this.printToaThuocNode, "click", lang.hitch(this, "printToaThuoc"))
             );
         },
 
-        editXongThuoc: function() {
-            console.log("vào hàm sửa xong thuốc");
-            this.soLuongNode.disabled = true;
-            this.cachDungNode.disabled = true;
-            this.btnXongThuocNode.hidden = true;
-            this.btnEditThuocNode.hidden = false;
+        printToaThuoc: function() {
+            console.log("vao ham in ra toa thuoc !!!");
         },
 
     });

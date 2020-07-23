@@ -278,13 +278,14 @@ define([
                     console.log("array: ", that.arrayToaThuoc);
                     that.arrayToaThuoc.splice(0, that.arrayToaThuoc.length);
                     console.log("array sau khi xóa rỗng: ", that.arrayToaThuoc);
+                    that.___renderDonThuoc(idToaThuoc);
                 } else {
                     alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
                 }
             }, function(err) {
                 alert("Không kết nối được tới server");
             });
-            registry.byId("bacSiWidget").khamBenh();
+            // registry.byId("bacSiWidget").khamBenh();
         },
 
         __validateInputToaThuoc: function(idLoaiKham, idBenhNhan, arrayToaThuoc, ketQuaKham, danDoNode) {
@@ -322,5 +323,24 @@ define([
                 w.destroyRecursive();
             });
         },
+        //render don thuoc sau khi tao toa thuoc thanh cong
+        ___renderDonThuoc: function(idToaThuoc) {
+            console.log("go to function renderDonThuoc");
+
+            request(this.urlServer + "/toa_thuoc/detailDonThuoc?idToaThuoc=" + idToaThuoc, {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                    // do something with handled data
+                    datas = JSON.parse(datas, true);
+                    console.log("chi tiet cua mot toa thuoc: ", datas);
+                },
+                function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!");
+                });
+        },
+
     });
 });

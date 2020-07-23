@@ -59,7 +59,7 @@ define([
 
         postCreate: function() {
             let current_datetime = new Date()
-            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear();
             this.valueDateSelected.innerHTML = formatted_date
             var domNode = this.domNode;
             // this.checkRole();

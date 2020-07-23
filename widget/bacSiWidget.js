@@ -179,12 +179,13 @@ define([
             // this._resetDSBN();
             console.log("Load Lịch Hẹn Của Ngày Hôm Nay");
             let current_datetime = new Date()
-            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear();
+            let formatted_date1 = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
             this.valueDateSelected.innerHTML = "";
             this.valueDateSelected.innerHTML = formatted_date
             console.log(formatted_date);
             var that = this;
-            request(this.urlServer + "/lich_hen/getAllByDay/?inputdate=" + formatted_date, {
+            request(this.urlServer + "/lich_hen/getAllByDay/?inputdate=" + formatted_date1, {
                 headers: {
                     "tokenAC": localStorage.getItem("tokenAC")
                 }
