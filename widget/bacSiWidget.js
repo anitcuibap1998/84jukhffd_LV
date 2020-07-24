@@ -18,6 +18,7 @@ define([
     "widget/rowLichHenWidget.js",
     "widget/khamBenhWidget",
     "widget/controllerBacSi/lichSuKhamBenhWidget",
+    "widget/controllerCommon/xuatDonThuocWidget",
     "dojo/_base/array",
     "dojo/dom-attr",
     "dojo/dom",
@@ -26,7 +27,7 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, dsBNWidget, timkiemBNWidget, rowLichHenWidget, khamBenhWidget, lichSuKhamBenhWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, dsBNWidget, timkiemBNWidget, rowLichHenWidget, khamBenhWidget, lichSuKhamBenhWidget, xuatDonThuocWidget, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file bacSiWidget")
     return declare([WidgetBase, TemplatedMixin], {
 
@@ -276,6 +277,27 @@ define([
             this.indexLoadNewBenhNhan.innerHTML = "";
             console.log("khamBenhWidget: " + contentBacSiWidget);
             var widget3 = new lichSuKhamBenhWidget().placeAt(contentBacSiWidget);
+        },
+        //render don thuoc sau khi tao toa thuoc thanh cong
+        ___renderDonThuoc: function(idToaThuoc) {
+
+            console.log("go to function renderDonThuoc");
+
+            request(this.urlServer + "/toa_thuoc/detailDonThuoc?idToaThuoc=" + idToaThuoc, {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                    // do something with handled data
+                    datas = JSON.parse(datas, true);
+                    console.log("chi tiet cua mot toa thuoc: ", datas);
+                    var xuatDonThuocWidget1 = dom.byId("contentBacSiWidget");
+                    var widget = new xuatDonThuocWidget(datas).placeAt(xuatDonThuocWidget1);
+                },
+                function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!");
+                });
         },
     });
 });

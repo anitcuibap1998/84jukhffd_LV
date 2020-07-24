@@ -1,29 +1,85 @@
-<div class="xuatDonThuoc">
+<div class="xuatDonThuoc col-sm-10 pt-5 pb-5" style="background-color: antiquewhite;">
     <div class="row">
         <div class="col-sm-8 text-left">
-            <h4>Phòng Khám Tư Nhân ABC XYZ</h4>
-            <h4>180 Cao Lỗ ,Phường 4, Quận 8,TP.HCM</h4>
+            <h5>${infoPhongKham.name}</h5>
+            <h5>${infoPhongKham.dia_chi}</h5>
         </div>
         <div class="col-sm-4 text-right">
-            <h4>Mã Đơn Thuốc:1029383</h4>
+            <h5>Mã:${infoToaThuoc.id}</h5>
         </div>
     </div>
-    <div class="row text-center">
-        <h2>Đơn Thuốc</h2>
+    <div class="row text-center mt-5 mb-5">
+        <h2 class="font-weight-bold">Đơn Thuốc</h2>
     </div>
     <div class="row">
-        <div class="col-sm-8 text-left">
-            <h4>User asdasdsdadadsda</h4>
-            <h4>180 Cao Lỗ ,Phường 4, Quận 8,TP.HCM</h4>
+        <div class="col-sm-12 text-left">
+            <div class="div text-left d-flex">
+                <div class="div col-sm-7">
+                    <h5>Tên Bệnh Nhân: ${infoBenhNhan.full_name}</h5>
+                </div>
+                <div class="div col-sm-2">
+                    <h5 data-dojo-attach-point="tuoi"></h5>
+                </div>
+                <div class="div col-sm-3">
+                    <h5>Giới Tính: ${infoBenhNhan.sex}</h5>
+                </div>
+            </div>
+            <div class="div text-left col-sm-12">
+                <h5>Địa Chỉ: ${infoBenhNhan.address}</h5>
+            </div>
+            <div class="div text-left col-sm-12">
+                <h5>Số Điện Thoại: 0${infoBenhNhan.phone}</h5>
+            </div>
+            <div class="div text-left col-sm-12">
+                <h5>Chuẩn Đoán: ${infoToaThuoc.chuan_doan}</h5>
+            </div>
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên thuốc/hàm lượng</th>
+                        <th scope="col">ĐVT</th>
+                        <th scope="col">Số Lượng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Panadon</td>
+                        <td>Viên</td>
+                        <td>30</td>
+                    </tr>
+                    <tr style="height: 15px;">
+                        <td colspan=4 class="text-lg-left">
+                            <div style="padding-left: 11%;"> Cách dùng: aaaaaaaaaaaaaaaaaaaaaaas</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
 
+        </div>
+        <div class="col-sm-6 text-center">
+            <div>Ngày 18 tháng 8 năm 2020</div>
+            <div style="width: 100%; height: 180px;">Bác sĩ điều trị</div>
+        </div>
     </div>
     <div class="row">
-        footer don thuoc
+        <div class="col-sm-12 text-left">
+            <div>Bệnh nhân cần đem theo đơn này cho lần khám sau</div>
+            <div>Lời dặn dò của bác sĩ: ${infoToaThuoc.dan_do}</div>
+        </div>
     </div>
     <div class="row">
-        <button class="btn btn-info" data-dojo-attach-point="printToaThuocNode">In Toa Thuoc</button>
+        <div class="col-sm-12 text-right">
+            <button class="btn btn-info" data-dojo-attach-point="printToaThuocNode">In Toa Thuoc</button>
+        </div>
     </div>
 </div>

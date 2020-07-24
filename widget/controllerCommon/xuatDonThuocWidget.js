@@ -31,12 +31,15 @@ define([
 
 
         //==== input data=====
-        // id_thuoc: null,
+        infoToaThuoc: null,
+        infoPhongKham: null,
+        infoBenhNhan: null,
+        listThuoc: null,
 
 
 
 
-
+        tuoi: null,
         ///các node tương tác ui
 
         printToaThuocNode: null,
@@ -47,7 +50,7 @@ define([
             // this.checkRole();
             // var domNode = this.domNode;
             this.inherited(arguments);
-
+            this.___showData();
             this.own(
                 on(this.printToaThuocNode, "click", lang.hitch(this, "printToaThuoc"))
             );
@@ -56,6 +59,13 @@ define([
         printToaThuoc: function() {
             console.log("vao ham in ra toa thuoc !!!");
         },
-
+        ___showData: function() {
+            console.log("vao ham in ra toa thuoc !!!");
+            dateNow = new Date();
+            namSinh = new Date(this.infoBenhNhan.birth_date);
+            console.log(dateNow.getFullYear(), namSinh.getFullYear());
+            let tuoidoi = dateNow.getFullYear() - namSinh.getFullYear();
+            this.tuoi.innerHTML = "Tuổi: " + tuoidoi;
+        },
     });
 });

@@ -279,7 +279,7 @@ define([
                     console.log("array: ", that.arrayToaThuoc);
                     that.arrayToaThuoc.splice(0, that.arrayToaThuoc.length);
                     console.log("array sau khi xóa rỗng: ", that.arrayToaThuoc);
-                    that.___renderDonThuoc(idToaThuoc);
+                    that.__gotoToaThuoc(idToaThuoc);
                 } else {
                     alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
                 }
@@ -324,27 +324,9 @@ define([
                 w.destroyRecursive();
             });
         },
-        //render don thuoc sau khi tao toa thuoc thanh cong
-        ___renderDonThuoc: function(idToaThuoc) {
-            console.log("go to function renderDonThuoc");
-
-            request(this.urlServer + "/toa_thuoc/detailDonThuoc?idToaThuoc=" + idToaThuoc, {
-                headers: {
-                    "tokenAC": localStorage.getItem("tokenAC")
-                }
-            }).then(function(datas) {
-                    // do something with handled data
-                    datas = JSON.parse(datas, true);
-                    console.log("chi tiet cua mot toa thuoc: ", datas);
-                    var xuatDonThuocWidget1 = dom.byId("indexLoadNewBenhNhan");
-                    var widget = new xuatDonThuocWidget().placeAt(xuatDonThuocWidget1);
-
-                },
-                function(err) {
-                    // handle an error condition
-                    alert("không có kết nối tới server !!!");
-                });
+        __gotoToaThuoc: function(idtoathuoc) {
+            registry.byId("bacSiWidget")._resetMenuLichHen();
+            registry.byId("bacSiWidget").___renderDonThuoc(idtoathuoc);
         },
-
     });
 });

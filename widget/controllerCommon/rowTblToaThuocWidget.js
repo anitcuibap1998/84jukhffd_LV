@@ -28,9 +28,9 @@ define([
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
-
-
-
+        maThuoc: null,
+        //btn tuong tac ui
+        btnChiTietDonThuocNode: null,
         // Our template - important!
         templateString: template,
 
@@ -40,16 +40,15 @@ define([
             this.inherited(arguments);
 
             this.own(
-                // on(this.btnXongThuocNode, "click", lang.hitch(this, "editXongThuoc"))
+                on(this.btnChiTietDonThuocNode, "click", lang.hitch(this, "showChiTietToaThuoc")),
             );
         },
 
-        editXongThuoc: function() {
-            console.log("vào hàm sửa xong thuốc");
-            this.soLuongNode.disabled = true;
-            this.cachDungNode.disabled = true;
-            this.btnXongThuocNode.hidden = true;
-            this.btnEditThuocNode.hidden = false;
+        showChiTietToaThuoc: function() {
+            console.log("vào hiển thị chi tiết đơn thuốc");
+            idtoathuoc = this.maThuoc;
+            registry.byId("bacSiWidget")._resetMenuLichHen();
+            registry.byId("bacSiWidget").___renderDonThuoc(idtoathuoc);
         },
 
     });
