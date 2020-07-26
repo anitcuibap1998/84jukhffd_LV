@@ -292,6 +292,14 @@ define([
                     datas = JSON.parse(datas, true);
                     console.log("chi tiet cua mot toa thuoc: ", datas);
                     var xuatDonThuocWidget1 = dom.byId("contentBacSiWidget");
+                    console.log(datas.infoBenhNhan.sex);
+                    if (datas.infoBenhNhan.sex == 1) {
+                        datas.infoBenhNhan.sex = "Nam";
+                    } else if (datas.infoBenhNhan.sex == 0) {
+                        datas.infoBenhNhan.sex = "Nữ";
+                    } else {
+                        datas.infoBenhNhan.sex = "Khác";
+                    }
                     var widget = new xuatDonThuocWidget(datas).placeAt(xuatDonThuocWidget1);
                 },
                 function(err) {
