@@ -35,9 +35,6 @@ define([
         infoBenhNhan: null,
         listThuoc: null,
 
-
-
-
         tuoi: null,
         ///các node tương tác ui
         rowDetailDonThuocNode: null,
@@ -57,11 +54,15 @@ define([
 
         printToaThuoc: function() {
             console.log("vao ham in ra toa thuoc !!!");
-            var printContents = this.printDonThuocNode.innerHTML;
-            var originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
+            var newWindow = window.open();
+            newWindow.document.open();
+            newWindow.document.write('<html><head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Bác Sĩ</title> <link rel="stylesheet" href="css/core.css"> <link rel="stylesheet" href="css/main.css"> <!-- <link rel="stylesheet" href="css/index.css"> --> <script src="js/main.js"></script> <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css"> <link rel="stylesheet" href="dojo-release-1.16.3/dijit/themes/claro/claro.css"> <!-- booststrap --> <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> <script src="bootstrap/js/bootstrap.min.js"></script> </head> <body>');
+            newWindow.document.write('<div class="col-sm-8">');
+            newWindow.document.write(this.printDonThuocNode.innerHTML);
+            newWindow.document.write('</div></body></html>');
+            newWindow.document.close();
+
+            newWindow.print();
         },
         copyAsNew: function() {
             console.log("vao ham copy as new!!!");
