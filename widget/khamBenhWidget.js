@@ -223,10 +223,13 @@ define([
             if (result) {
                 request.post(this.urlServer + "/toa_thuoc/addOne", {
                     data: dojo.toJson({
-                        "id_benh_nhan": idBN,
-                        "chuan_doan": ketQuaKham,
-                        "dan_do": danDoNode,
-                        "id_gia_kham": idLoaiKham
+                        "toaThuoc": {
+                            "id_benh_nhan": idBN,
+                            "chuan_doan": ketQuaKham,
+                            "dan_do": danDoNode,
+                            "id_gia_kham": idLoaiKham
+                        },
+                        "listChiTietToaThuoc": this.arrayToaThuoc
                     }),
                     headers: {
                         "Content-Type": 'application/json; charset=utf-8',
@@ -240,12 +243,24 @@ define([
                     console.log(typeof value);
 
                     if (value.statusCode != 404) {
-                        that.__taoChiTietToaThuoc(value.id);
-                    } else {
-                        alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
+                        console.log("id toa thuoc: ", value.toaThuoc.id);
+                        alert("Bạn Tạo Toa Thuốc Thành Công Mã Toa: " + value.toaThuoc.id);
+                        that.createToaThuocBN.disabled = false;
+                        console.log("array: ", that.arrayToaThuoc);
+                        that.arrayToaThuoc.splice(0, that.arrayToaThuoc.length);
+                        console.log("array sau khi xóa rỗng: ", that.arrayToaThuoc);
+                        that.__gotoToaThuoc(value.toaThuoc.id);
+                    } else if (value.status == 404) {
+                        alert("Bạn Không Có Quyền Để Tạo Ra Toa Thuốc cho Bệnh Nhân !!!");
                     }
                 }, function(err) {
-                    alert("Không kết nối được tới server");
+                    console.log("err: ", err);
+                    console.log(err.response.status);
+                    if (err.response.status == 500) {
+                        alert("Lỗi Bất Ngờ Trong Quá Trình Kết Nối Đến Server, Cảm Phiền Bác Sĩ Thử Lại Ạ !!!");
+                    } else {
+                        alert("Lỗi Mất Kết Nối Với Server !!!");
+                    }
                 });
             }
         },
@@ -254,40 +269,7 @@ define([
                 item.id_toa_thuoc = idToaThuoc;
             })
         },
-        __taoChiTietToaThuoc: function(idToaThuoc) {
-            this.__xuLyArray(idToaThuoc);
-            var that = this;
-            console.log("Vào hàm tạo chi tiết toa thuốc");
-            request.post(this.urlServer + "/chi_tiet_toa_thuoc/addOne", {
-                data: dojo.toJson(this.arrayToaThuoc),
-                headers: {
-                    "Content-Type": 'application/json; charset=utf-8',
-                    "Accept": "application/json",
-                    "tokenAC": localStorage.getItem("tokenAC")
-                }
-            }).then(function(value) {
 
-                console.log("The server returned: ");
-                console.log(JSON.parse(value, true));
-                value = JSON.parse(value, true);
-                console.log(typeof value);
-
-                if (value.statusCode != 404) {
-                    console.log("id toa thuoc: ", idToaThuoc);
-                    alert("Bạn Tạo Toa Thuốc Thành Công Mã Toa: " + idToaThuoc);
-                    that.createToaThuocBN.disabled = false;
-                    console.log("array: ", that.arrayToaThuoc);
-                    that.arrayToaThuoc.splice(0, that.arrayToaThuoc.length);
-                    console.log("array sau khi xóa rỗng: ", that.arrayToaThuoc);
-                    that.__gotoToaThuoc(idToaThuoc);
-                } else {
-                    alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
-                }
-            }, function(err) {
-                alert("Không kết nối được tới server");
-            });
-            // registry.byId("bacSiWidget").khamBenh();
-        },
 
         __validateInputToaThuoc: function(idLoaiKham, idBenhNhan, arrayToaThuoc, ketQuaKham, danDoNode) {
             console.log("a:", idLoaiKham, "b:", idBenhNhan, "c:", arrayToaThuoc, "d:", ketQuaKham);
