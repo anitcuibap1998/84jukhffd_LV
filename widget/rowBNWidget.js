@@ -24,26 +24,25 @@ define([
     "dojo/NodeList-dom",
     "dojo/domReady!",
 ], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, duocSiWidget, Attr, dom, registry, Memory, ComboBox) {
-    console.log("vao duoc file containerWidget")
+    console.log("vao duoc file load row benh nhan");
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
-        idContent: "rowBN",
-        
+
         //==== input data=====
-        id:null,
-        full_name:null,
-        phone:null,
-        address:null,
-        sex:null,
-        tien_su_benh:null,
-        birth_date:null,
-        ghi_chu:null,
-       
+        id: null,
+        full_name: null,
+        phone: null,
+        address: null,
+        sex: null,
+        tien_su_benh: null,
+        birth_date: null,
+        ghi_chu: null,
+
         ///các node tương tác ui
-        editBenhNhan:null,
-        datlichBenhNhan:null,
-        khambenhBenhNhan:null,
+        editBenhNhan: null,
+        datlichBenhNhan: null,
+        khambenhBenhNhan: null,
         // Our template - important!
         templateString: template,
 
@@ -51,21 +50,21 @@ define([
             // this.checkRole();
             // var domNode = this.domNode;
             this.inherited(arguments);
-            
+
             this.own(
-                 on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
-                 on(this.datlichBenhNhan, "click", lang.hitch(this, "datlichBN")),
-                 on(this.khambenhBenhNhan, "click", lang.hitch(this, "khambenhBN")),
+                on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
+                on(this.datlichBenhNhan, "click", lang.hitch(this, "datlichBN")),
+                on(this.khambenhBenhNhan, "click", lang.hitch(this, "khambenhBN")),
             );
         },
-        
-        editBN: function(){
+
+        editBN: function() {
             console.log("vào hàm sửa bệnh nhân !!!")
         },
-        datlichBN: function(){
+        datlichBN: function() {
             console.log("vào hàm đặt lịch cho bệnh nhân !!!")
         },
-        khambenhBN: function(){
+        khambenhBN: function() {
             console.log("vào hàm khám bệnh cho bệnh nhân !!!")
         }
     });

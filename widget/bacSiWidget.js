@@ -55,6 +55,9 @@ define([
         templateString: template,
 
 
+        index: 0,
+        pageSise: 10,
+
 
 
         postCreate: function() {
