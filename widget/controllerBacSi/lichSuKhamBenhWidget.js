@@ -55,7 +55,7 @@ define([
         rowToaThuocNode: null,
         firtLoad: true,
         // Our template - important!
-
+        tblBenhNhanNodeRoot: null,
 
         maBenhNhanRadio: true,
         maToaThuocRadio: false,
@@ -73,10 +73,33 @@ define([
                 this.__loadRowTblLichSuKham();
             };
             this.own(
-                // on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
-                // on(this.datlichBenhNhan, "click", lang.hitch(this, "datlichBN")),
-                // on(this.khambenhBenhNhan, "click", lang.hitch(this, "khambenhBN")),
+
             );
+        },
+        optionSearch: function() {
+            if (this.maBenhNhanRadio == true) {
+                console.log("Lựa chọn tìm theo mã bệnh nhân");
+                console.log(this.txtDataSearch.value);
+                if (this.txtDataSearch.value == undefined || this.txtDataSearch.value == null || this.txtDataSearch.value == "") {
+                    this.tblBenhNhanNodeRoot.hidden = true;
+                    this._resetDSBN();
+                    this.mesNode.hidden = true;
+                    this.__loadRowTblLichSuKham();
+                }
+                if (this.txtDataSearch.value != undefined && this.txtDataSearch.value != null && this.txtDataSearch.value != "") {
+                    this.tblBenhNhanNodeRoot.hidden = false;
+                    this.loadDSBN();
+                }
+            } else if (this.maToaThuocRadio) {
+                console.log("Lựa chọn tìm theo mã toa thuốc");
+                if (this.txtDataSearch.value == undefined || this.txtDataSearch.value == null || this.txtDataSearch.value == "") {
+                    this.mesNode.hidden = true;
+                    this.__loadRowTblLichSuKham();
+                }
+                if (this.txtDataSearch.value != undefined && this.txtDataSearch.value != null && this.txtDataSearch.value != "") {
+                    this.__loadRowTblLichSuKhamSearch(this.txtDataSearch.value);
+                }
+            }
         },
         loadDSBN: function() {
             var that = this;
@@ -196,12 +219,13 @@ define([
             console.log('vào hàm load danh sách lich su !!!')
             path = "/toa_thuoc/lichSuKhamListByIdBenhNhan?idBenhNhan=";
             if (this.maBenhNhanRadio == true) {
-                path = "/benh_nhan/timkiemTuongDoi?keysearch=";
-            } else if (this.maToaThuocRadio) {
-                path = "/benh_nhan/timkiemTuongDoi?keysearchMaToaThuoc=";
-            } else {
-                path = "/benh_nhan/timkiemTuongDoi?keysearchSoDienThoai=";
+                path = "/toa_thuoc/lichSuKhamListByIdBenhNhan?idBenhNhan=";
+            } else if (this.maToaThuocRadio == true) {
+                path = "/toa_thuoc/lichSuKhamListByIdToaThuoc?idToaThuoc=";
             }
+            //else {
+            //     path = "/benh_nhan/timkiemTuongDoi?keysearchSoDienThoai=";
+            // }
             request(this.urlServer + path + idBenhNhan, {
                 headers: {
                     "tokenAC": localStorage.getItem("tokenAC")
@@ -211,9 +235,17 @@ define([
                     datas = JSON.parse(datas)
                     console.log(datas)
 
-                    if (datas.statusCode == 404) {
+                    if (datas.statusCode == 403) {
                         alert("Bạn Bị Từ Chối Truy Cập Vì không Đủ Quyền, Chúng Tôi Sẽ Chuyển Bạn Về Màng Hình Đăng Nhập!!!");
                         window.location.href = "../index.html";
+                    } else if (datas.statusCode == 404) {
+                        if (that.maBenhNhanRadio == true) {
+                            this.mesNode.hidden = false;
+                            this.mesNode.innerHTML = "Không Tìm Thấy Bệnh Nhân Này";
+                        } else if (that.maToaThuocRadio == true) {
+                            this.mesNode.hidden = false;
+                            this.mesNode.innerHTML = "Không Tìm Thấy Toa Thuốc Này";
+                        }
                     } else {
                         console.log("load thành công danh sách bệnh nhân !!!")
                             // Our template - important!
@@ -258,15 +290,15 @@ define([
             console.log(this.maToaThuocRadio);
             // console.log(this.sodienThoaiRadio);
         },
-        checkedSoDienThoai: function() {
-            this.maBenhNhanRadio = false;
-            this.maToaThuocRadio = false;
-            // this.sodienThoaiRadio = true;
-            this.checkedMaBenhNhanNode.checked = false;
-            this.checkedMaToaThuocNode.checked = false;
-            console.log(this.maBenhNhanRadio);
-            console.log(this.maToaThuocRadio);
-            // console.log(this.sodienThoaiRadio);
-        },
+        // checkedSoDienThoai: function() {
+        //     this.maBenhNhanRadio = false;
+        //     this.maToaThuocRadio = false;
+        //     // this.sodienThoaiRadio = true;
+        //     this.checkedMaBenhNhanNode.checked = false;
+        //     this.checkedMaToaThuocNode.checked = false;
+        //     console.log(this.maBenhNhanRadio);
+        //     console.log(this.maToaThuocRadio);
+        //     // console.log(this.sodienThoaiRadio);
+        // },
     });
 });

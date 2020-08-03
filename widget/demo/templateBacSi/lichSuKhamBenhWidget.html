@@ -18,12 +18,12 @@
         </div>
         <div class="col-sm-6">
             <label for="inputState">Chọn Bệnh Nhân</label>
-            <input class="form-control" id="searchtest" aria-label="Search" data-dojo-attach-event="keyup:loadDSBN" data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges:true" data-dojo-attach-point="txtDataSearch">
-            <label data-dojo-attach-point="mesNode" id="mesNode">Không Tìm Thấy Bệnh Nhân</label>
+            <input class="form-control" id="searchtest" aria-label="Search" data-dojo-attach-event="keyup:optionSearch" data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges:true" data-dojo-attach-point="txtDataSearch">
+            <label data-dojo-attach-point="mesNode" id="mesNode" hidden>Không Tìm Thấy Bệnh Nhân</label>
             <input data-dojo-type="dijit/form/TextBox" id="fullNameNodeId" value="" data-dojo-attach-point="fullNameNode" hidden>
         </div>
     </div>
-    <div class="row">
+    <div class="row" data-dojo-attach-point="tblBenhNhanNodeRoot">
         <div class="col-md-6">
             <table class="table table-striped table-bordered rounded">
                 <thead data-dojo-attach-point="tblBenhNhanSelectedNode" hidden>

@@ -41,7 +41,7 @@ define([
             this.inherited(arguments);
 
             this.own(
-                // on(this.btnChiTietDonThuocNode, "click", lang.hitch(this, "showChiTietToaThuoc")),
+
             );
         },
 
