@@ -35,20 +35,25 @@ define([
         urlServer: "http://localhost:8088",
 
         index: 0,
-        pageSize: 15,
+        pageSize: 10,
+
+        activeLoad: true,
         // Our template - important!
         templateString: template,
 
         postCreate: function() {
             // this.checkRole();
+
             this.loadDSBenhNhan();
+
             this.own(
-                // on(this.window, "scroll", lang.hitch(this, "loadDSBenhNhan")),
+                on(window, "scroll", lang.hitch(this, "lazyLoads")),
             );
         },
 
         loadDSBenhNhan: function() {
             var that = this;
+            console.log(this.index);
             console.log('vào hàm load danh sách bệnh nhân !!!')
             request(this.urlServer + "/benh_nhan/getAll?index=" + this.index + "&pageSize=" + this.pageSize, {
                 headers: {
@@ -56,10 +61,11 @@ define([
                 }
             }).then(function(datas) {
                 // do something with handled data
-                console.log(datas);
                 datas = JSON.parse(datas);
-                console.log("*****************");
-                console.log(datas);
+                console.log(datas)
+                if (datas.length == 0) {
+                    that.activeLoad = false;
+                }
                 if (datas.statusCode == 404) {
                     alert("Bạn Bị Từ Chối Truy Cập Vì không Đủ Quyền, Chúng Tôi Sẽ Chuyển Bạn Về Màng Hình Đăng Nhập!!!");
                     window.location.href = "../index.html";
@@ -68,7 +74,6 @@ define([
                     // Our template - important!
 
                     arrayUtil.forEach(datas, function(item) {
-                        console.log("data trong vong for: ", that.rowBN);
                         item.birth_date = item.birth_date.split("T", 1);
                         if (item.sex == 1) {
                             item.sex = "Nam";
@@ -87,6 +92,13 @@ define([
                 window.location.href = "../index.html";
             });
             this.index++;
+
+        },
+
+        lazyLoads: function() {
+            if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight && this.activeLoad == true) {
+                this.loadDSBenhNhan();
+            }
         },
         getFormattedDate: function(date) {
             let year = date.getFullYear();

@@ -5,13 +5,20 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-6 text-center">
+            <form class="text-left" style="width: 300px;">
+                <p>Lựa Chọn Hình Thức Tìm Kiếm Theo:</p>
+                <input type="radio" id="mabn" name="mabn" value="mabn" checked data-dojo-attach-event="click:checkedMaBenhNhan" data-dojo-attach-point="checkedMaBenhNhanNode">
+                <label for="male">Mã Bệnh Nhân(Tên Bệnh Nhân)</label><br>
+                <input type="radio" id="matt" name="matt" value="matt" data-dojo-attach-event="click:checkedMaToaThuoc" data-dojo-attach-point="checkedMaToaThuocNode">
+                <label for="female">Mã Toa Thuốc</label><br>
+                <!-- <input type="radio" id="sdt" name="sdt" value="sdt" data-dojo-attach-event="click:checkedSoDienThoai" data-dojo-attach-point="checkedSoDienThoaiNode">
+                <label for="other">Số Điện Thoại</label> -->
+            </form>
+        </div>
         <div class="col-sm-6">
             <label for="inputState">Chọn Bệnh Nhân</label>
             <input class="form-control" id="searchtest" aria-label="Search" data-dojo-attach-event="keyup:loadDSBN" data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges:true" data-dojo-attach-point="txtDataSearch">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
             <label data-dojo-attach-point="mesNode" id="mesNode">Không Tìm Thấy Bệnh Nhân</label>
             <input data-dojo-type="dijit/form/TextBox" id="fullNameNodeId" value="" data-dojo-attach-point="fullNameNode" hidden>
         </div>
@@ -26,7 +33,7 @@
                         <th scope="col">Sđt</th>
                         <th scope="col">Giới Tính</th>
                         <th scope="col">Ngày Sinh</th>
-                        <th scope="col" style="color: #00805e;">Action</th>
+                        <th scope="col" style="color:#00805e;">Action</th>
                     </tr>
                 </thead>
                 <tbody id="rowBNWidget" data-dojo-attach-point="rowBN">
@@ -39,7 +46,7 @@
     <div class="row">
         <div class="col-sm-12">
             <table class="table">
-                <thead id="rowToaThuocWidget" data-dojo-attach-point="rowToaThuocNode">
+                <thead>
                     <tr>
                         <th scope="col">Mã Toa Thuốc</th>
                         <th scope="col">Tên Bệnh Nhân</th>

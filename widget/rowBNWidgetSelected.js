@@ -72,23 +72,21 @@ define([
                         registry.byId("lichSuKhamBenhWidgetId").fullNameNode.value = that.full_name;
                         registry.byId("lichSuKhamBenhWidgetId").rowBN.hidden = true;
                         registry.byId("lichSuKhamBenhWidgetId").tblBenhNhanSelectedNode.hidden = true;
-                    }
-                    if (data == 99 && localStorage.getItem("trangthai") == 0) {
+
+                        registry.byId("lichSuKhamBenhWidgetId").__loadRowTblLichSuKhamSearch(that.id);
+                    } else if (data == 99 && localStorage.getItem("trangthai") == 0) {
                         registry.byId("khamBenhWidgetId").txtDataSearch.value = that.id;
                         registry.byId("khamBenhWidgetId").fullNameNode.value = that.full_name;
                         registry.byId("khamBenhWidgetId").rowBN.hidden = true;
                         registry.byId("khamBenhWidgetId").tblBenhNhanSelectedNode.hidden = true;
-                    }
-                    if (data == 30) {
+                    } else if (data == 30) {
                         registry.byId("danhSachLichHenWidgetId").txtDataSearch.value = that.id;
                         registry.byId("danhSachLichHenWidgetId").fullNameNode.value = that.full_name;
                         registry.byId("danhSachLichHenWidgetId").rowBN.hidden = true;
                         registry.byId("danhSachLichHenWidgetId").headDSBNSearchNode.hidden = true;
-                    }
-                    if (data == 20) {
+                    } else if (data == 20) {
 
-                    }
-                    if (data == 404) {
+                    } else if (data == 404) {
                         alert("Sự cố kết nối internet!!!");
                     }
                 }, function(err) {

@@ -145,6 +145,7 @@ define([
         loadDSBN: function() {
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {
+
                 this._resetDSBN();
                 let contentBacSiWidget = dom.byId("contentBacSiWidget");
                 console.log("kq: " + kq);

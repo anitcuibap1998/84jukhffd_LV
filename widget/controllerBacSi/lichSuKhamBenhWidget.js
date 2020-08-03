@@ -53,14 +53,25 @@ define([
         fullNameNode: null,
         mesNode: null,
         rowToaThuocNode: null,
+        firtLoad: true,
         // Our template - important!
+
+
+        maBenhNhanRadio: true,
+        maToaThuocRadio: false,
+        // sodienThoaiRadio: false,
+        checkedMaBenhNhanNode: null,
+        checkedMaToaThuocNode: null,
+        // checkedSoDienThoaiNode: null,
         templateString: template,
 
         postCreate: function() {
             // this.checkRole();
             // var domNode = this.domNode;
             this.inherited(arguments);
-            this.__loadRowTblLichSuKham();
+            if (this.firtLoad == true) {
+                this.__loadRowTblLichSuKham();
+            };
             this.own(
                 // on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
                 // on(this.datlichBenhNhan, "click", lang.hitch(this, "datlichBN")),
@@ -132,7 +143,7 @@ define([
             });
         },
         _resetLichSuKham: function() {
-            dojo.forEach(dijit.findWidgets(this.rowBN), function(w) {
+            dojo.forEach(dijit.findWidgets(this.rowToaThuocNode), function(w) {
                 w.destroyRecursive();
             });
         },
@@ -140,12 +151,58 @@ define([
             console.log("vào hàm sửa bệnh nhân !!!")
         },
         __loadRowTblLichSuKham: function() {
+            this.firtLoad = false;
+            var that = this;
+            this._resetLichSuKham();
+            this.rowToaThuocNode.innerHTML = "";
+            this.rowToaThuocNode.hidden = false;
+            console.log(this.rowToaThuocNode);
+            console.log('vào hàm load danh sách lich su !!!')
+            request(this.urlServer + "/toa_thuoc/lichSuKhamAll", {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                    // do something with handled data
+                    datas = JSON.parse(datas)
+                    console.log(datas)
+
+                    if (datas.statusCode == 404) {
+                        alert("Bạn Bị Từ Chối Truy Cập Vì không Đủ Quyền, Chúng Tôi Sẽ Chuyển Bạn Về Màng Hình Đăng Nhập!!!");
+                        window.location.href = "../index.html";
+                    } else {
+                        console.log("load thành công danh sách bệnh nhân !!!")
+                            // Our template - important!
+                        var rowToaThuocWidget1 = dom.byId("rowToaThuocWidget");
+                        arrayUtil.forEach(datas, function(item) {
+                            item.namSinh = that.getFormattedDate(new Date(item.namSinh));
+                            item.ngayKeToa = that.getFormattedDate(new Date(item.ngayKeToa));
+                            var widget = new rowTblToaThuocWidget(item).placeAt(rowToaThuocWidget1);
+                        });
+                    }
+                },
+                function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!")
+                    window.location.href = "../index.html";
+                });
+        },
+        __loadRowTblLichSuKhamSearch: function(idBenhNhan) {
+            console.log(idBenhNhan);
             var that = this;
             this._resetLichSuKham();
             this.rowToaThuocNode.innerHTML = "";
             this.rowToaThuocNode.hidden = false;
             console.log('vào hàm load danh sách lich su !!!')
-            request(this.urlServer + "/toa_thuoc/lichSuKhamAll", {
+            path = "/toa_thuoc/lichSuKhamListByIdBenhNhan?idBenhNhan=";
+            if (this.maBenhNhanRadio == true) {
+                path = "/benh_nhan/timkiemTuongDoi?keysearch=";
+            } else if (this.maToaThuocRadio) {
+                path = "/benh_nhan/timkiemTuongDoi?keysearchMaToaThuoc=";
+            } else {
+                path = "/benh_nhan/timkiemTuongDoi?keysearchSoDienThoai=";
+            }
+            request(this.urlServer + path + idBenhNhan, {
                 headers: {
                     "tokenAC": localStorage.getItem("tokenAC")
                 }
@@ -178,8 +235,38 @@ define([
             let year = date.getFullYear();
             let month = (1 + date.getMonth()).toString().padStart(2, '0');
             let day = date.getDate().toString().padStart(2, '0');
-
             return day + '-' + month + '-' + year;
+        },
+        checkedMaBenhNhan: function() {
+
+            this.maBenhNhanRadio = true;
+            this.maToaThuocRadio = false;
+            // this.sodienThoaiRadio = false;
+            this.checkedMaToaThuocNode.checked = false;
+            // this.checkedSoDienThoaiNode.checked = false;
+            console.log(this.maBenhNhanRadio);
+            console.log(this.maToaThuocRadio);
+            // console.log(this.sodienThoaiRadio);
+        },
+        checkedMaToaThuoc: function() {
+            this.maBenhNhanRadio = false;
+            this.maToaThuocRadio = true;
+            // this.sodienThoaiRadio = false;
+            this.checkedMaBenhNhanNode.checked = false;
+            // this.checkedSoDienThoaiNode.checked = false;
+            console.log(this.maBenhNhanRadio);
+            console.log(this.maToaThuocRadio);
+            // console.log(this.sodienThoaiRadio);
+        },
+        checkedSoDienThoai: function() {
+            this.maBenhNhanRadio = false;
+            this.maToaThuocRadio = false;
+            // this.sodienThoaiRadio = true;
+            this.checkedMaBenhNhanNode.checked = false;
+            this.checkedMaToaThuocNode.checked = false;
+            console.log(this.maBenhNhanRadio);
+            console.log(this.maToaThuocRadio);
+            // console.log(this.sodienThoaiRadio);
         },
     });
 });

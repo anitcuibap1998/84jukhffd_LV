@@ -29,6 +29,12 @@ body {
 }
 
 
+/* .reset_mr_ml {
+    margin-right: 0px;
+    margin-left: 0px;
+} */
+
+
 /* Change styles for span and cancel button on extra small screens */
 
 @media screen and (max-width: 300px) {
