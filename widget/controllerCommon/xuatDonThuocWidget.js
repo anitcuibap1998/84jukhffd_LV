@@ -39,6 +39,8 @@ define([
         ///các node tương tác ui
         rowDetailDonThuocNode: null,
         printToaThuocNode: null,
+
+        editDonThuoc: null,
         copyAsNewNode: null,
         printDonThuocNode: null,
         // Our template - important!
@@ -48,6 +50,7 @@ define([
             this.own(
                 on(this.printToaThuocNode, "click", lang.hitch(this, "printToaThuoc")),
                 on(this.copyAsNewNode, "click", lang.hitch(this, "copyAsNew")),
+                on(this.editDonThuoc, "click", lang.hitch(this, "__editDonThuoc")),
             );
             this.___showData();
         },
@@ -66,6 +69,24 @@ define([
         },
         copyAsNew: function() {
             console.log("vao ham copy as new!!!");
+            registry.byId("bacSiWidget").khamBenh();
+            registry.byId("khamBenhWidgetId").titleTaoMoiToaThuocNode.hidden = false;
+        },
+        __editDonThuoc: function() {
+            console.log("vao ham edit !!!");
+            localStorage.setItem("suaToaThuoc", 1);
+            registry.byId("bacSiWidget").khamBenh();
+            registry.byId("khamBenhWidgetId").titleSuaToaThuocNode.hidden = false;
+            registry.byId("khamBenhWidgetId").maThuocCanEditNode.innerHTML = this.infoToaThuoc.id;
+            registry.byId("khamBenhWidgetId").createToaThuocNode.hidden = true;
+            registry.byId("khamBenhWidgetId").editToaThuocNode.hidden = false;
+            registry.byId("khamBenhWidgetId").txtDataSearch.value = this.infoBenhNhan.id;
+            registry.byId("khamBenhWidgetId").ketQuaKhamNode.value = this.infoToaThuoc.chuan_doan;
+            registry.byId("khamBenhWidgetId").danDoNode.value = this.infoToaThuoc.dan_do;
+            registry.byId("khamBenhWidgetId").arrayToaThuoc = this.listThuoc;
+            registry.byId("khamBenhWidgetId").renderTblToaThuoc(registry.byId("khamBenhWidgetId").arrayToaThuoc);
+            registry.byId("khamBenhWidgetId").loadLoaiKhamBenhSelected(this.infoToaThuoc.id_gia_kham);
+
         },
         ___showData: function() {
             console.log("vao ham in ra toa thuoc !!!");

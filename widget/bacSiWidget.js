@@ -72,7 +72,7 @@ define([
                 on(this.danhSachLichHenNode, "click", lang.hitch(this, "_reloadTrang")),
                 on(this.dsBN, "click", lang.hitch(this, "loadDSBN")),
                 on(this.timKiemDSLichHenTheoNgayNode, "click", lang.hitch(this, "timKiemLichHenTheoNgay")),
-                on(this.khamBenhNodeBtn, "click", lang.hitch(this, "khamBenh")),
+                on(this.khamBenhNodeBtn, "click", lang.hitch(this, "__truocKhiVaoHamKhamBenh")),
                 on(this.lichSuKhamBenhNodeBtn, "click", lang.hitch(this, "lichSuKhamBenh")),
             );
             this._loadDSLichHenHomNay();
@@ -260,9 +260,12 @@ define([
                 w.destroyRecursive();
             });
         },
+        __truocKhiVaoHamKhamBenh: function() {
+            localStorage.setItem("suaToaThuoc", 2);
+            this.khamBenh();
+        },
         khamBenh: function() {
             localStorage.setItem("trangthai", 0);
-
             console.log("vào khám bệnh nha");
             let kq = confirm("Bạn Có Muốn Thực Hiện");
             if (kq == true) {

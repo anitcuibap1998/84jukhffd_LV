@@ -1,5 +1,10 @@
 <div class="khamBenhClassNode container">
-    <div class="row" style="height: 20px;"></div>
+    <div class="row" style="height: 20px;">
+        <div class="col-sm-12">
+            <h2 data-dojo-attach-point="titleSuaToaThuocNode" hidden>Sửa Toa Thuốc <span data-dojo-attach-point="maThuocCanEditNode" style="color: darkblue;"></span></h2>
+            <h2 data-dojo-attach-point="titleTaoMoiToaThuocNode" hidden>Tọa Mới Toa Thuốc</h2>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="row">
@@ -7,7 +12,7 @@
                     <div class="row">
                         <div class="col-sm-6 claro">
                             <label for="loaiKhamId">Hình Thức Khám:</label>
-                            <input class="form-control" type="text" id="loaiKhamId">
+                            <input class="form-control" type="text" id="loaiKhamId" data-dojo-attach-point="selectLoaiKhamNode">
                         </div>
                         <div class="col-sm-6">
                             <label for="inputState">Chọn Bệnh Nhân</label>
@@ -124,6 +129,7 @@
     <div class="row">
         <div class="col-sm-12">
             <button class="btn btn-outline-primary" data-dojo-attach-point="createToaThuocNode">Kê Toa</button>
+            <button class="btn btn-outline-primary" data-dojo-attach-point="editToaThuocNode" hidden>Sửa</button>
         </div>
     </div>
 </div>

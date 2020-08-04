@@ -56,6 +56,14 @@ define([
         danDoNode: null,
         createToaThuocNode: null,
 
+        maThuocCanEditNode: null,
+        titleSuaToaThuocNode: null,
+        titleTaoMoiToaThuocNode: null,
+        editToaThuocNode: null,
+        selectLoaiKhamNode: null,
+
+
+
         templateString: template,
 
 
@@ -65,10 +73,13 @@ define([
             // var domNode = this.domNode;
             // this.inherited(arguments);
             this.arrayToaThuoc.splice(0, this.arrayToaThuoc.length);
-            this.loadLoaiKhamBenh();
-
+            console.log(localStorage.getItem("suaToaThuoc"));
+            if (localStorage.getItem("suaToaThuoc") != 1) {
+                this.loadLoaiKhamBenh();
+            };
             this.own(
                 on(this.createToaThuocNode, "click", lang.hitch(this, "createToaThuocBN")),
+                on(this.editToaThuocNode, "click", lang.hitch(this, "editToaThuocBN")),
 
             );
         },
@@ -196,11 +207,40 @@ define([
                     alert("không có kết nối tới server !!!");
                 });
         },
+        loadLoaiKhamBenhSelected: function(maKhamBenh) {
+            this.__resetLoaiKhamBenh();
+            console.log(maKhamBenh);
+            console.log(maKhamBenh - 1);
+            request(this.urlServer + "/loai_kham/getAll", {
+                headers: {
+                    "tokenAC": localStorage.getItem("tokenAC")
+                }
+            }).then(function(datas) {
+                    // do something with handled data
+                    datas = JSON.parse(datas, true)
+                    var stateStore = new Memory({
+                        data: datas
+                    });
+                    console.log(stateStore);
+                    let filteringSelect = new FilteringSelect({
+                        id: "loaiKhamId",
+                        ten_hinh_thuc: "",
+                        value: datas[maKhamBenh - 1].id,
+                        store: stateStore,
+                        searchAttr: "ten_hinh_thuc",
+                        class: "form-control",
+                    }, "loaiKhamId").startup();
+                },
+                function(err) {
+                    // handle an error condition
+                    alert("không có kết nối tới server !!!");
+                });
+        },
 
 
         renderTblToaThuoc: function(arrThuoc) {
             console.log("vào hàm render ra tblToaThuoc");
-            this._resetTblToaThuoc
+            this._resetTblToaThuoc();
             console.log("arrThuoc: ", arrThuoc);
             var tblToaThuocId = dom.byId("tblToaThuocId");
             tblToaThuocId.innerHTML = "";
@@ -264,6 +304,61 @@ define([
                 });
             }
         },
+        editToaThuocBN: function() {
+            var that = this;
+            console.log("Vào hàm tạo toa thuốc");
+            let idLoaiKham = dijit.byId('loaiKhamId').get('value');
+            let idBN = this.txtDataSearch.value;
+            let ketQuaKham = this.ketQuaKhamNode.value;
+            let danDoNode = this.danDoNode.value;
+            let result = this.__validateInputToaThuoc(idLoaiKham, idBN, this.arrayToaThuoc, ketQuaKham, danDoNode);
+            console.log("result: ", result)
+            this.editToaThuocNode.disabled = true;
+            if (result) {
+                request.put(this.urlServer + "/toa_thuoc/updateOne?idToaThuoc=" + that.maThuocCanEditNode.innerHTML, {
+                    data: dojo.toJson({
+                        "toaThuoc": {
+                            // "id": that.maThuocCanEditNode.innerHTML,
+                            "id_benh_nhan": idBN,
+                            "chuan_doan": ketQuaKham,
+                            "dan_do": danDoNode,
+                            "id_gia_kham": idLoaiKham
+                        },
+                        "listChiTietToaThuoc": this.arrayToaThuoc
+                    }),
+                    headers: {
+                        "Content-Type": 'application/json; charset=utf-8',
+                        "Accept": "application/json",
+                        "tokenAC": localStorage.getItem("tokenAC")
+                    }
+                }).then(function(value) {
+                    console.log("The server returned: ");
+                    console.log(JSON.parse(value, true));
+                    value = JSON.parse(value, true);
+                    console.log(typeof value);
+
+                    if (value.statusCode != 404) {
+                        console.log("id toa thuoc: ", value.toaThuoc.id);
+                        alert("Bạn Tạo Sửa Toa Thuốc Thành Công Mã Toa: " + that.maThuocCanEditNode.innerHTML);
+                        that.editToaThuocNode.disabled = false;
+                        console.log("array: ", that.arrayToaThuoc);
+                        that.arrayToaThuoc.splice(0, that.arrayToaThuoc.length);
+                        console.log("array sau khi xóa rỗng: ", that.arrayToaThuoc);
+                        that.__gotoToaThuoc(that.maThuocCanEditNode.innerHTML);
+                    } else if (value.status == 404) {
+                        alert("Bạn Không Có Quyền Để Tạo Ra Toa Thuốc cho Bệnh Nhân !!!");
+                    }
+                }, function(err) {
+                    console.log("err: ", err);
+                    console.log(err.response.status);
+                    if (err.response.status == 500) {
+                        alert("Lỗi Bất Ngờ Trong Quá Trình Kết Nối Đến Server, Cảm Phiền Bác Sĩ Thử Lại Ạ !!!");
+                    } else {
+                        alert("Lỗi Mất Kết Nối Với Server !!!");
+                    }
+                });
+            }
+        },
         __xuLyArray: function(idToaThuoc) {
             this.arrayToaThuoc.forEach((item) => {
                 item.id_toa_thuoc = idToaThuoc;
@@ -290,6 +385,11 @@ define([
                 return false;
             }
             return true;
+        },
+        __resetLoaiKhamBenh: function() {
+            dojo.forEach(dijit.findWidgets(this.selectLoaiKhamNode), function(w) {
+                w.destroyRecursive();
+            });
         },
         _resetDSBN: function() {
             dojo.forEach(dijit.findWidgets(this.rowBN), function(w) {
