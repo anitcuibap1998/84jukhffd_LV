@@ -318,8 +318,9 @@ define([
                 request.put(this.urlServer + "/toa_thuoc/updateOne?idToaThuoc=" + that.maThuocCanEditNode.innerHTML, {
                     data: dojo.toJson({
                         "toaThuoc": {
-                            // "id": that.maThuocCanEditNode.innerHTML,
+                            "id": that.maThuocCanEditNode.innerHTML,
                             "id_benh_nhan": idBN,
+                            "ngay_ke_toa": localStorage.getItem("ngay_ke_toa"),
                             "chuan_doan": ketQuaKham,
                             "dan_do": danDoNode,
                             "id_gia_kham": idLoaiKham
@@ -338,6 +339,7 @@ define([
                     console.log(typeof value);
 
                     if (value.statusCode != 404) {
+                        localStorage.setItem("ngay_ke_toa", null);
                         console.log("id toa thuoc: ", value.toaThuoc.id);
                         alert("Bạn Tạo Sửa Toa Thuốc Thành Công Mã Toa: " + that.maThuocCanEditNode.innerHTML);
                         that.editToaThuocNode.disabled = false;
@@ -346,6 +348,7 @@ define([
                         console.log("array sau khi xóa rỗng: ", that.arrayToaThuoc);
                         that.__gotoToaThuoc(that.maThuocCanEditNode.innerHTML);
                     } else if (value.status == 404) {
+                        that.editToaThuocNode.disabled = false;
                         alert("Bạn Không Có Quyền Để Tạo Ra Toa Thuốc cho Bệnh Nhân !!!");
                     }
                 }, function(err) {
@@ -353,8 +356,10 @@ define([
                     console.log(err.response.status);
                     if (err.response.status == 500) {
                         alert("Lỗi Bất Ngờ Trong Quá Trình Kết Nối Đến Server, Cảm Phiền Bác Sĩ Thử Lại Ạ !!!");
+                        that.editToaThuocNode.disabled = false;
                     } else {
                         alert("Lỗi Mất Kết Nối Với Server !!!");
+                        that.editToaThuocNode.disabled = false;
                     }
                 });
             }

@@ -70,11 +70,20 @@ define([
         copyAsNew: function() {
             console.log("vao ham copy as new!!!");
             registry.byId("bacSiWidget").khamBenh();
+            localStorage.setItem("suaToaThuoc", 1);
             registry.byId("khamBenhWidgetId").titleTaoMoiToaThuocNode.hidden = false;
+            registry.byId("khamBenhWidgetId").createToaThuocNode.hidden = false;
+            registry.byId("khamBenhWidgetId").txtDataSearch.value = this.infoBenhNhan.id;
+            registry.byId("khamBenhWidgetId").ketQuaKhamNode.value = this.infoToaThuoc.chuan_doan;
+            registry.byId("khamBenhWidgetId").danDoNode.value = this.infoToaThuoc.dan_do;
+            registry.byId("khamBenhWidgetId").arrayToaThuoc = this.listThuoc;
+            registry.byId("khamBenhWidgetId").renderTblToaThuoc(registry.byId("khamBenhWidgetId").arrayToaThuoc);
+            registry.byId("khamBenhWidgetId").loadLoaiKhamBenhSelected(this.infoToaThuoc.id_gia_kham);
         },
         __editDonThuoc: function() {
             console.log("vao ham edit !!!");
             localStorage.setItem("suaToaThuoc", 1);
+            localStorage.setItem("ngay_ke_toa", this.infoToaThuoc.ngay_ke_toa);
             registry.byId("bacSiWidget").khamBenh();
             registry.byId("khamBenhWidgetId").titleSuaToaThuocNode.hidden = false;
             registry.byId("khamBenhWidgetId").maThuocCanEditNode.innerHTML = this.infoToaThuoc.id;
