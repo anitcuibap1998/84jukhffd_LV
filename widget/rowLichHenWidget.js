@@ -30,7 +30,7 @@ define([
         // These typically map to whatever you're passing to the constructor
         // idContent: "rowBN",
         //-----url-----
-        urlServer: "http://localhost:8088",
+        urlServer: "http://192.168.74.106:8088",
         //==== input data=====
         id: null,
         time: null,

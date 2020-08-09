@@ -32,7 +32,7 @@ define([
     return declare([WidgetBase, TemplatedMixin], {
 
         id: "bacSiWidget",
-        urlServer: "http://localhost:8088",
+        urlServer: "http://192.168.74.106:8088",
         // userName: null,
         // passWord: null,
         // login: null,
@@ -279,11 +279,13 @@ define([
         },
         lichSuKhamBenh: function() {
             localStorage.setItem("trangthai", 1);
-            alert("vào lịch sử khám bệnh nha");
-            this._resetDSBN();
-            this.indexLoadNewBenhNhan.innerHTML = "";
-            console.log("khamBenhWidget: " + contentBacSiWidget);
-            var widget3 = new lichSuKhamBenhWidget().placeAt(contentBacSiWidget);
+            let kq = confirm("Bạn Có Muốn Vào Lịch Sử Khám Bệnh");
+            if (kq == true) {
+                this._resetDSBN();
+                this.indexLoadNewBenhNhan.innerHTML = "";
+                console.log("khamBenhWidget: " + contentBacSiWidget);
+                var widget3 = new lichSuKhamBenhWidget().placeAt(contentBacSiWidget);
+            }
         },
         //render don thuoc sau khi tao toa thuoc thanh cong
         ___renderDonThuoc: function(idToaThuoc) {

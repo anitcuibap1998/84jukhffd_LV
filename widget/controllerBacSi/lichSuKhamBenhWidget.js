@@ -34,7 +34,7 @@ define([
         id: "lichSuKhamBenhWidgetId",
 
         // url sever
-        urlServer: "http://localhost:8088",
+        urlServer: "http://192.168.74.106:8088",
         //==== input data=====
 
 
@@ -62,6 +62,7 @@ define([
         // sodienThoaiRadio: false,
         checkedMaBenhNhanNode: null,
         checkedMaToaThuocNode: null,
+        optionTieuDeNode: null,
         // checkedSoDienThoaiNode: null,
         templateString: template,
 
@@ -121,6 +122,7 @@ define([
                     if (datas.statusCode == 1000) {
                         console.log("ko thay")
                         that.mesNode.hidden = false;
+                        that.mesNode.innerHTML = "Không Tìm Thấy Bệnh Nhân";
                         that.tblBenhNhanSelectedNode.hidden = true;
                     }
                     if (datas.statusCode != 1000) {
@@ -270,7 +272,8 @@ define([
             return day + '-' + month + '-' + year;
         },
         checkedMaBenhNhan: function() {
-
+            this.optionTieuDeNode.innerHTML = "";
+            this.optionTieuDeNode.innerHTML = "Chọn Bệnh Nhân Cần Tìm";
             this.maBenhNhanRadio = true;
             this.maToaThuocRadio = false;
             // this.sodienThoaiRadio = false;
@@ -281,6 +284,8 @@ define([
             // console.log(this.sodienThoaiRadio);
         },
         checkedMaToaThuoc: function() {
+            this.optionTieuDeNode.innerHTML = "";
+            this.optionTieuDeNode.innerHTML = "Chọn Mã Toa Thuốc Cần Tìm";
             this.maBenhNhanRadio = false;
             this.maToaThuocRadio = true;
             // this.sodienThoaiRadio = false;

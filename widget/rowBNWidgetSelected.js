@@ -27,7 +27,7 @@ define([
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
         //==== url =====
-        urlServer: "http://localhost:8088",
+        urlServer: "http://192.168.74.106:8088",
         //==== input data=====
         id: null,
         full_name: null,

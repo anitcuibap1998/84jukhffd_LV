@@ -29,12 +29,12 @@ define([
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         idContent: "newBenhNhanWidget",
-        urlServer:"http://localhost:8088",
-        
-        btnAddNewBN:null,
-        
+        urlServer: "http://192.168.74.106:8088",
+
+        btnAddNewBN: null,
+
         //====
-       
+
         // Our template - important!
         templateString: template,
 
@@ -42,13 +42,13 @@ define([
             // this.checkRole();
             // var domNode = this.domNode;
             this.inherited(arguments);
-            
+
             this.own(
                 on(this.btnAddNewBN, "click", lang.hitch(this, "addNewBenhNhan")),
             );
         },
-       
-        addNewBenhNhan: function(){
+
+        addNewBenhNhan: function() {
             var that = this;
             let fullname = dom.byId("full_name").value;
             let sex = dom.byId("sex").value;
@@ -57,23 +57,23 @@ define([
             let diachi = dom.byId("diachi").value;
             let tsbenh = dom.byId("tsbenh").value;
             let note = dom.byId("note").value;
-            console.log("fullname: "+fullname);
-            console.log("sex: "+sex);
-            console.log("phone: "+phone);
-            console.log("birthday: "+birthday);
-            console.log("diachi: "+diachi);
-            console.log("tsbenh: "+tsbenh);
-            console.log("note: "+note);
-            request.post(this.urlServer+"/benh_nhan/addOne", {
+            console.log("fullname: " + fullname);
+            console.log("sex: " + sex);
+            console.log("phone: " + phone);
+            console.log("birthday: " + birthday);
+            console.log("diachi: " + diachi);
+            console.log("tsbenh: " + tsbenh);
+            console.log("note: " + note);
+            request.post(this.urlServer + "/benh_nhan/addOne", {
                 data: dojo.toJson({
                     "full_name": fullname,
-                    "phone":  phone,
+                    "phone": phone,
                     "address": diachi,
                     "sex": sex,
-                    "tien_su_benh":tsbenh,
+                    "tien_su_benh": tsbenh,
                     "birth_date": birthday,
                     "ghi_chu": note
-               }),
+                }),
                 headers: {
                     "Content-Type": 'application/json; charset=utf-8',
                     "Accept": "application/json",
@@ -89,11 +89,11 @@ define([
                 let name = value.last_name + " " + value.first_name;
                 if (value.statusCode != 404) {
                     registry.byId("tiepTanWidget").maBNNode.innerHTML = value.id;
-                    alert("Bạn Vừa Thêm Thành Công, Mã Số Bệnh Nhân Là: "+value.id);
-                } else{
+                    alert("Bạn Vừa Thêm Thành Công, Mã Số Bệnh Nhân Là: " + value.id);
+                } else {
                     alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
                 }
-            },function(err){
+            }, function(err) {
                 alert("Không kết nối được tới server");
             });
         }

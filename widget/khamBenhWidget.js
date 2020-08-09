@@ -13,8 +13,6 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dojo/text!./demo/khamBenhWidget.html",
-    "widget/tiepTanWidget",
-    "widget/bacSiWidget",
     "widget/rowBNWidgetSelected",
     "widget/controllerBacSi/thuocWidget",
     "widget/controllerBacSi/rowTblToaThuocWidget",
@@ -28,13 +26,13 @@ define([
     "dijit/form/ComboBox",
     "dojo/NodeList-dom",
     "dojo/domReady!",
-], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, tiepTanWidget, bacSiWidget, rowBNWidget, thuocWidget, rowTblToaThuocWidget, xuatDonThuocWidget, FilteringSelect, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
+], function(dojo, declare, baseFx, lang, domStyle, mouse, Toggler, on, query, request, JSON, WidgetBase, TemplatedMixin, template, rowBNWidget, thuocWidget, rowTblToaThuocWidget, xuatDonThuocWidget, FilteringSelect, arrayUtil, Attr, dom, registry, Memory, ComboBox) {
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         id: "khamBenhWidgetId",
-        urlServer: "http://localhost:8088",
+        urlServer: "http://192.168.74.106:8088",
         //==== input data=====
         //data import Array
         arrayToaThuoc: [],

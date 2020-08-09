@@ -1,4 +1,3 @@
-let urlServer="http://localhost:8088";
 define([
     "dojo",
     "dojo/_base/declare",
@@ -30,7 +29,7 @@ define([
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         idContent: "widgetRoot",
-
+        urlServer: "http://192.168.74.106:8088",
 
         //====
         userName: null,
@@ -45,15 +44,11 @@ define([
         templateString: template,
 
         // A reference to our background animation
-        mouseAnim: null,
-
-        baseBackgroundColor: "#ece0e0",
-        mouseBackgroundColor: "#5485ba",
         postCreate: function() {
             this.checkRole();
             var domNode = this.domNode;
             this.inherited(arguments);
-            
+
             domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
 
             this.own(
@@ -85,7 +80,7 @@ define([
             let userName = this.userName.value;
             let passWord = this.passWord.value;
             console.log(userName + " -- " + passWord);
-            request.post(urlServer+"/user/login", {
+            request.post(urlServer + "/user/login", {
                 data: dojo.toJson({
                     "username": userName,
                     "pass": passWord
@@ -123,7 +118,7 @@ define([
                 } else {
                     alert("Bạn Đăng Nhập Sai");
                 }
-            },function(err){
+            }, function(err) {
                 alert("Không kết nối được tới server");
             });
         },
@@ -155,30 +150,30 @@ define([
             window.location.href = "../duocsi.html";
         },
         checkRole: function() {
-            if(localStorage.getItem("tokenAC")!=null){
+            if (localStorage.getItem("tokenAC") != null) {
                 //gọi hàm check role
-                request(urlServer+"/user/checkRole",{
+                request(urlServer + "/user/checkRole", {
                     headers: {
-                        "tokenAC":localStorage.getItem("tokenAC")
+                        "tokenAC": localStorage.getItem("tokenAC")
                     }
-                }).then(function(data){
+                }).then(function(data) {
                     // do something with handled data
-                    if(data == 99){
+                    if (data == 99) {
                         alert("Bạn Đã Đăng Nhập !!!");
                         window.location.href = "../bacsi.html";
-                    }else if(data == 30){
+                    } else if (data == 30) {
                         alert("Bạn Đã Đăng Nhập !!!");
                         window.location.href = "../tieptan.html";
-                    }else if(data == 20){
+                    } else if (data == 20) {
                         alert("Bạn Đã Đăng Nhập !!!");
                         window.location.href = "../duocsi.html";
-                    }else if(data==404){
+                    } else if (data == 404) {
                         localStorage.removeItem("tokenAC");
                     }
-                  }, function(err){
+                }, function(err) {
                     // handle an error condition
                     alert("không có kết nối tới server !!!")
-                  });
+                });
             }
         },
     });

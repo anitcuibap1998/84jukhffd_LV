@@ -32,7 +32,7 @@ define([
         btnAddNewBN: null,
 
         //==== url =====
-        urlServer: "http://localhost:8088",
+        urlServer: "http://192.168.74.106:8088",
 
         // Our template - important!
         templateString: template,

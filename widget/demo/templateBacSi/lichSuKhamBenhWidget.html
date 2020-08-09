@@ -17,7 +17,7 @@
             </form>
         </div>
         <div class="col-sm-6">
-            <label for="inputState">Chọn Bệnh Nhân</label>
+            <label for="inputState" data-dojo-attach-point="optionTieuDeNode">Chọn Bệnh Nhân</label>
             <input class="form-control" id="searchtest" aria-label="Search" data-dojo-attach-event="keyup:optionSearch" data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges:true" data-dojo-attach-point="txtDataSearch">
             <label data-dojo-attach-point="mesNode" id="mesNode" hidden>Không Tìm Thấy Bệnh Nhân</label>
             <input data-dojo-type="dijit/form/TextBox" id="fullNameNodeId" value="" data-dojo-attach-point="fullNameNode" hidden>
