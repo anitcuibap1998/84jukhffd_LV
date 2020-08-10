@@ -34,6 +34,29 @@ body {
     margin-left: 0px;
 } */
 
+@keyframes example {
+    0% {
+        translate: 80%;
+    }
+    25% {
+        translate: 60%;
+    }
+    50% {
+        translate: 40%;
+    }
+    100% {
+        translate: 1%;
+    }
+}
+
+.anMenuBS {
+    margin-left: -230px;
+}
+
+.hienMenuBS {
+    margin-left: 0px;
+}
+
 
 /* Change styles for span and cancel button on extra small screens */
 

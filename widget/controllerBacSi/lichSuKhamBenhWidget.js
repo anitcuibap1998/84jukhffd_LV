@@ -34,7 +34,7 @@ define([
         id: "lichSuKhamBenhWidgetId",
 
         // url sever
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
         //==== input data=====
 
 
@@ -46,7 +46,7 @@ define([
         birth_date: null,
         ghi_chu: null,
 
-        ///các node tương tác ui
+        ///các node tương tác ui    
         txtDataSearch: null,
         tblBenhNhanSelectedNode: null,
         rowBN: null,

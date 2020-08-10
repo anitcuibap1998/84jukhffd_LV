@@ -16653,7 +16653,7 @@ require({
                     // emailRegExp: [protected] String
                     //		Used for validating input as correct email address.  Taken from dojox.validate
                     emailRegExp: "<?(mailto\\:)([!#-'*+\\-\\/-9=?A-Z^-~]+[.])*[!#-'*+\\-\\/-9=?A-Z^-~]+" /*username*/ + "@" +
-                        "((?:(?:[\\da-zA-Z](?:[-\\da-zA-Z]{0,61}[\\da-zA-Z])?)\\.)+(?:[a-zA-Z](?:[-\\da-zA-Z]{0,6}[\\da-zA-Z])?)\\.?)|192.168.74.106|^[^-][a-zA-Z0-9_-]*>?", // host.
+                        "((?:(?:[\\da-zA-Z](?:[-\\da-zA-Z]{0,61}[\\da-zA-Z])?)\\.)+(?:[a-zA-Z](?:[-\\da-zA-Z]{0,6}[\\da-zA-Z])?)\\.?)|localhost|^[^-][a-zA-Z0-9_-]*>?", // host.
 
                     // htmlTemplate: [protected] String
                     //		String used for templating the HTML to insert at the desired point.

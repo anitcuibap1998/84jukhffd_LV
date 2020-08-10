@@ -29,7 +29,7 @@ define([
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         idContent: "widgetRoot",
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
 
         //====
         userName: null,
@@ -46,32 +46,10 @@ define([
         // A reference to our background animation
         postCreate: function() {
             this.checkRole();
-            var domNode = this.domNode;
-            this.inherited(arguments);
-
-            domStyle.set(domNode, "backgroundColor", this.baseBackgroundColor);
 
             this.own(
                 on(this.login, "click", lang.hitch(this, "_login")),
             );
-        },
-        _changeBackground: function(newColor) {
-            // If we have an animation, stop it
-            if (this.mouseAnim) {
-                this.mouseAnim.stop();
-            }
-
-            // Set up the new animation
-            this.mouseAnim = baseFx.animateProperty({
-                node: this.domNode,
-                properties: {
-                    backgroundColor: newColor
-                },
-                onEnd: lang.hitch(this, function() {
-                    // Clean up our mouseAnim property
-                    this.mouseAnim = null;
-                })
-            }).play();
         },
         _login: function() {
 
@@ -80,7 +58,7 @@ define([
             let userName = this.userName.value;
             let passWord = this.passWord.value;
             console.log(userName + " -- " + passWord);
-            request.post(urlServer + "/user/login", {
+            request.post(this.urlServer + "/user/login", {
                 data: dojo.toJson({
                     "username": userName,
                     "pass": passWord
@@ -152,7 +130,7 @@ define([
         checkRole: function() {
             if (localStorage.getItem("tokenAC") != null) {
                 //gọi hàm check role
-                request(urlServer + "/user/checkRole", {
+                request(this.urlServer + "/user/checkRole", {
                     headers: {
                         "tokenAC": localStorage.getItem("tokenAC")
                     }

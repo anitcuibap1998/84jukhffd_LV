@@ -29,7 +29,7 @@ define([
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         idContent: "newBenhNhanWidget",
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
 
         btnAddNewBN: null,
 
@@ -87,10 +87,12 @@ define([
 
                 console.log(value.token);
                 let name = value.last_name + " " + value.first_name;
-                if (value.statusCode != 404) {
+                if (value.statusCode != 404 && value.statusCode != 999) {
                     registry.byId("tiepTanWidget").maBNNode.innerHTML = value.id;
                     alert("Bạn Vừa Thêm Thành Công, Mã Số Bệnh Nhân Là: " + value.id);
-                } else {
+                } else if (value.statusCode == 999) {
+                    alert(value.message);
+                } else if (value.statusCode == 404) {
                     alert("Bạn Không Đủ Quyền Để Thêm Bệnh Nhân");
                 }
             }, function(err) {

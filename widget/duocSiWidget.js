@@ -26,7 +26,7 @@ define([
         // Some default values for our author
         // These typically map to whatever you're passing to the constructor
         id: "duocSiWidget",
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
 
         //----btn----
         btnLogout: null,

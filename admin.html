@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Phòng Khám</title>
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+
+    <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css">
+    <link rel="stylesheet" href="dojo-release-1.16.3/dijit/themes/claro/claro.css">
+    <!-- booststrap -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="bacSiContainer" id="bacSiWidget">
+        <!--load widget bac si vao trong này -->
+
+    </div>
+    <script>
+        var base = location.href.split("/");
+        console.log(location.href)
+        var a = base.pop();
+
+        base = base.join("/");
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                name: "widget",
+                location: base + '/widget'
+            }]
+        };
+        console.log(dojoConfig);
+        console.log(base);
+    </script>
+    <!-- load Dojo -->
+    <script src="dojo-release-1.16.3/dojo/dojo.js"></script>
+    <script>
+        //dung dojo deload data và gắn vào cái widget có sẳn
+        require(["dojo/request", "dojo/dom", "dojo/_base/array", "widget/adminPhongKhamWidget", "dojo/domReady!"],
+            function(request, dom, arrayUtil, adminPhongKhamWidget) {
+                console.log(base);
+                var widgetRoot = dom.byId("bacSiWidget");
+                var widget = new adminPhongKhamWidget().placeAt(widgetRoot);
+            });
+    </script>
+</body>
+
+</html>

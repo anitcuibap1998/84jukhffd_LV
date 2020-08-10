@@ -1,4 +1,4 @@
-<div class="xuatDonThuoc col-sm-10 pt-5 pb-5" style="background-color: antiquewhite;">
+<div class="xuatDonThuoc col-sm-11 pt-5 pb-5" style="background-color: antiquewhite; width: 100%;">
     <div id="printDonThuoc" data-dojo-attach-point="printDonThuocNode">
         <div class="row">
             <div class="col-sm-8 text-left">
@@ -31,8 +31,15 @@
                 <div class="div text-left col-sm-12">
                     <h5>Địa Chỉ: ${infoBenhNhan.address}</h5>
                 </div>
-                <div class="div text-left col-sm-12">
-                    <h5>Số Điện Thoại: 0${infoBenhNhan.phone}</h5>
+                <div class="text-left col-sm-12">
+                    <div class="row  text-left">
+                        <div class="text-left col-6">
+                            <h5>Số Điện Thoại: 0${infoBenhNhan.phone}</h5>
+                        </div>
+                        <div class="text-left col-6">
+                            <h5>Loại Khám: ${infoLoaiKhamBenh.ten_hinh_thuc}</h5>
+                        </div>
+                    </div>
                 </div>
                 <div class="div text-left col-sm-12">
                     <h5>Chuẩn Đoán: ${infoToaThuoc.chuan_doan}</h5>

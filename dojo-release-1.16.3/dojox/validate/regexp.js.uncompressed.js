@@ -91,7 +91,7 @@ define("dojox/validate/regexp", ["dojo/_base/lang", "dojo/regexp", "dojox/main"]
                 // flags: Object?
                 //		- flags.allowNamed Allow a named host for local networks. Default is false.
                 //		- flags.allowIP  Allow an IP address for hostname.  Default is true.
-                //		- flags.allowLocal  Allow the host to be "192.168.74.106".  Default is false.
+                //		- flags.allowLocal  Allow the host to be "localhost".  Default is false.
                 //		- flags.allowPort  Allow a port number to be present.  Default is true.
                 //		- flags in regexp.ipAddress can be applied.
 

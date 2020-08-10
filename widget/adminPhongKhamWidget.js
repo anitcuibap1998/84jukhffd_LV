@@ -13,7 +13,7 @@ define([
     "dojo/json",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojo/text!./demo/bacSiWidget.html",
+    "dojo/text!./demo/adminPhongKhamWidget.html",
     "widget/dsBNWidget.js",
     "widget/timkiemBNWidget.js",
     "widget/rowLichHenWidget.js",
@@ -32,11 +32,15 @@ define([
     console.log("vao duoc file bacSiWidget")
     return declare([WidgetBase, TemplatedMixin], {
 
-        id: "bacSiWidget",
+        id: "adminPhongKhamWidget",
         urlServer: "http://localhost:8088",
         // userName: null,
         // passWord: null,
         // login: null,
+
+        btnBacSiNode: null,
+        notifindcationNode: null,
+
 
 
         anHienDanhSachMatDinh: null,
@@ -55,7 +59,7 @@ define([
         menuLeftMainNode: null,
         // Our template - important!
         templateString: template,
-        btnAdminNode: null,
+
 
         index: 0,
         pageSise: 10,
@@ -69,6 +73,7 @@ define([
             //Mặc Định load danh sách lịch hẹn trong ngày trước
             this.infoAccount();
             this.own(
+                on(this.btnBacSiNode, "click", lang.hitch(this, "gotoBacSi")),
                 on(this.btnLogout, "click", lang.hitch(this, "logout")),
                 on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
                 on(this.danhSachLichHenNode, "click", lang.hitch(this, "_reloadTrang")),
@@ -76,7 +81,6 @@ define([
                 on(this.timKiemDSLichHenTheoNgayNode, "click", lang.hitch(this, "timKiemLichHenTheoNgay")),
                 on(this.khamBenhNodeBtn, "click", lang.hitch(this, "__truocKhiVaoHamKhamBenh")),
                 on(this.lichSuKhamBenhNodeBtn, "click", lang.hitch(this, "lichSuKhamBenh")),
-                on(this.btnAdminNode, "click", lang.hitch(this, "gotoAdmin")),
                 on(this.menuLeftMainNode, mouse.enter, function() {
                     console.log("vào ẩn");
                     console.log(this.menuLeftMainNode);
@@ -100,8 +104,8 @@ define([
             this._loadDSLichHenHomNay();
 
         },
-        gotoAdmin: function() {
-            window.open("admin.html");
+        gotoBacSi: function() {
+            window.open("bacsi.html");
         },
         checkRole: function() {
             if (localStorage.getItem("tokenAC") != null) {

@@ -32,7 +32,7 @@ define([
         btnAddNewBN: null,
 
         //==== url =====
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
 
         index: 0,
         pageSize: 10,
@@ -74,7 +74,9 @@ define([
                     // Our template - important!
 
                     arrayUtil.forEach(datas, function(item) {
-                        item.birth_date = item.birth_date.split("T", 1);
+                        if (item.birth_date != null) {
+                            item.birth_date = item.birth_date.split("T", 1);
+                        }
                         if (item.sex == 1) {
                             item.sex = "Nam";
                         } else if (item.sex == 0) {

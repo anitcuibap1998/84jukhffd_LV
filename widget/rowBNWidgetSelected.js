@@ -27,7 +27,7 @@ define([
     console.log("vao duoc file containerWidget")
     return declare([WidgetBase, TemplatedMixin], {
         //==== url =====
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
         //==== input data=====
         id: null,
         full_name: null,
@@ -72,14 +72,13 @@ define([
                         registry.byId("lichSuKhamBenhWidgetId").fullNameNode.value = that.full_name;
                         registry.byId("lichSuKhamBenhWidgetId").rowBN.hidden = true;
                         registry.byId("lichSuKhamBenhWidgetId").tblBenhNhanSelectedNode.hidden = true;
-
                         registry.byId("lichSuKhamBenhWidgetId").__loadRowTblLichSuKhamSearch(that.id);
                     } else if (data == 99 && localStorage.getItem("trangthai") == 0) {
                         registry.byId("khamBenhWidgetId").txtDataSearch.value = that.id;
                         registry.byId("khamBenhWidgetId").fullNameNode.value = that.full_name;
                         registry.byId("khamBenhWidgetId").rowBN.hidden = true;
                         registry.byId("khamBenhWidgetId").tblBenhNhanSelectedNode.hidden = true;
-                    } else if (data == 30) {
+                    } else if (data == 30 || data == 99) {
                         registry.byId("danhSachLichHenWidgetId").txtDataSearch.value = that.id;
                         registry.byId("danhSachLichHenWidgetId").fullNameNode.value = that.full_name;
                         registry.byId("danhSachLichHenWidgetId").rowBN.hidden = true;

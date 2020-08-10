@@ -233,7 +233,7 @@ define("dojox/embed/Flash", [
 
         // File can only be run from a server, due to SWF dependency.
         if (location.href.toLowerCase().indexOf("file://") > -1) {
-            throw new Error("dojox.embed.Flash can't be run directly from a file. To instatiate the required SWF correctly it must be run from a server, like 192.168.74.106.");
+            throw new Error("dojox.embed.Flash can't be run directly from a file. To instatiate the required SWF correctly it must be run from a server, like localhost.");
         }
 
         // available: Number

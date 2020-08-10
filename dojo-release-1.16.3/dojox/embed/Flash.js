@@ -105,7 +105,7 @@ define("dojox/embed/Flash", ["dojo/_base/lang", "dojo/_base/unload", "dojo/_base
     }
     var _1a = function(_1b, _1c) {
         if (location.href.toLowerCase().indexOf("file://") > -1) {
-            throw new Error("dojox.embed.Flash can't be run directly from a file. To instatiate the required SWF correctly it must be run from a server, like 192.168.74.106.");
+            throw new Error("dojox.embed.Flash can't be run directly from a file. To instatiate the required SWF correctly it must be run from a server, like localhost.");
         }
         this.available = _a.major;
         this.minimumVersion = _1b.minimumVersion || _b;

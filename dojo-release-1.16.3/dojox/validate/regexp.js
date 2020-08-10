@@ -82,7 +82,7 @@ define("dojox/validate/regexp", ["dojo/_base/lang", "dojo/regexp", "dojox/main"]
                 _12 += "|" + _4.ipAddress(_e);
             }
             if (_e.allowLocal) {
-                _12 += "|192.168.74.106";
+                _12 += "|localhost";
             }
             if (_e.allowNamed) {
                 _12 += "|^[^-][a-zA-Z0-9_-]*";

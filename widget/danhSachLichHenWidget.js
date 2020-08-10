@@ -35,7 +35,7 @@ define([
         id: "danhSachLichHenWidgetId",
 
         //==== url =====
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
         //------btn------
         btnDatLich: null,
         dateLichHenNode: null,

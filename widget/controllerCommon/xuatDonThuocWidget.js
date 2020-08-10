@@ -33,6 +33,7 @@ define([
         infoToaThuoc: null,
         infoPhongKham: null,
         infoBenhNhan: null,
+        infoLoaiKhamBenh: null,
         listThuoc: null,
 
         tuoi: null,

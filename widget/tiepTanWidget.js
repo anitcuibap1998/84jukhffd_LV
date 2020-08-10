@@ -29,7 +29,7 @@ define([
     return declare([WidgetBase, TemplatedMixin], {
         id: "tiepTanWidget",
 
-        urlServer: "http://192.168.74.106:8088",
+        urlServer: "http://localhost:8088",
 
 
         templateString: template,
