@@ -3,7 +3,7 @@
         <div class="headerTrai headerTiepTan">
             <div class="row">
                 <div class="titleAccount">
-                    <p>Tên:</p>
+                    <p>Tên Admin:</p>
                     <p>Mail:</p>
                     <p>Phone:</p>
                     <p style="padding-top:10px; columns: #787878; display: inline;">Mã BN:</p>
@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="headerGiua">
-            <form class="timKiem" action="" method="GET">
-                <input type="text" placeholder="Tìm Kiếm Bệnh Nhân ..." data-dojo-attach-point="inputSearchNode" value="">
+            <form class="timKiem">
+                <input type="text" placeholder="Tìm Kiếm User ..." data-dojo-attach-point="inputSearchNode" value="">
                 <button type="button" data-dojo-attach-point="btnSearchNode"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -27,7 +27,7 @@
                 <div class="col-12 text-right"><button class="btn btn-dark" type="button" id="logout" data-dojo-attach-point="btnLogout">Đăng Xuất</button></div>
             </div>
             <div class="row" style="margin-bottom: 10px;">
-                <div class="col-12 text-right"><button class="btn btn-info" type="button" id="btnLogout" data-dojo-attach-point="btnLogout">Bác Sĩ</button></div>
+                <div class="col-12 text-right"><button class="btn btn-info" type="button" id="btnLogout" data-dojo-attach-point="btnBacSiNode">Bác Sĩ</button></div>
             </div>
             <div class="row">
                 <div class="col-12 text-right"><button class="btn btn-outline-danger" type="button" id="notifindcationNode" data-dojo-attach-point="notifindcationNode"><i class="fas fa-bell"></i></button></div>
@@ -38,10 +38,34 @@
         <div class="tarbarBS" id="menuLeftMain" data-dojo-attach-point="menuLeftMainNode">
             <div id="menu">
                 <ul>
-                    <li data-dojo-attach-point="danhSachLichHenNode"><a>Danh Sách Lịch Hẹn</a></li>
-                    <li data-dojo-attach-point="khamBenhNodeBtn"><a>Khám Bệnh</a></li>
-                    <li data-dojo-attach-point="lichSuKhamBenhNodeBtn"><a>Lịch Sử Khám Bệnh</a></li>
-                    <li data-dojo-attach-point="dsBN"><a>Danh Sách Bệnh Nhân</a></li>
+                    <li><a>Quản Lý Thuốc</a>
+                        <ul class="sub-menu">
+                            <li data-dojo-attach-point="danhSachThuocNode"><a>Danh Sách Thuốc</a></li>
+                            <li data-dojo-attach-point="themThuocNode"><a>Thêm Thuốc</a></li>
+                            <li data-dojo-attach-point="suaThuocNode"><a>Sửa Thuốc</a></li>
+                            <li data-dojo-attach-point="nhapThuocNode"><a>Nhập Thuốc</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Quản Lý User</a>
+                        <ul class="sub-menu">
+                            <li data-dojo-attach-point="danhSachUserNode"><a>Danh Sách User</a></li>
+                            <li><a>Thêm User</a></li>
+                            <li><a>Sửa User</a></li>
+                            <li><a>Danh Sách User Ban</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Quản Lý Thống Kê</a>
+                        <ul class="sub-menu">
+                            <li><a>Doanh Thu Ngày</a></li>
+                            <li><a>Doanh Thu Tuần</a></li>
+                            <li><a>Daonh Thu Tháng</a></li>
+                            <li><a>Daonh Thu Năm</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Quản Lý Hóa Đơn</a>
+                    </li>
+                    <li><a>Quản Lý Toa Thuốc</a>
+                    </li>
                 </ul>
             </div>
         </div>

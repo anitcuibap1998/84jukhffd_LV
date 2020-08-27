@@ -37,7 +37,7 @@ define([
         // userName: null,
         // passWord: null,
         // login: null,
-
+        notifindcationNode: null,
 
         anHienDanhSachMatDinh: null,
         // -----btn------

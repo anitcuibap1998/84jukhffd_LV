@@ -50,9 +50,16 @@ define([
         dsBN: null,
         indexLoadNewBenhNhan: null,
         // btn*****
-        danhSachLichHenNode: null,
+        danhSachThuocNode: null,
+        themThuocNode: null,
+        suaThuocNode: null,
+        nhapThuocNode: null,
+        danhSachUserNode: null,
+
+
+
+
         valueOfDayTimKiemNode: null,
-        timKiemDSLichHenTheoNgayNode: null,
         khamBenhNodeBtn: null,
         lichSuKhamBenhNodeBtn: null,
         valueDateSelected: null,
@@ -60,6 +67,7 @@ define([
         // Our template - important!
         templateString: template,
 
+        //option = 0 là đang ở trang 
 
         index: 0,
         pageSise: 10,
@@ -75,12 +83,18 @@ define([
             this.own(
                 on(this.btnBacSiNode, "click", lang.hitch(this, "gotoBacSi")),
                 on(this.btnLogout, "click", lang.hitch(this, "logout")),
+
                 on(this.btnSearchNode, "click", lang.hitch(this, "searchBN")),
-                on(this.danhSachLichHenNode, "click", lang.hitch(this, "_reloadTrang")),
-                on(this.dsBN, "click", lang.hitch(this, "loadDSBN")),
-                on(this.timKiemDSLichHenTheoNgayNode, "click", lang.hitch(this, "timKiemLichHenTheoNgay")),
-                on(this.khamBenhNodeBtn, "click", lang.hitch(this, "__truocKhiVaoHamKhamBenh")),
-                on(this.lichSuKhamBenhNodeBtn, "click", lang.hitch(this, "lichSuKhamBenh")),
+
+                on(this.danhSachThuocNode, "click", lang.hitch(this, "danhSachThuoc")),
+                on(this.themThuocNode, "click", lang.hitch(this, "themThuoc")),
+                on(this.suaThuocNode, "click", lang.hitch(this, "suaThuoc")),
+                on(this.nhapThuocNode, "click", lang.hitch(this, "nhapThuoc")),
+                on(this.danhSachUserNode, "click", lang.hitch(this, "danhSachUser")),
+                // on(this.timKiemDSLichHenTheoNgayNode, "click", lang.hitch(this, "timKiemLichHenTheoNgay")),
+                // on(this.khamBenhNodeBtn, "click", lang.hitch(this, "__truocKhiVaoHamKhamBenh")),
+                // on(this.lichSuKhamBenhNodeBtn, "click", lang.hitch(this, "lichSuKhamBenh")),
+
                 on(this.menuLeftMainNode, mouse.enter, function() {
                     console.log("vào ẩn");
                     console.log(this.menuLeftMainNode);
@@ -104,6 +118,22 @@ define([
             this._loadDSLichHenHomNay();
 
         },
+        danhSachThuoc: function() {
+            console.log("Vào hàm danh sach thuoc");
+        },
+        themThuoc: function() {
+            console.log("Vào hàm them thuoc");
+        },
+        suaThuoc: function() {
+            console.log("Vào hàm sua thuoc");
+        },
+        nhapThuoc: function() {
+            console.log("Vào hàm nhập thuoc");
+        },
+        danhSachUser: function() {
+            console.log("Vào hàm danh sach User");
+        },
+
         gotoBacSi: function() {
             window.open("bacsi.html");
         },

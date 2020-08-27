@@ -50,6 +50,7 @@ body {
 }
 
 .anMenuBS {
+    transition: all 0.3s;
     margin-left: -230px;
 }
 

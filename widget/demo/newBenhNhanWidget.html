@@ -27,7 +27,15 @@
                 <label for="phone">Phone:</label>
             </div>
             <div class="col-75">
-                <input type="number" id="phone" name="phone" placeholder="Số điện thoại của bệnh nhân ..." required>
+                <input type="number" id="phone" name="phone" placeholder="Số điện thoại của bệnh nhân không bắt buộc ..." required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="phone">Email:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="mail" name="mail" placeholder="Không bắt buộc ..." required>
             </div>
         </div>
         <div class="row">
@@ -64,6 +72,7 @@
         </div>
         <div class="row">
             <input type="button" value="Thêm mới" data-dojo-attach-point="btnAddNewBN">
+            <input type="button" value="Sửa" data-dojo-attach-point="btnEditBNNode">
         </div>
     </form>
 </div>

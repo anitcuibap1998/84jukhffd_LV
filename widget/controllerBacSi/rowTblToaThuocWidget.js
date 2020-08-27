@@ -69,6 +69,14 @@ define([
 
         editXongThuoc: function() {
             console.log("vào hàm sửa xong thuốc");
+            //xử lý arrayToaThuoc.
+            console.log("arrToathuoc trước khi add: ", registry.byId("khamBenhWidgetId").arrayToaThuoc);
+            registry.byId("khamBenhWidgetId").arrayToaThuoc.forEach(item => {
+                if (item.id_thuoc == this.id_thuoc) {
+                    item.so_luong_thuoc = this.soLuongNode.value;
+                    item.cach_dung = this.cachDungNode.value;
+                }
+            });
             this.soLuongNode.disabled = true;
             this.cachDungNode.disabled = true;
             this.btnXongThuocNode.hidden = true;
