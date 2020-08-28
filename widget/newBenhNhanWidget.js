@@ -30,7 +30,11 @@ define([
         urlServer: "http://localhost:8088",
 
         btnAddNewBN: null,
-
+        btnEditBNNode: null,
+        tieuDeBNNode: null,
+        maBNNode: null,
+        sexNode: null,
+        birthdayNode: null,
 
         regSpecialCharactersed: /\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\<|\>|\?|\:|\"|\;|\,|\.|\/|\\|\{|\}|\*|\-|\+|\[|\]|\`|\~|\'/g,
         regUsername: /^[A-Za-z0-9 ]+$/,
@@ -42,15 +46,26 @@ define([
         flagCallAdduser: true,
 
         // Our template - important!
+        // Create empty data in edit benh nhan
+        maBN: null,
+        tenBN: null,
+        sdt: null,
+        mail: null,
+        diaChi: null,
+        // sex: 1,
+        tsb: null,
+        // ngaySinh: "12-8-1998",
+        note: null,
         templateString: template,
 
         postCreate: function() {
             // this.checkRole();
-            // var domNode = this.domNode;
+
             this.inherited(arguments);
 
             this.own(
                 on(this.btnAddNewBN, "click", lang.hitch(this, "addNewBenhNhan")),
+                on(this.btnEditBNNode, "click", lang.hitch(this, "editBenhNhan")),
             );
         },
 
@@ -89,14 +104,15 @@ define([
             }
             if (this.flagCallAdduser == true) {
                 console.log("vào loading.....");
+                console.log(registry.byId("tiepTanWidget").idUserNode.innerHTML);
                 console.log(this.btnAddNewBN);
                 this.btnAddNewBN.disabled = true;
                 this.btnAddNewBN.value = "";
                 this.btnAddNewBN.value = "Loading...";
                 request.post(this.urlServer + "/benh_nhan/addOne", {
                     data: dojo.toJson({
-                        "user_create": 1,
-                        "user_update": 0,
+                        "user_create": registry.byId("tiepTanWidget").idUserNode.innerHTML,
+                        "user_update": null,
                         "create_date": new Date(),
                         "full_name": fullname,
                         "phone": phone,
@@ -135,11 +151,100 @@ define([
                     that.btnAddNewBN.value = "Thêm mới";
                 }, function(err) {
                     alert("Không kết nối được tới server");
+                    that.btnAddNewBN.disabled = false;
+                    that.btnAddNewBN.value = "";
+                    that.btnAddNewBN.value = "Thêm mới";
                 });
             }
         },
-        editBenhnhan: function() {
+        editBenhNhan: function() {
             console.log("Vào hàm sửa bệnh nhân !!!");
+            var that = this;
+
+            let fullname = dom.byId("full_name").value;
+            let sex = dom.byId("sex").value;
+            let phone = dom.byId("phone").value;
+            let mail = dom.byId("mail").value;
+            let birthday = dom.byId("birthday").value;
+            let diachi = dom.byId("diachi").value;
+            let tsbenh = dom.byId("tsbenh").value;
+            let note = dom.byId("note").value;
+
+            let kq = true;
+            if (kq == true) {
+                kq = that.validateFormBenhNhanNotNull(fullname);
+            }
+            if (kq == true) {
+                kq = that.validatePhone(phone);
+            }
+            if (kq == true) {
+                kq = that.validateMail(mail);
+            }
+            if (kq == true) {
+                kq = that.valedateBirthday(birthday);
+            }
+            if (kq == true) {
+                kq = that.validateFormBenhNhanNotNull(diachi);
+            }
+            if (kq == true) {
+                kq = that.validateFormBenhNhanNotNull(tsbenh);
+            }
+            if (kq == true) {
+                kq = that.validateFormBenhNhanNotNull(note);
+            }
+            if (this.flagCallAdduser == true) {
+                console.log("vào loading.....");
+                console.log(this.btnAddNewBN);
+                this.btnEditBNNode.disabled = true;
+                this.btnEditBNNode.value = "";
+                this.btnEditBNNode.value = "Loading...";
+                request.put(this.urlServer + "/benh_nhan/editOne?idBenhNhan=" + this.maBN, {
+                    data: dojo.toJson({
+                        "id": that.maBN,
+                        "user_update": registry.byId("tiepTanWidget").idUserNode.innerHTML,
+                        "update_date": new Date(),
+                        "full_name": fullname,
+                        "phone": phone,
+                        "mail": mail,
+                        "address": diachi,
+                        "sex": sex,
+                        "tien_su_benh": tsbenh,
+                        "birth_date": birthday,
+                        "ghi_chu": note
+                    }),
+                    headers: {
+                        "Content-Type": 'application/json; charset=utf-8',
+                        "Accept": "application/json",
+                        "tokenAC": localStorage.getItem("tokenAC")
+                    }
+                }).then(function(value) {
+                    console.log("The server returned: ");
+                    console.log(JSON.parse(value, true));
+                    value = JSON.parse(value, true);
+                    console.log(typeof value);
+
+                    console.log(value.token);
+                    let name = value.last_name + " " + value.first_name;
+                    if (value.statusCode != 404 && value.statusCode != 999) {
+                        registry.byId("tiepTanWidget").maBNNode.innerHTML = value.id;
+                        alert("Bạn Vừa Thêm Thành Công, Mã Số Bệnh Nhân Là: " + value.id);
+                    } else if (value.statusCode == 999) {
+                        alert(value.message);
+                    } else if (value.statusCode == 404) {
+                        alert(value.message);
+                    }
+                    console.log("đã tải xong....");
+                    console.log(that.btnAddNewBN);
+                    that.btnEditBNNode.disabled = false;
+                    that.btnEditBNNode.value = "";
+                    that.btnEditBNNode.value = "Sửa";
+                }, function(err) {
+                    alert("Không kết nối được tới server");
+                    that.btnEditBNNode.disabled = false;
+                    that.btnEditBNNode.value = "";
+                    that.btnEditBNNode.value = "Sửa";
+                });
+            }
         },
         formatDateToDate: function() {
             let today = new Date();
@@ -165,6 +270,7 @@ define([
                 this.flagCallAdduser = false;
                 return false;
             }
+            this.flagCallAdduser = true;
             return true;
         },
         validateMail: function(input) {
@@ -173,6 +279,7 @@ define([
                 this.flagCallAdduser = false;
                 return false;
             }
+            this.flagCallAdduser = true;
             return true;
         },
         validatePhone: function(input) {
@@ -186,6 +293,7 @@ define([
                 this.flagCallAdduser = false;
                 return false;
             }
+            this.flagCallAdduser = true;
             return true;
         },
         validateFormBenhNhanNotNull: function(input) {
@@ -199,6 +307,7 @@ define([
                 this.flagCallAdduser = false;
                 return false;
             }
+            this.flagCallAdduser = true;
             return true;
         },
     });

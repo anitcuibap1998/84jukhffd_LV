@@ -38,6 +38,7 @@ define([
         tien_su_benh: null,
         birth_date: null,
         ghi_chu: null,
+        mail: null,
 
         ///các node tương tác ui
         editBenhNhan: null,
@@ -48,24 +49,53 @@ define([
 
         postCreate: function() {
             // this.checkRole();
-            // var domNode = this.domNode;
-            this.inherited(arguments);
-
+            if (registry.byId("tiepTanWidget").role < 99) {
+                this.khambenhBenhNhan.hidden = true;
+            };
             this.own(
                 on(this.editBenhNhan, "click", lang.hitch(this, "editBN")),
                 on(this.datlichBenhNhan, "click", lang.hitch(this, "datlichBN")),
-                on(this.khambenhBenhNhan, "click", lang.hitch(this, "khambenhBN")),
+                // on(this.khambenhBenhNhan, "click", lang.hitch(this, "khambenhBN")),
             );
         },
 
         editBN: function() {
-            console.log("vào hàm sửa bệnh nhân !!!")
+            console.log("vào hàm sửa bệnh nhân !!!");
+            console.log(this.id);
+            let data = {
+                maBN: this.id,
+                tenBN: this.full_name,
+                sdt: "0" + this.phone,
+                mail: this.mail,
+                diaChi: this.address,
+                // sex: 1,
+                tsb: this.tien_su_benh,
+                // ngaySinh: "12-8-1998",
+                note: this.ghi_chu,
+            };
+            registry.byId("tiepTanWidget").loadEditBenhNhan(data);
+            registry.byId("newBenhNhanWidget").maBNNode.hidden = false;
+            registry.byId("newBenhNhanWidget").tieuDeBNNode.innerHTML = "";
+            registry.byId("newBenhNhanWidget").tieuDeBNNode.innerHTML = "Chỉnh Sửa Thông Tin Bệnh Nhân " + '<h3 style="color:#895656">' + this.full_name + '</h3>';
+            if (this.sex == "Nam") {
+                registry.byId("newBenhNhanWidget").sexNode.options[0].selected = 'selected';
+            } else if (this.sex == "Nữ") {
+                registry.byId("newBenhNhanWidget").sexNode.options[1].selected = 'selected';
+            } else {
+                registry.byId("newBenhNhanWidget").sexNode.options[-1].selected = 'selected';
+            }
+            let res = this.birth_date.split("-");
+            registry.byId("newBenhNhanWidget").birthdayNode.value = res[2] + "-" + res[1] + "-" + res[0];
+            registry.byId("newBenhNhanWidget").btnAddNewBN.hidden = true;
+            registry.byId("newBenhNhanWidget").btnEditBNNode.hidden = false;
+
         },
         datlichBN: function() {
-            console.log("vào hàm đặt lịch cho bệnh nhân !!!")
+            console.log("vào hàm đặt lịch cho bệnh nhân !!!");
+            registry.byId("tiepTanWidget").loadDanhSachLichHen();
         },
         khambenhBN: function() {
-            console.log("vào hàm khám bệnh cho bệnh nhân !!!")
+            console.log("vào hàm khám bệnh cho bệnh nhân !!!");
         }
     });
 });

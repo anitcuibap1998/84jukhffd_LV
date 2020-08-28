@@ -1,12 +1,20 @@
 <div class="newBenhNhan">
-    <h3>Thêm Mới Bệnh Nhân</h3>
+    <h3 data-dojo-attach-point="tieuDeBNNode">Thêm Mới Bệnh Nhân</h3>
     <form action="">
+        <div class="row" data-dojo-attach-point="maBNNode" hidden>
+            <div class="col-25">
+                <label for="full_name">Mã số bệnh nhân:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="maBN" name="maBN" style="width: 35%;" required disabled value="${maBN}">
+            </div>
+        </div>
         <div class="row">
             <div class="col-25">
                 <label for="full_name">Họ và Tên:</label>
             </div>
             <div class="col-75">
-                <input type="text" id="full_name" name="full_name" placeholder="Họ và tên... " required>
+                <input type="text" id="full_name" name="full_name" value="${tenBN}" placeholder="Họ và tên... " required>
             </div>
         </div>
 
@@ -15,11 +23,11 @@
                 <label for="sex">Giới Tính:</label>
             </div>
             <div class="col-75">
-                <select id="sex" name="sex">
-              <option value="1" selected>Nam</option>
-              <option value="0">Nữ</option>
-              <option value="-1">Khác</option>
-            </select>
+                <select id="sex" name="sex" data-dojo-attach-point="sexNode">
+                    <option value="1" selected>Nam</option>
+                    <option value="0">Nữ</option>
+                    <option value="-1">Khác</option>
+                </select>
             </div>
         </div>
         <div class="row">
@@ -27,15 +35,15 @@
                 <label for="phone">Phone:</label>
             </div>
             <div class="col-75">
-                <input type="number" id="phone" name="phone" placeholder="Số điện thoại của bệnh nhân không bắt buộc ..." required>
+                <input type="number" id="phone" name="phone" value="${sdt}" placeholder="Số điện thoại của bệnh nhân không bắt buộc ..." required>
             </div>
         </div>
         <div class="row">
             <div class="col-25">
-                <label for="phone">Email:</label>
+                <label for="mail">Email:</label>
             </div>
             <div class="col-75">
-                <input type="text" id="mail" name="mail" placeholder="Không bắt buộc ..." required>
+                <input type="text" id="mail" name="mail" value="${mail}" placeholder="Không bắt buộc ..." required>
             </div>
         </div>
         <div class="row">
@@ -43,7 +51,7 @@
                 <label for="birthday">Ngày Sinh:</label>
             </div>
             <div class="col-75">
-                <input type="date" id="birthday" name="birthday" placeholder="" required>
+                <input type="date" id="birthday" name="birthday" data-dojo-attach-point="birthdayNode" placeholder="" required>
             </div>
         </div>
         <div class="row">
@@ -51,7 +59,7 @@
                 <label for="diachi">Địa Chỉ:</label>
             </div>
             <div class="col-75">
-                <input type="text" id="diachi" name="diachi" placeholder="Địa chỉ của bệnh nhân ..." required>
+                <input type="text" id="diachi" name="diachi" value="${diaChi}" placeholder="Địa chỉ của bệnh nhân ..." required>
             </div>
         </div>
         <div class="row">
@@ -59,7 +67,7 @@
                 <label for="tsbenh">Tiền Sử Bệnh:</label>
             </div>
             <div class="col-75">
-                <textarea type="number" id="tsbenh" name="tsbenh" placeholder="Tiền sử bệnh của bệnh nhân ..." required></textarea>
+                <textarea type="number" id="tsbenh" name="tsbenh" placeholder="Tiền sử bệnh của bệnh nhân ..." required>${tsb}</textarea>
             </div>
         </div>
         <div class="row">
@@ -67,12 +75,12 @@
                 <label for="note">Ghi Chú:</label>
             </div>
             <div class="col-75">
-                <textarea type="number" id="note" name="note" placeholder="Một vài ghi chú về bệnh nhân ..." required></textarea>
+                <textarea type="number" id="note" name="note" placeholder="Một vài ghi chú về bệnh nhân ..." required>${note}</textarea>
             </div>
         </div>
         <div class="row">
             <input type="button" value="Thêm mới" data-dojo-attach-point="btnAddNewBN">
-            <input type="button" value="Sửa" data-dojo-attach-point="btnEditBNNode">
+            <input type="button" value="Sửa" data-dojo-attach-point="btnEditBNNode" hidden>
         </div>
     </form>
 </div>

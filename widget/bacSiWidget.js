@@ -182,8 +182,8 @@ define([
         searchBN: function() {
             console.log("vào hàm tìm kiếm bệnh nhân");
             let keysearch = this.inputSearchNode.value;
-            console.log("keysearch: ", keysearch.lenght);
-            if (keysearch.lenght < 1 || keysearch == "") {
+            console.log("keysearch: ", keysearch.length);
+            if (keysearch.length < 1 || keysearch == "") {
                 alert("Không Được Để Trống Từ Khóa Cần Tìm Kiếm");
             } else {
                 localStorage.setItem("keysearch", keysearch);

@@ -63,7 +63,9 @@ define([
                     window.location.href = "../index.html";
                 } else {
                     console.log("load thành công danh sách bệnh nhân !!!")
-                        // Our template - important!
+                    registry.byId("tiepTanWidget").btnSearchNode.disabled = false;
+                    registry.byId("tiepTanWidget").btnSearchNode.innerHTML = '<i class="fas fa-search"></i>';
+                    // Our template - important!
                     var rowBNWidget1 = dom.byId("rowBNWidget");
                     arrayUtil.forEach(datas, function(item) {
                         item.birth_date = item.birth_date.split("T", 1);

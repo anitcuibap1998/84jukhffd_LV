@@ -34,7 +34,7 @@ define([
 
         templateString: template,
 
-
+        idUserNode: null,
         nameUserNode: null,
         mailUserNode: null,
         phoneUserNode: null,
@@ -46,9 +46,11 @@ define([
         btnLogout: null,
         btnSearchNode: null,
         inputSearchNode: null,
-
+        role: null,
         indexLoadNewBenhNhan: null,
 
+        regSpecialCharactersed: /\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\<|\>|\?|\:|\"|\;|\,|\.|\/|\\|\{|\}|\*|\-|\+|\[|\]|\`|\~|\'/g,
+        flagCallAdduser: true,
         //test
         nameUser: null,
         postCreate: function() {
@@ -92,9 +94,11 @@ define([
                     "tokenAC": localStorage.getItem("tokenAC")
                 }
             }).then(function(data) {
-                result = JSON.parse(data, true)
-                console.log(JSON.parse(data, true))
-                    // do something with handled data
+                result = JSON.parse(data, true);
+                console.log(JSON.parse(data, true));
+                // do something with handled data
+                that.role = result.role;
+                that.idUserNode.innerHTML = result.id;
                 that.nameUserNode.innerHTML = result.first_name + " " + result.last_name;
                 that.mailUserNode.innerHTML = result.email;
                 that.phoneUserNode.innerHTML = "0" + result.phone;
@@ -133,6 +137,18 @@ define([
             }
 
         },
+        loadEditBenhNhan: function(data) {
+            this._resetMenuLichHen();
+            let kq = confirm("Bạn Có Muốn Thực Hiện");
+            if (kq == true) {
+                console.log("Vào hàm load new bệnh nhân");
+                let contentTiepTanWidget = dom.byId("contentTiepTanWidget");
+                console.log("kq: " + kq);
+                this.indexLoadNewBenhNhan.innerHTML = "";
+                console.log("newBenhNhanID: " + contentTiepTanWidget);
+                var widget = new newBenhNhanWidget(data).placeAt(contentTiepTanWidget);
+            }
+        },
         loadDanhSachLichHen: function() {
 
             let kq = confirm("Bạn Có Muốn Thực Hiện");
@@ -166,19 +182,26 @@ define([
             }
         },
         searchBN: function() {
+            var that = this;
             console.log("vào hàm tìm kiếm bệnh nhân");
             let keysearch = this.inputSearchNode.value;
-            console.log("keysearch: " + keysearch.lenght);
-            if (keysearch.lenght < 1 || keysearch == "") {
-                alert("Không Được Để Trống Từ Khóa Cần Tìm Kiếm");
-            } else {
+
+            console.log(keysearch);
+
+            let _kq_ = true;
+            if (_kq_ == true) {
+                _kq = this.validateFormBenhNhanNotNull(keysearch);
+            }
+            if (this.flagCallAdduser == true) {
+                this.btnSearchNode.disabled = true;
+                this.btnSearchNode.innerHTML = "";
+                this.btnSearchNode.innerHTML = "Loading...";
                 localStorage.setItem("keysearch", keysearch);
                 let kq = confirm("Bạn Có Chắc Thực Hiện Hành Động Này !!!");
                 if (kq == true) {
                     this._resetDSBN();
                     this.indexLoadNewBenhNhan.innerHTML = "";
-                    console.log("inputSearchNode: " + keysearch);
-
+                    console.log(keysearch);
                     let widget3 = new timkiemBNWidget().placeAt(contentTiepTanWidget);
                 }
             }
@@ -192,6 +215,20 @@ define([
             dojo.forEach(dijit.findWidgets(this.indexLoadNewBenhNhan), function(w) {
                 w.destroyRecursive();
             });
+        },
+        validateFormBenhNhanNotNull: function(input) {
+            if (input == "") {
+                alert("Chuỗi Không Được Để Trống");
+                this.flagCallAdduser = false;
+                return false;
+            }
+            if (this.regSpecialCharactersed.test(input)) {
+                alert("Chuỗi Không Được Chứ Ký Tự Đặc Biệt");
+                this.flagCallAdduser = false;
+                return false;
+            }
+            this.flagCallAdduser = true;
+            return true;
         },
     });
 });

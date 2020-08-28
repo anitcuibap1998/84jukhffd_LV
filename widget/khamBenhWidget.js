@@ -379,7 +379,7 @@ define([
                 alert("Chưa Chọn Bệnh Nhân, Mời Bạn Chọn Lại !!!");
                 return false;
             }
-            if (arrayToaThuoc.lenght < 1 || arrayToaThuoc == undefined || arrayToaThuoc == null) {
+            if (arrayToaThuoc.length < 1 || arrayToaThuoc == undefined || arrayToaThuoc == null) {
                 alert("Chưa Chọn Thuốc, Mời Bạn Chọn Lại !!!");
                 return false;
             }
